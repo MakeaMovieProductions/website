@@ -1,0 +1,15 @@
+node_modules/
+.DS_Store
+.claude/
+temporary screenshots/
+inspo1.webp
+package.json
+package-lock.json
+# Dev/screenshot tools
+take-screenshot.cjs
+screenshot.mjs
+screenshot.cjs
+screenshot2.cjs
+fullshot.cjs
+do-screenshot.sh
+screenplays/
