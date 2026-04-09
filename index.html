@@ -1135,34 +1135,27 @@
           <div style="flex:0 0 auto; position:relative; cursor:pointer;" id="vinyl-disc-wrap" onclick="vpToggle()">
             <div id="vinyl-disc" style="
               width:220px; height:220px; border-radius:50%;
-              background: radial-gradient(circle at 38% 32%,
-                #3a3a3a 0%, #1c1c1c 6%,
-                #0e0e0e 14%, #181818 15%, #0a0a0a 23%, #161616 24%,
-                #080808 32%, #141414 33%, #060606 41%, #121212 42%,
-                #050505 50%, #111 51%, #040404 59%, #101010 60%,
-                #030303 68%, #0e0e0e 69%, #020202 77%, #0c0c0c 78%,
-                #050505 88%, #1a1a1a 100%
+              background: radial-gradient(circle at 50% 50%,
+                #1a1a1a 0%, #0a0a0a 18%, #111 19%, #0d0d0d 28%, #111 29%,
+                #0a0a0a 38%, #111 39%, #0d0d0d 48%, #111 49%,
+                #0a0a0a 58%, #111 59%, #0d0d0d 68%, #111 69%,
+                #0a0a0a 78%, #1a1a1a 100%
               );
-              box-shadow: 0 0 0 1.5px #333, 0 0 30px rgba(240,192,64,0.18), 0 0 60px rgba(240,192,64,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
+              box-shadow: 0 0 0 2px #222, 0 0 30px rgba(240,192,64,0.18), 0 0 60px rgba(240,192,64,0.06);
               position:relative; display:flex; align-items:center; justify-content:center;
               transition: box-shadow 0.4s;
             ">
-              <!-- Glossy top-left sheen -->
-              <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 30% 25%, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.04) 35%, transparent 65%);pointer-events:none;"></div>
-              <!-- Subtle groove sweep -->
-              <div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.025) 4%, transparent 8%, rgba(255,255,255,0.01) 12%, transparent 16%);pointer-events:none;"></div>
-              <!-- Center hub — glossy dark with gold ring, no text -->
+              <!-- Groove sweep highlight -->
+              <div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.015) 5%, transparent 10%);pointer-events:none;"></div>
+              <!-- Center label — no text -->
               <div style="
-                width:66px; height:66px; border-radius:50%;
-                background: radial-gradient(circle at 38% 32%, #3a3530, #0e0c0a);
-                border:1.5px solid rgba(240,192,64,0.35);
-                box-shadow: 0 0 14px rgba(240,192,64,0.12), inset 0 1px 0 rgba(255,255,255,0.08);
-                position:relative;
-              ">
-                <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 35% 28%, rgba(255,255,255,0.12) 0%, transparent 60%);"></div>
-              </div>
+                width:72px; height:72px; border-radius:50%;
+                background: linear-gradient(135deg, #1a1208, #2a1e08);
+                border:2px solid rgba(240,192,64,0.3);
+                box-shadow: 0 0 12px rgba(240,192,64,0.15);
+              "></div>
               <!-- Spindle -->
-              <div style="position:absolute;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #ffe566, #c89800);box-shadow:0 0 4px rgba(240,192,64,0.5);"></div>
+              <div style="position:absolute;width:8px;height:8px;border-radius:50%;background:#F0C040;opacity:0.6;"></div>
             </div>
           </div>
 
@@ -1197,12 +1190,21 @@
             </div>
 
             <!-- Volume -->
-            <div style="display:flex; align-items:center; gap:12px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
               <svg width="13" height="13" fill="#88807A" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
               <div style="flex:1;position:relative;">
                 <input id="vp-volume" type="range" min="0" max="1" step="0.01" value="1" oninput="vpVolume(this.value)" style="width:100%;accent-color:#F0C040;cursor:pointer;height:3px;">
               </div>
               <svg width="13" height="13" fill="#88807A" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+            </div>
+
+            <!-- Share link -->
+            <div style="display:flex; align-items:center; gap:10px;">
+              <button onclick="vpShareLink()" id="vp-share-btn" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(240,192,64,0.2);background:transparent;color:#88807A;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.2)';this.style.color='#88807A'">
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                Share
+              </button>
+              <span id="vp-share-toast" style="font-family:'Jost',sans-serif;font-size:10px;color:#F0C040;opacity:0;transition:opacity 0.3s;">Link copied!</span>
             </div>
           </div>
         </div>
@@ -1323,18 +1325,21 @@
     let vpAudio = null;
 
     function openFilmModal(key) {
+      if (!FILMS[key]) return;
       const modal = document.getElementById('film-modal');
       const content = document.getElementById('modal-content');
       content.innerHTML = renderModal(key);
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      // Update URL hash (enables direct linking & browser back)
+      history.pushState({ film: key }, '', '#' + key);
       // Init vinyl if present
       vpAudio = document.getElementById('vp-audio');
       if (vpAudio) {
         vpAudio.addEventListener('timeupdate', vpSyncProgress);
         vpAudio.addEventListener('loadedmetadata', vpSyncDuration);
         vpAudio.addEventListener('ended', () => {
-          document.getElementById('vp-disc') && document.getElementById('vp-disc').classList.remove('vinyl-spinning');
+          document.getElementById('vinyl-disc') && document.getElementById('vinyl-disc').classList.remove('vinyl-spinning');
           document.getElementById('vp-play-icon').innerHTML = '<path d="M8 5v14l11-7z"/>';
           document.getElementById('vp-playing-badge').style.opacity = '0';
           document.getElementById('vinyl-disc').style.boxShadow = '0 0 0 2px #222, 0 0 30px rgba(240,192,64,0.18), 0 0 60px rgba(240,192,64,0.06)';
@@ -1347,6 +1352,8 @@
       document.getElementById('film-modal').classList.add('hidden');
       document.getElementById('modal-content').innerHTML = '';
       document.body.style.overflow = '';
+      // Clear hash without triggering hashchange
+      history.pushState(null, '', window.location.pathname);
     }
 
     // Close on background click
@@ -1355,8 +1362,28 @@
     });
     // Close on Escape
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFilmModal(); });
+    // Browser back button closes modal
+    window.addEventListener('popstate', () => {
+      const key = window.location.hash.slice(1);
+      if (FILMS[key]) openFilmModal(key);
+      else closeFilmModal();
+    });
+    // Open modal on page load if URL has a film hash
+    (function() {
+      const key = window.location.hash.slice(1);
+      if (FILMS[key]) { document.addEventListener('DOMContentLoaded', () => openFilmModal(key)); openFilmModal(key); }
+    })();
 
     // ── Vinyl player controls ─────────────────────────────────────────────
+    function vpShareLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const toast = document.getElementById('vp-share-toast');
+        if (!toast) return;
+        toast.style.opacity = '1';
+        setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+      });
+    }
+
     function vpToggle() {
       if (!vpAudio) return;
       const disc = document.getElementById('vinyl-disc');
