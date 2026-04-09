@@ -307,7 +307,7 @@
       <!-- Eyebrow -->
       <div class="hero-eyebrow flex items-center justify-center gap-5 mb-8">
         <div class="h-px w-14 bg-gold opacity-55"></div>
-        <span class="font-heading text-gold tracking-[0.32em] text-[10px] uppercase">Short Film Production House · India</span>
+        <span class="font-heading text-gold tracking-[0.32em] text-[10px] uppercase">Short Film Production House · India &amp; USA</span>
         <div class="h-px w-14 bg-gold opacity-55"></div>
       </div>
 
@@ -383,7 +383,7 @@
           <!-- Floating badge -->
           <div class="absolute bottom-7 left-7 bg-cinema-dark/90 border border-warm-white/10 px-5 py-4 backdrop-blur-sm">
             <div class="font-heading text-gold text-[10px] tracking-[0.25em] uppercase mb-1">Est.</div>
-            <div class="font-display text-4xl font-bold text-warm-white leading-none">2024</div>
+            <div class="font-display text-4xl font-bold text-warm-white leading-none">2023</div>
           </div>
         </div>
 
@@ -550,7 +550,14 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
         <!-- Sitting (2026) — Featured, spans 2 cols -->
-        <div class="reveal d1 md:col-span-2 port-card relative cursor-pointer group rounded-sm" style="height: 480px;">
+        <div class="reveal d1 md:col-span-2 port-card relative cursor-pointer group rounded-sm" style="height: 480px;" data-film="sitting" onclick="openFilmModal('sitting')">
+          <!-- Clapboard icon top-right -->
+          <div class="absolute top-4 right-4 z-10 opacity-30">
+            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4 3h16a1 1 0 011 1v2H3V4a1 1 0 011-1zM3 8h18v13a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm4 3v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/>
+              <path d="M3 6l3-3 2 2-3 3zM8 3l3 3-2 2-3-3zM13 6l3-3 2 2-3 3z" opacity="0.6"/>
+            </svg>
+          </div>
           <img src="brand_assets/shoot.jpeg" alt="Sitting (2026)" class="port-img w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/95 via-cinema-black/20 to-transparent"></div>
           <div class="port-overlay absolute inset-0" style="background: rgba(240,192,64,0.07)"></div>
@@ -562,9 +569,15 @@
         </div>
 
         <!-- Locked In (2026) -->
-        <div class="reveal d2 port-card relative cursor-pointer group rounded-sm" style="height: 480px;">
+        <div class="reveal d2 port-card relative cursor-pointer group rounded-sm" style="height: 480px;" data-film="lockedin" onclick="openFilmModal('lockedin')">
+          <!-- Clapboard icon top-right -->
+          <div class="absolute top-4 right-4 z-10 opacity-30">
+            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4 3h16a1 1 0 011 1v2H3V4a1 1 0 011-1zM3 8h18v13a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm4 3v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/>
+              <path d="M3 6l3-3 2 2-3 3zM8 3l3 3-2 2-3-3zM13 6l3-3 2 2-3 3z" opacity="0.6"/>
+            </svg>
+          </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #0e0e14 0%, #141420 50%, #0a0a10 100%);">
-            <!-- Placeholder stylised bg -->
             <div class="w-full h-full flex items-center justify-center opacity-20">
               <svg class="w-24 h-24 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/>
@@ -580,8 +593,15 @@
           </div>
         </div>
 
-        <!-- Walk With Me (2026) — full width -->
-        <div class="reveal d2 md:col-span-3 port-card relative cursor-pointer group rounded-sm" style="height: 300px;">
+        <!-- Walk With Me (2026) — spans 2 cols -->
+        <div class="reveal d2 md:col-span-2 port-card relative cursor-pointer group rounded-sm" style="height: 300px;" data-film="walkwithme" onclick="openFilmModal('walkwithme')">
+          <!-- Clapboard icon top-right -->
+          <div class="absolute top-4 right-4 z-10 opacity-30">
+            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4 3h16a1 1 0 011 1v2H3V4a1 1 0 011-1zM3 8h18v13a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm4 3v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/>
+              <path d="M3 6l3-3 2 2-3 3zM8 3l3 3-2 2-3-3zM13 6l3-3 2 2-3 3z" opacity="0.6"/>
+            </svg>
+          </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #120e0a 0%, #1a1208 50%, #0e0c08 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-15">
               <svg class="w-24 h-24 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -591,12 +611,34 @@
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/90 to-transparent"></div>
           <div class="port-overlay absolute inset-0" style="background: rgba(240,192,64,0.07)"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <div>
-              <div class="font-heading text-gold text-[10px] tracking-[0.32em] uppercase mb-2">Romantic Drama · 2026</div>
-              <div class="font-display text-2xl font-bold text-warm-white mb-2">Walk With Me</div>
-              <div class="font-body text-xs text-muted/80">Directed by Sai Krishna Meka, Written by Sai Krishna Meka &amp; Sankalp Gora — a romantic drama featuring feet (yes, you read that right)</div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <div class="font-heading text-gold text-[10px] tracking-[0.32em] uppercase mb-2">Romantic Drama · 2026</div>
+            <div class="font-display text-2xl font-bold text-warm-white mb-2">Walk With Me</div>
+            <div class="font-body text-xs text-muted/80">Directed by Sai Krishna Meka, Written by Sai Krishna Meka &amp; Sankalp Gora — a romantic drama featuring feet (yes, you read that right)</div>
+          </div>
+        </div>
+
+        <!-- Untitled Music Video — by Nitish John -->
+        <div class="reveal d3 port-card relative cursor-pointer group rounded-sm" style="height: 300px;" data-film="musicvideo" onclick="openFilmModal('musicvideo')">
+          <!-- Music note icon top-right -->
+          <div class="absolute top-4 right-4 z-10 opacity-30">
+            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M9 3v10.55A4 4 0 107 17V7h10V3H9z"/>
+            </svg>
+          </div>
+          <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #0a0e12 0%, #0e1418 50%, #080c10 100%);">
+            <div class="w-full h-full flex items-center justify-center opacity-20">
+              <svg class="w-24 h-24 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 3v10.55A4 4 0 107 17V7h10V3H9z"/>
+              </svg>
             </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/95 via-cinema-black/30 to-transparent"></div>
+          <div class="port-overlay absolute inset-0" style="background: rgba(240,192,64,0.07)"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <div class="font-heading text-gold text-[10px] tracking-[0.32em] uppercase mb-2">Music Video · 2026</div>
+            <div class="font-display text-2xl font-bold text-warm-white mb-2">Untitled Music Video</div>
+            <div class="font-body text-xs text-muted/80">Directed by Nitish John</div>
           </div>
         </div>
 
@@ -830,6 +872,22 @@
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
+            <a href="https://www.linkedin.com/company/makeamovieproduction/" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-10 h-10 border border-warm-white/15 flex items-center justify-center text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Contribution -->
+          <div class="mt-8 border border-warm-white/8 p-5" style="background: rgba(240,192,64,0.03);">
+            <div class="font-heading text-gold text-[10px] tracking-[0.28em] uppercase mb-3">Support Our Films</div>
+            <p class="font-body text-muted text-xs mb-4" style="line-height: 1.7;">We create independent films on passion and dedication. If our work moves you, we'd be deeply grateful for any contribution — big or small.</p>
+            <div class="space-y-2 font-body text-xs text-muted/70">
+              <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">Phone</span><span>+1 (415) 555-0192</span></div>
+              <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">Zelle</span><span>makeamovieprod@gmail.com</span></div>
+              <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">UPI</span><span>makeamovieprod@upi</span></div>
+            </div>
           </div>
         </div>
 
@@ -880,7 +938,7 @@
           <img src="brand_assets/logo.jpg" alt="Make A Movie Productions" class="h-9 w-9 rounded-full object-cover">
           <div>
             <div class="font-heading text-gold tracking-[0.18em] text-xs uppercase">Make A Movie Productions</div>
-            <div class="font-body text-muted text-[11px] mt-0.5">Short Film Production House · India</div>
+            <div class="font-body text-muted text-[11px] mt-0.5">Short Film Production House · India &amp; USA</div>
           </div>
         </div>
 
@@ -892,7 +950,14 @@
           <a href="#contact"  class="font-body text-[11px] text-muted hover:text-warm-white tracking-widest uppercase transition-colors duration-300">Contact</a>
         </nav>
 
-        <p class="font-body text-[11px] text-muted">© 2026 Make A Movie Productions</p>
+        <div class="flex items-center gap-4">
+          <a href="https://www.linkedin.com/company/makeamovieproduction/" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-muted hover:text-gold transition-colors duration-300">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <p class="font-body text-[11px] text-muted">© 2026 Make A Movie Productions</p>
+        </div>
       </div>
     </div>
   </footer>
@@ -921,6 +986,427 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
+  </script>
+
+  <!-- ╔══════════════════ FILM MODALS ══════════════════╗ -->
+  <div id="film-modal" class="fixed inset-0 z-[200] flex items-start justify-center hidden" style="background: rgba(8,8,8,0.96); overflow-y: auto; backdrop-filter: blur(8px);">
+    <div class="relative w-full max-w-4xl mx-auto my-8 px-4">
+      <!-- Close Button -->
+      <button onclick="closeFilmModal()" class="fixed top-6 right-6 z-[210] w-12 h-12 border border-warm-white/20 flex items-center justify-center text-muted hover:border-gold hover:text-gold transition-colors duration-300" style="background: rgba(8,8,8,0.9);">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Modal Content -->
+      <div id="modal-content" class="pb-16"></div>
+    </div>
+  </div>
+
+  <script>
+    // ── Film data ──────────────────────────────────────────────────────────
+    const FILMS = {
+      sitting: {
+        title: 'Sitting',
+        year: 2026,
+        genre: 'Buddy-Comedy · Short Film',
+        logline: 'A proof-of-concept short by director Nikhil Punyala for his debut feature Chain Gang — two friends, one bench, a lifetime of unspoken things.',
+        letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
+        script: 'sitting/screenplay-sitting.pdf',
+        crew: [
+          { role: 'Writer & Director', name: 'Nikhil Punyala', ig: null, tw: null },
+          { role: 'Cinematographer',   name: 'Nithin Dudala',  ig: null, tw: null },
+          { role: 'Music',             name: 'Nitish John',    ig: null, tw: null },
+          { role: 'Producer',          name: 'Sai Krishna Meka', ig: null, tw: null },
+          { role: 'Producer',          name: 'Nikhil Punyala',   ig: null, tw: null },
+          { role: 'Asst. Director',    name: 'Nithin Cheruku',   ig: null, tw: null },
+          { role: 'Asst. Director',    name: 'Srikar Cherukuri', ig: null, tw: null },
+          { role: 'Asst. Director',    name: 'Shiva Teja',       ig: null, tw: null },
+        ],
+        cast: [
+          { name: 'Nanda Kumar Daroju', ig: null, tw: null },
+          { name: 'Pranay Varma',        ig: null, tw: null },
+          { name: 'Nitish John',         ig: null, tw: null },
+          { name: 'Siddhartha Rao G',    ig: null, tw: null },
+        ],
+        equipment: {
+          'Camera': [
+            'Sony FX3 with batteries',
+            'G Master 35mm, 50mm, 85mm, 24–70mm lenses',
+            'RS4 Gimbal',
+            'Tripod',
+            "Director's Monitor",
+          ],
+          'Lighting': [
+            'Aperture 1200C — ×1',
+            'Vortex 30 — ×2',
+            'Aperture 600 with Projection Lens — ×1',
+            '2ft Tubes — ×2',
+            '4ft Tubes — ×2',
+            'Aperture MC Kit — ×1',
+            'Reflectors & Diffusion Sheets',
+          ],
+        },
+        hasVinyl: true,
+        audioSrc: 'sitting/sound-of-sitting.wav',
+        trackTitle: 'Sound of Sitting',
+        artist: 'Nitish John',
+        albumYear: '2026',
+      },
+      lockedin: {
+        title: 'Locked In',
+        year: 2026,
+        genre: 'Surreal-Thriller · Short Film',
+        logline: 'A man finds himself trapped — not in a room, but in a loop of his own making. Karthik Valmeekam\'s debut short, shot entirely in California.',
+        letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
+        script: 'lockedin/screenplay-lockedin.pdf',
+        crew: [
+          { role: 'Writer & Director',    name: 'Karthik Valmeekam',   ig: null, tw: null },
+          { role: 'Dialogues',            name: 'Karthik Valmeekam',   ig: null, tw: null },
+          { role: 'Dialogues',            name: 'Sai Krishna Meka',    ig: null, tw: null },
+          { role: 'Dialogues',            name: 'Khadyothan',          ig: null, tw: null },
+          { role: 'Producer',             name: 'Karthik Valmeekam',   ig: null, tw: null },
+          { role: 'Production Designer',  name: 'Sai Seetal Pendyala', ig: null, tw: null },
+          { role: 'Music',                name: 'Nitish John',         ig: null, tw: null },
+          { role: 'Asst. Director',       name: 'Sai Krishna Meka',   ig: null, tw: null },
+          { role: 'Asst. Director',       name: 'Khadyothan Dasari',  ig: null, tw: null },
+        ],
+        cast: [
+          { name: 'Rajanala Harsha Vardhan Reddy', ig: null, tw: null },
+          { name: 'Harshith',                      ig: null, tw: null },
+          { name: 'Karthik Valmeekam',             ig: null, tw: null },
+        ],
+        equipment: {},
+        hasVinyl: false,
+      },
+      walkwithme: {
+        title: 'Walk With Me',
+        year: 2026,
+        genre: 'Romantic Drama · Short Film',
+        logline: 'A romantic drama told through the quietest of gestures. Directed by Sai Krishna Meka, written with Sankalp Gora — featuring feet (yes, you read that right).',
+        letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
+        script: null,
+        crew: [
+          { role: 'Writer & Director', name: 'Sai Krishna Meka', ig: null, tw: null },
+          { role: 'Writer',            name: 'Sankalp Gora',     ig: null, tw: null },
+        ],
+        cast: [],
+        equipment: {},
+        hasVinyl: false,
+      },
+      musicvideo: {
+        title: 'Untitled Music Video',
+        year: 2026,
+        genre: 'Music Video',
+        logline: 'An untitled music video by Nitish John — currently in development.',
+        letterboxd: null,
+        script: null,
+        crew: [
+          { role: 'Director', name: 'Nitish John', ig: null, tw: null },
+        ],
+        cast: [],
+        equipment: {},
+        hasVinyl: false,
+      },
+    };
+
+    // ── Social icon helpers ────────────────────────────────────────────────
+    function igIcon(handle) {
+      const href = handle || 'http://www.google.com/';
+      return `<a href="${href}" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-6 h-6 text-muted hover:text-gold transition-colors duration-200" title="Instagram">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>`;
+    }
+    function twIcon(handle) {
+      const href = handle || 'http://www.google.com/';
+      return `<a href="${href}" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-6 h-6 text-muted hover:text-gold transition-colors duration-200" title="X / Twitter">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>`;
+    }
+
+    // ── Vinyl Player HTML ──────────────────────────────────────────────────
+    function vinylPlayerHTML(film) {
+      return `
+      <div id="vinyl-player" style="background:#111; border:1px solid rgba(240,192,64,0.15); box-shadow: 0 0 60px rgba(240,192,64,0.06); border-radius:2px; padding:0;">
+        <div style="padding:8px 20px; border-bottom:1px solid rgba(240,192,64,0.1); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:0.3em; color:#88807A; text-transform:uppercase;">Vinyl Player</span>
+          <span id="vp-playing-badge" style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:0.2em; color:#F0C040; text-transform:uppercase; opacity:0; transition:opacity 0.3s;">● Playing</span>
+        </div>
+        <div style="display:flex; flex-direction:row; gap:0; align-items:center; padding:32px;">
+          <!-- Vinyl Disc -->
+          <div style="flex:0 0 auto; position:relative; cursor:pointer;" id="vinyl-disc-wrap" onclick="vpToggle()">
+            <div id="vinyl-disc" style="
+              width:220px; height:220px; border-radius:50%;
+              background: radial-gradient(circle at 50% 50%,
+                #1a1a1a 0%, #0a0a0a 18%, #111 19%, #0d0d0d 28%, #111 29%,
+                #0a0a0a 38%, #111 39%, #0d0d0d 48%, #111 49%,
+                #0a0a0a 58%, #111 59%, #0d0d0d 68%, #111 69%,
+                #0a0a0a 78%, #1a1a1a 100%
+              );
+              box-shadow: 0 0 0 2px #222, 0 0 30px rgba(240,192,64,0.18), 0 0 60px rgba(240,192,64,0.06);
+              position:relative; display:flex; align-items:center; justify-content:center;
+              transition: box-shadow 0.4s;
+            ">
+              <!-- Groove highlight -->
+              <div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.015) 5%, transparent 10%);pointer-events:none;"></div>
+              <!-- Center label -->
+              <div style="
+                width:72px; height:72px; border-radius:50%;
+                background: linear-gradient(135deg, #1a1208, #2a1e08);
+                border:2px solid rgba(240,192,64,0.3);
+                display:flex; align-items:center; justify-content:center; flex-direction:column;
+                box-shadow: 0 0 12px rgba(240,192,64,0.15);
+              ">
+                <div style="font-family:'Oswald',sans-serif; font-size:8px; letter-spacing:0.2em; color:#F0C040; text-align:center; line-height:1.3; text-transform:uppercase; padding:0 6px;">${film.trackTitle.split(' ').slice(0,2).join('<br>')}</div>
+              </div>
+              <!-- Spindle -->
+              <div style="position:absolute;width:8px;height:8px;border-radius:50%;background:#F0C040;opacity:0.6;"></div>
+            </div>
+          </div>
+
+          <!-- Track info + controls -->
+          <div style="flex:1; padding-left:36px; min-width:0;">
+            <div style="font-family:'Playfair Display',serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#F2EFE6; line-height:1.15; margin-bottom:6px;">${film.trackTitle}</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.22em; color:#F0C040; text-transform:uppercase; margin-bottom:4px;">${film.artist}</div>
+            <div style="font-family:'Jost',sans-serif; font-size:11px; color:#88807A; margin-bottom:28px;">${film.title} · ${film.albumYear}</div>
+
+            <!-- Progress bar -->
+            <div style="margin-bottom:8px;">
+              <div id="vp-progress-bg" onclick="vpSeek(event)" style="height:3px; background:rgba(255,255,255,0.08); cursor:pointer; position:relative; border-radius:2px;">
+                <div id="vp-progress-fill" style="height:100%; width:0%; background:#F0C040; border-radius:2px; transition:width 0.1s linear; pointer-events:none;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; margin-top:5px;">
+                <span id="vp-current" style="font-family:'Jost',sans-serif; font-size:10px; color:#88807A;">0:00</span>
+                <span id="vp-duration" style="font-family:'Jost',sans-serif; font-size:10px; color:#88807A;">0:00</span>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:24px;">
+              <button onclick="vpSkip(-15)" style="width:38px;height:38px;border:1px solid rgba(240,192,64,0.25);background:transparent;color:#88807A;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.25)';this.style.color='#88807A'">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+              </button>
+              <button id="vp-play-btn" onclick="vpToggle()" style="width:48px;height:48px;border:1px solid #F0C040;background:transparent;color:#F0C040;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;box-shadow:0 0 12px rgba(240,192,64,0.15);" onmouseenter="this.style.background='rgba(240,192,64,0.08)'" onmouseleave="this.style.background='transparent'">
+                <svg id="vp-play-icon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <button onclick="vpSkip(15)" style="width:38px;height:38px;border:1px solid rgba(240,192,64,0.25);background:transparent;color:#88807A;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.25)';this.style.color='#88807A'">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18 6h-2v12h2zM12.5 12 4 18V6z"/></svg>
+              </button>
+            </div>
+
+            <!-- Volume -->
+            <div style="display:flex; align-items:center; gap:12px;">
+              <svg width="13" height="13" fill="#88807A" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              <div style="flex:1;position:relative;">
+                <input id="vp-volume" type="range" min="0" max="1" step="0.01" value="1" oninput="vpVolume(this.value)" style="width:100%;accent-color:#F0C040;cursor:pointer;height:3px;">
+              </div>
+              <svg width="13" height="13" fill="#88807A" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+            </div>
+          </div>
+        </div>
+        <audio id="vp-audio" src="${film.audioSrc}" preload="metadata"></audio>
+      </div>
+      <style>
+        @keyframes vinyl-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .vinyl-spinning { animation: vinyl-spin 2.2s linear infinite; }
+        @keyframes vp-glow-pulse { 0%,100%{box-shadow:0 0 0 2px #222, 0 0 30px rgba(240,192,64,0.18), 0 0 60px rgba(240,192,64,0.06);} 50%{box-shadow:0 0 0 2px #222, 0 0 40px rgba(240,192,64,0.28), 0 0 80px rgba(240,192,64,0.12);} }
+        .vinyl-spinning { animation: vinyl-spin 2.2s linear infinite, vp-glow-pulse 2s ease-in-out infinite; }
+      </style>
+      `;
+    }
+
+    // ── Equipment section ─────────────────────────────────────────────────
+    function equipmentHTML(eq) {
+      if (!eq || Object.keys(eq).length === 0) return '';
+      let html = `<div class="mt-10">
+        <div class="flex items-center gap-5 mb-6">
+          <div class="gold-line"></div>
+          <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Equipment Breakdown</span>
+          <div class="gold-line"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
+      for (const [cat, items] of Object.entries(eq)) {
+        html += `<div>
+          <div class="font-heading text-warm-white/60 text-[10px] tracking-[0.22em] uppercase mb-3">${cat}</div>
+          <ul class="space-y-2">`;
+        for (const item of items) {
+          html += `<li class="font-body text-xs text-muted flex items-start gap-2"><span class="text-gold/40 mt-0.5">—</span><span>${item}</span></li>`;
+        }
+        html += `</ul></div>`;
+      }
+      html += `</div></div>`;
+      return html;
+    }
+
+    // ── Render modal content ──────────────────────────────────────────────
+    function renderModal(key) {
+      const f = FILMS[key];
+      if (!f) return '';
+
+      const crewRows = f.crew.map(c => `
+        <div class="flex items-center justify-between py-3 border-b border-warm-white/5">
+          <div>
+            <div class="font-heading text-gold text-[10px] tracking-[0.22em] uppercase mb-0.5">${c.role}</div>
+            <div class="font-display text-sm text-warm-white">${c.name}</div>
+          </div>
+          <div class="flex gap-1">${igIcon(c.ig)}${twIcon(c.tw)}</div>
+        </div>`).join('');
+
+      const castRows = f.cast.length ? f.cast.map(c => `
+        <div class="flex items-center justify-between py-3 border-b border-warm-white/5">
+          <div class="font-display text-sm text-warm-white">${c.name}</div>
+          <div class="flex gap-1">${igIcon(c.ig)}${twIcon(c.tw)}</div>
+        </div>`).join('') : `<p class="font-body text-xs text-muted py-3">TBD</p>`;
+
+      const scriptBtn = f.script
+        ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+            Download Script
+          </a>` : '';
+
+      const letterboxdBtn = f.letterboxd
+        ? `<a href="${f.letterboxd}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><circle cx="6" cy="12" r="5"/><circle cx="12" cy="12" r="5" opacity="0.7"/><circle cx="18" cy="12" r="5" opacity="0.4"/></svg>
+            Log it on Letterboxd
+          </a>` : '';
+
+      return `
+        <!-- Header -->
+        <div class="pt-16 pb-10 border-b border-warm-white/8">
+          <div class="flex items-center gap-5 mb-4">
+            <div class="gold-line"></div>
+            <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">${f.genre}</span>
+          </div>
+          <h2 class="font-display font-bold text-warm-white mb-3" style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing:-0.025em;">${f.title}</h2>
+          <p class="font-body text-muted max-w-2xl" style="line-height:1.8; font-size:1rem;">${f.logline}</p>
+          <div class="flex flex-wrap gap-3 mt-6">${scriptBtn}${letterboxdBtn}</div>
+        </div>
+
+        ${f.hasVinyl ? `<!-- Vinyl Player -->
+        <div class="py-10 border-b border-warm-white/8">
+          <div class="flex items-center gap-5 mb-8">
+            <div class="gold-line"></div>
+            <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Original Score</span>
+            <div class="gold-line"></div>
+          </div>
+          ${vinylPlayerHTML(f)}
+        </div>` : ''}
+
+        <!-- Cast & Crew split -->
+        <div class="py-10 border-b border-warm-white/8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div>
+              <div class="flex items-center gap-5 mb-6">
+                <div class="gold-line"></div>
+                <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Crew</span>
+              </div>
+              ${crewRows}
+            </div>
+            <div>
+              <div class="flex items-center gap-5 mb-6">
+                <div class="gold-line"></div>
+                <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Cast</span>
+              </div>
+              ${castRows}
+            </div>
+          </div>
+        </div>
+
+        <!-- Equipment -->
+        ${equipmentHTML(f.equipment)}
+      `;
+    }
+
+    // ── Modal open / close ────────────────────────────────────────────────
+    let vpAudio = null;
+
+    function openFilmModal(key) {
+      const modal = document.getElementById('film-modal');
+      const content = document.getElementById('modal-content');
+      content.innerHTML = renderModal(key);
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      // Init vinyl if present
+      vpAudio = document.getElementById('vp-audio');
+      if (vpAudio) {
+        vpAudio.addEventListener('timeupdate', vpSyncProgress);
+        vpAudio.addEventListener('loadedmetadata', vpSyncDuration);
+        vpAudio.addEventListener('ended', () => {
+          document.getElementById('vp-disc') && document.getElementById('vp-disc').classList.remove('vinyl-spinning');
+          document.getElementById('vp-play-icon').innerHTML = '<path d="M8 5v14l11-7z"/>';
+          document.getElementById('vp-playing-badge').style.opacity = '0';
+          document.getElementById('vinyl-disc').style.boxShadow = '0 0 0 2px #222, 0 0 30px rgba(240,192,64,0.18), 0 0 60px rgba(240,192,64,0.06)';
+        });
+      }
+    }
+
+    function closeFilmModal() {
+      if (vpAudio) { vpAudio.pause(); vpAudio = null; }
+      document.getElementById('film-modal').classList.add('hidden');
+      document.getElementById('modal-content').innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    // Close on background click
+    document.getElementById('film-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeFilmModal();
+    });
+    // Close on Escape
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFilmModal(); });
+
+    // ── Vinyl player controls ─────────────────────────────────────────────
+    function vpToggle() {
+      if (!vpAudio) return;
+      const disc = document.getElementById('vinyl-disc');
+      const icon = document.getElementById('vp-play-icon');
+      const badge = document.getElementById('vp-playing-badge');
+      if (vpAudio.paused) {
+        vpAudio.play();
+        disc.classList.add('vinyl-spinning');
+        icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+        badge.style.opacity = '1';
+      } else {
+        vpAudio.pause();
+        disc.classList.remove('vinyl-spinning');
+        icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        badge.style.opacity = '0';
+      }
+    }
+
+    function vpSkip(seconds) {
+      if (!vpAudio) return;
+      vpAudio.currentTime = Math.max(0, Math.min(vpAudio.duration || 0, vpAudio.currentTime + seconds));
+    }
+
+    function vpVolume(val) {
+      if (!vpAudio) return;
+      vpAudio.volume = parseFloat(val);
+    }
+
+    function vpSeek(e) {
+      if (!vpAudio || !vpAudio.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;
+      vpAudio.currentTime = ratio * vpAudio.duration;
+    }
+
+    function fmtTime(s) {
+      if (!s || isNaN(s)) return '0:00';
+      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return `${m}:${sec.toString().padStart(2,'0')}`;
+    }
+
+    function vpSyncProgress() {
+      if (!vpAudio) return;
+      const pct = vpAudio.duration ? (vpAudio.currentTime / vpAudio.duration) * 100 : 0;
+      const fill = document.getElementById('vp-progress-fill');
+      const cur = document.getElementById('vp-current');
+      if (fill) fill.style.width = pct + '%';
+      if (cur) cur.textContent = fmtTime(vpAudio.currentTime);
+    }
+
+    function vpSyncDuration() {
+      const el = document.getElementById('vp-duration');
+      if (el && vpAudio) el.textContent = fmtTime(vpAudio.duration);
+    }
   </script>
 
 </body>
