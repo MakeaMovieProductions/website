@@ -1,13 +1,14 @@
 # Merchandise Ideas (size free)
 
 ## Digital Tool/Assets
-1. Shotlist template
-2. Shoot order template
-3. Filmmaking flashcards
+- Shotlist template
+- Production Budgeting template
+- Shoot order template
+- Filmmaking flashcards (with example scenes from Telugu Cinema/ Particular director)
   - Writing
   - Camera
   - Lighting Diagrams
-5. n/a 
+  - Production
 
 ## Small and Easy
 1. Laptop stickers
@@ -24,5 +25,5 @@
 5. **Storyboard Template Book/Guide**
 6. Filmmaking Flashcards
 7. Scene flipbooks
-8. 
+
 
