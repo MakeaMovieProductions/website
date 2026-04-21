@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Make A Movie Productions — Short Film Production House</title>
+  <meta name="description" content="Make A Movie Productions is an independent short film production house crafting authentic, high-quality cinema. Browse our portfolio and get in touch.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Make A Movie Productions — Short Film Production House">
+  <meta property="og:description" content="An independent short film production house crafting authentic, high-quality cinema.">
+  <meta property="og:image" content="brand_assets/shoot.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Make A Movie Productions">
+  <meta name="twitter:description" content="An independent short film production house crafting authentic, high-quality cinema.">
+  <meta name="twitter:image" content="brand_assets/shoot.jpeg">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -239,6 +249,34 @@
       height: 1px;
     }
 
+    /* Production status badge on project tiles */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px 4px 6px;
+      background: rgba(8,8,8,0.72);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.pre-production  { background: #F0C040; box-shadow: 0 0 5px rgba(240,192,64,0.55); }
+    .status-dot.production      { background: #D44848; box-shadow: 0 0 5px rgba(212,72,72,0.55); }
+    .status-dot.post-production { background: #4DB87A; box-shadow: 0 0 5px rgba(77,184,122,0.55); }
+    .status-dot.complete        { background: #7A7670; box-shadow: 0 0 4px rgba(122,118,112,0.40); }
+    .status-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 8px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(242,239,230,0.65);
+    }
+
     /* Nav link */
     .nav-link {
       position: relative;
@@ -276,7 +314,7 @@
         <a href="#work"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
         <a href="#people"  class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
         <a href="#process" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Process</a>
-        <a href="/merch"   class="nav-link font-body text-xs text-muted tracking-widest uppercase">Merch</a>
+        <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
         <a href="#contact" class="shimmer ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black transition-colors duration-300 btn-primary">
           Let's Create
         </a>
@@ -297,7 +335,7 @@
       <a href="#work"     class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Our Work</a>
       <a href="#people"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">People</a>
       <a href="#process"  class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Process</a>
-      <a href="/merch"    class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Merch</a>
+      <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
       <a href="#contact"  class="text-xs text-gold tracking-widest uppercase">Let's Create →</a>
     </div>
   </nav>
@@ -579,6 +617,11 @@
           <div class="absolute top-4 right-4 z-10 opacity-25">
             <img src="icons/cinema.png" alt="" class="w-9 h-9" style="filter: invert(1);">
           </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot post-production"></span>
+            <span class="status-label">Post-Production</span>
+          </div>
           <img src="brand_assets/shoot.jpeg" alt="Sitting (2026)" class="port-img w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/95 via-cinema-black/20 to-transparent"></div>
           <div class="port-overlay absolute inset-0" style="background: rgba(240,192,64,0.07)"></div>
@@ -594,6 +637,11 @@
           <!-- Clapboard icon top-right -->
           <div class="absolute top-4 right-4 z-10 opacity-25">
             <img src="icons/cinema.png" alt="" class="w-9 h-9" style="filter: invert(1);">
+          </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot production"></span>
+            <span class="status-label">Production</span>
           </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #0e0e14 0%, #141420 50%, #0a0a10 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-20">
@@ -617,6 +665,11 @@
           <div class="absolute top-4 right-4 z-10 opacity-25">
             <img src="icons/cinema.png" alt="" class="w-9 h-9" style="filter: invert(1);">
           </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot pre-production"></span>
+            <span class="status-label">Pre-Production</span>
+          </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #120e0a 0%, #1a1208 50%, #0e0c08 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-15">
               <svg class="w-24 h-24 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -638,6 +691,11 @@
           <!-- Music note icon top-right -->
           <div class="absolute top-4 right-4 z-10 opacity-25">
             <img src="icons/music-note.png" alt="" class="w-9 h-9" style="filter: invert(1);">
+          </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot pre-production"></span>
+            <span class="status-label">Pre-Production</span>
           </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #0a0e12 0%, #0e1418 50%, #080c10 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-20">
@@ -722,7 +780,7 @@
         <!-- Nikhil Punyala -->
         <div class="reveal d4 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Nikhil Punyala" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/nikhil-punyala.jpeg" alt="Nikhil Punyala" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-gold opacity-60"></div>
@@ -1020,6 +1078,7 @@
       sitting: {
         title: 'Sitting',
         year: 2026,
+        status: 'post-production',
         genre: 'Buddy-Comedy · Short Film',
         logline: 'A proof-of-concept short by director Nikhil Punyala for his debut feature Chain Gang — two friends, one bench, a lifetime of unspoken things.',
         letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
@@ -1086,6 +1145,7 @@
       lockedin: {
         title: 'Locked In',
         year: 2026,
+        status: 'production',
         genre: 'Surreal-Thriller · Short Film',
         logline: 'A man finds himself trapped — not in a room, but in a loop of his own making. Karthik Valmeekam\'s debut short, shot entirely in California.',
         letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
@@ -1130,6 +1190,7 @@
       walkwithme: {
         title: 'Walk With Me',
         year: 2026,
+        status: 'pre-production',
         genre: 'Romantic Drama · Short Film',
         logline: 'A romantic drama told through the quietest of gestures. Directed by Sai Krishna Meka, written with Sankalp Gora — featuring feet (yes, you read that right).',
         letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
@@ -1162,6 +1223,7 @@
       musicvideo: {
         title: 'Untitled Music Video',
         year: 2026,
+        status: 'pre-production',
         genre: 'Music Video',
         logline: 'An untitled music video by Nitish John — currently in development.',
         letterboxd: null,
@@ -1490,10 +1552,16 @@
         </div>`).join('') : `<p class="font-body text-xs text-muted py-3">TBD</p>`;
 
       const scriptBtn = f.script
-        ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
-            Download Script
-          </a>` : '';
+        ? (f.status === 'complete'
+          ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+              Download Script
+            </a>`
+          : `<span class="inline-flex items-center gap-2 border border-warm-white/6 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase cursor-not-allowed" style="color:rgba(136,128,122,0.32);" title="Script available after release">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+              Script Locked
+            </span>`)
+        : '';
 
       const letterboxdBtn = f.letterboxd
         ? `<a href="${f.letterboxd}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
