@@ -265,10 +265,11 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
+    .status-dot.development     { background: #8BA3C8; box-shadow: 0 0 5px rgba(139,163,200,0.50); }
     .status-dot.pre-production  { background: #F0C040; box-shadow: 0 0 5px rgba(240,192,64,0.55); }
     .status-dot.production      { background: #D44848; box-shadow: 0 0 5px rgba(212,72,72,0.55); }
     .status-dot.post-production { background: #4DB87A; box-shadow: 0 0 5px rgba(77,184,122,0.55); }
-    .status-dot.complete        { background: #7A7670; box-shadow: 0 0 4px rgba(122,118,112,0.40); }
+    .status-dot.release         { background: #FFD966; box-shadow: 0 0 6px rgba(255,217,102,0.65); }
     .status-label {
       font-family: 'Oswald', sans-serif;
       font-size: 8px;
@@ -315,8 +316,8 @@
         <a href="#people"  class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
         <a href="#process" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Process</a>
         <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
-        <a href="#contact" class="shimmer ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black transition-colors duration-300 btn-primary">
-          Let's Create
+        <a href="/assets" class="shimmer ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black transition-colors duration-300 btn-primary">
+          Download Assets
         </a>
       </div>
 
@@ -336,7 +337,7 @@
       <a href="#people"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">People</a>
       <a href="#process"  class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Process</a>
       <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
-      <a href="#contact"  class="text-xs text-gold tracking-widest uppercase">Let's Create →</a>
+      <a href="/assets"   class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
     </div>
   </nav>
 
@@ -667,8 +668,8 @@
           </div>
           <!-- Status badge -->
           <div class="absolute top-4 left-4 z-10 status-badge">
-            <span class="status-dot pre-production"></span>
-            <span class="status-label">Pre-Production</span>
+            <span class="status-dot development"></span>
+            <span class="status-label">Development</span>
           </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #120e0a 0%, #1a1208 50%, #0e0c08 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-15">
@@ -694,8 +695,8 @@
           </div>
           <!-- Status badge -->
           <div class="absolute top-4 left-4 z-10 status-badge">
-            <span class="status-dot pre-production"></span>
-            <span class="status-label">Pre-Production</span>
+            <span class="status-dot development"></span>
+            <span class="status-label">Development</span>
           </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #0a0e12 0%, #0e1418 50%, #080c10 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-20">
@@ -1193,7 +1194,7 @@
       walkwithme: {
         title: 'Walk With Me',
         year: 2026,
-        status: 'pre-production',
+        status: 'development',
         genre: 'Romantic Drama · Short Film',
         logline: 'A romantic drama told through the quietest of gestures. Directed by Sai Krishna Meka, written with Sankalp Gora — featuring feet (yes, you read that right).',
         letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
@@ -1226,7 +1227,7 @@
       musicvideo: {
         title: 'Untitled Music Video',
         year: 2026,
-        status: 'pre-production',
+        status: 'development',
         genre: 'Music Video',
         logline: 'An untitled music video by Nitish John - currently in development.',
         letterboxd: null,
@@ -1557,7 +1558,7 @@
         </div>`).join('') : `<p class="font-body text-xs text-muted py-3">TBD</p>`;
 
       const scriptBtn = f.script
-        ? (f.status === 'complete'
+        ? (f.status === 'release'
           ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
               Download Script
