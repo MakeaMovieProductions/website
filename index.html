@@ -740,7 +740,7 @@
         <!-- Sai Krishna Meka -->
         <div class="reveal d1 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Sai Krishna Meka" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/sai-krishna-meka.jpeg" alt="Sai Krishna Meka" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <!-- Corner accent -->
@@ -754,7 +754,7 @@
         <!-- Sankalp Gora -->
         <div class="reveal d2 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Sankalp Gora" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/sankalp-gora.jpeg" alt="Sankalp Gora" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-gold opacity-60"></div>
@@ -767,7 +767,7 @@
         <!-- Karthik Valmeekam -->
         <div class="reveal d3 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Karthik Valmeekam" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/karthik-valmeekam.jpeg" alt="Karthik Valmeekam" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-gold opacity-60"></div>
@@ -1261,10 +1261,11 @@
       return `
       <div id="vinyl-player" style="background:#111; border:1px solid rgba(240,192,64,0.15); box-shadow: 0 0 60px rgba(240,192,64,0.06); border-radius:2px; padding:0;">
         <div style="padding:8px 20px; border-bottom:1px solid rgba(240,192,64,0.1); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:0.3em; color:#88807A; text-transform:uppercase;">Vinyl Player</span>
-          <span id="vp-playing-badge" style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:0.2em; color:#F0C040; text-transform:uppercase; opacity:0; transition:opacity 0.3s;">● Playing</span>
+          <span style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.3em; color:#88807A; text-transform:uppercase;">Vinyl Player</span>
+          <span id="vp-playing-badge" style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.2em; color:#F0C040; text-transform:uppercase; opacity:0; transition:opacity 0.3s;">● Playing</span>
         </div>
-        <div style="display:flex; flex-direction:row; gap:0; align-items:center; padding:32px;">
+        <style>@media(max-width:600px){#vinyl-player .vp-row{flex-direction:column!important;padding:20px!important}#vinyl-disc{width:160px!important;height:160px!important}#vinyl-player .vp-info{padding-left:0!important;padding-top:20px;width:100%}}</style>
+        <div class="vp-row" style="display:flex; flex-direction:row; gap:0; align-items:center; padding:32px;">
           <!-- Vinyl Disc -->
           <div style="flex:0 0 auto; position:relative; cursor:pointer;" id="vinyl-disc-wrap" onclick="vpToggle()">
             <div id="vinyl-disc" style="
@@ -1294,10 +1295,10 @@
           </div>
 
           <!-- Track info + controls -->
-          <div style="flex:1; padding-left:36px; min-width:0;">
+          <div class="vp-info" style="flex:1; padding-left:36px; min-width:0;">
             <div style="font-family:'Playfair Display',serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#F2EFE6; line-height:1.15; margin-bottom:6px;">${film.trackTitle}</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.22em; color:#F0C040; text-transform:uppercase; margin-bottom:4px;">${film.artist}</div>
-            <div style="font-family:'Jost',sans-serif; font-size:11px; color:#88807A; margin-bottom:28px;">${film.title} · ${film.albumYear}</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.22em; color:#F0C040; text-transform:uppercase; margin-bottom:4px;">${film.artist}</div>
+            <div style="font-family:'Jost',sans-serif; font-size:13px; color:#88807A; margin-bottom:28px;">${film.title} · ${film.albumYear}</div>
 
             <!-- Progress bar -->
             <div style="margin-bottom:8px;">
@@ -1305,8 +1306,8 @@
                 <div id="vp-progress-fill" style="height:100%; width:0%; background:#F0C040; border-radius:2px; transition:width 0.1s linear; pointer-events:none;"></div>
               </div>
               <div style="display:flex; justify-content:space-between; margin-top:5px;">
-                <span id="vp-current" style="font-family:'Jost',sans-serif; font-size:10px; color:#88807A;">0:00</span>
-                <span id="vp-duration" style="font-family:'Jost',sans-serif; font-size:10px; color:#88807A;">0:00</span>
+                <span id="vp-current" style="font-family:'Jost',sans-serif; font-size:12px; color:#88807A;">0:00</span>
+                <span id="vp-duration" style="font-family:'Jost',sans-serif; font-size:12px; color:#88807A;">0:00</span>
               </div>
             </div>
 
@@ -1334,11 +1335,11 @@
 
             <!-- Share link -->
             <div style="display:flex; align-items:center; gap:10px;">
-              <button onclick="vpShareLink()" id="vp-share-btn" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(240,192,64,0.2);background:transparent;color:#88807A;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.2)';this.style.color='#88807A'">
+              <button onclick="vpShareLink()" id="vp-share-btn" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(240,192,64,0.2);background:transparent;color:#88807A;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.2)';this.style.color='#88807A'">
                 <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 Share
               </button>
-              <span id="vp-share-toast" style="font-family:'Jost',sans-serif;font-size:10px;color:#F0C040;opacity:0;transition:opacity 0.3s;">Link copied!</span>
+              <span id="vp-share-toast" style="font-family:'Jost',sans-serif;font-size:12px;color:#F0C040;opacity:0;transition:opacity 0.3s;">Link copied!</span>
             </div>
           </div>
         </div>
@@ -1359,16 +1360,16 @@
       let html = `<div class="mt-10">
         <div class="flex items-center gap-5 mb-6">
           <div class="gold-line"></div>
-          <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Equipment Breakdown</span>
+          <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Equipment Breakdown</span>
           <div class="gold-line"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
       for (const [cat, items] of Object.entries(eq)) {
         html += `<div>
-          <div class="font-heading text-warm-white/60 text-[10px] tracking-[0.22em] uppercase mb-3">${cat}</div>
+          <div class="font-heading text-warm-white/60 text-[12px] tracking-[0.22em] uppercase mb-3">${cat}</div>
           <ul class="space-y-2">`;
         for (const item of items) {
-          html += `<li class="font-body text-xs text-muted flex items-start gap-2"><span class="text-gold/40 mt-0.5">—</span><span>${item}</span></li>`;
+          html += `<li class="font-body text-sm text-muted flex items-start gap-2"><span class="text-gold/40 mt-0.5">—</span><span>${item}</span></li>`;
         }
         html += `</ul></div>`;
       }
@@ -1383,7 +1384,7 @@
       <div class="py-10 border-b border-warm-white/8">
         <div class="flex items-center gap-5 mb-8">
           <div class="gold-line"></div>
-          <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Behind the Scenes</span>
+          <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Behind the Scenes</span>
           <div class="gold-line"></div>
         </div>
         <!-- 2×2 BTS grid -->
@@ -1404,8 +1405,8 @@
             </svg>
           </div>
           <div>
-            <div class="font-heading text-warm-white/80 text-[10px] tracking-[0.22em] uppercase mb-1 group-hover:text-gold transition-colors duration-300">Watch on YouTube</div>
-            <div class="font-body text-xs text-muted">Make A Movie Productions · Official Channel</div>
+            <div class="font-heading text-warm-white/80 text-[12px] tracking-[0.22em] uppercase mb-1 group-hover:text-gold transition-colors duration-300">Watch on YouTube</div>
+            <div class="font-body text-sm text-muted">Make A Movie Productions · Official Channel</div>
           </div>
           <svg class="w-4 h-4 text-muted group-hover:text-gold ml-auto transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </a>` : ''}
@@ -1420,10 +1421,10 @@
       const cards = tweets.map((t, i) =>
         '<div class="cy-card" data-index="' + i + '">' +
         '<div style="padding:22px 24px;height:100%;display:flex;flex-direction:column;justify-content:space-between;">' +
-        '<p style="font-family:\'Jost\',sans-serif;font-size:11px;color:rgba(242,239,230,0.75);line-height:1.8;margin:0 0 18px;">' + t.text + '</p>' +
+        '<p style="font-family:\'Jost\',sans-serif;font-size:13px;color:rgba(242,239,230,0.75);line-height:1.8;margin:0 0 18px;">' + t.text + '</p>' +
         '<div style="display:flex;align-items:center;justify-content:space-between;">' +
-        '<div><div style="font-family:\'Playfair Display\',serif;font-size:12px;color:#F2EFE6;font-weight:600;">' + t.name + '</div>' +
-        '<div style="font-family:\'Jost\',sans-serif;font-size:10px;color:#88807A;margin-top:2px;">' + t.handle + '</div></div>' +
+        '<div><div style="font-family:\'Playfair Display\',serif;font-size:14px;color:#F2EFE6;font-weight:600;">' + t.name + '</div>' +
+        '<div style="font-family:\'Jost\',sans-serif;font-size:12px;color:#88807A;margin-top:2px;">' + t.handle + '</div></div>' +
         '<svg width="13" height="13" fill="rgba(240,192,64,0.3)" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
         '</div></div></div>'
       ).join('');
@@ -1434,7 +1435,7 @@
 
       return '<div class="py-10 border-b border-warm-white/8">' +
         '<div class="flex items-center gap-5 mb-10"><div class="gold-line"></div>' +
-        '<span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">What People Are Saying</span>' +
+        '<span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">What People Are Saying</span>' +
         '<div class="gold-line"></div></div>' +
         '<div id="' + uid + '" class="cy-wrap" data-n="' + tweets.length + '" style="position:relative;height:280px;display:flex;align-items:center;justify-content:center;">' +
         '<div class="cy-scene" style="width:340px;height:220px;position:relative;perspective:900px;">' +
@@ -1502,29 +1503,29 @@
       <div class="py-10">
         <div class="flex items-center gap-5 mb-8">
           <div class="gold-line"></div>
-          <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Original Soundtrack</span>
+          <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Original Soundtrack</span>
           <div class="gold-line"></div>
         </div>
         <div class="flex flex-wrap gap-3">
           <a href="${ost.spotify}" target="_blank" rel="noopener" class="group inline-flex items-center gap-3 border border-warm-white/10 px-5 py-3.5 hover:border-gold/30 transition-colors duration-300" style="background:#0a0a0a;">
             <svg class="w-4 h-4 text-muted group-hover:text-gold transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
             <div>
-              <div class="font-heading text-[9px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
-              <div class="font-heading text-[11px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">Spotify</div>
+              <div class="font-heading text-[11px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
+              <div class="font-heading text-[13px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">Spotify</div>
             </div>
           </a>
           <a href="${ost.youtubeMusic}" target="_blank" rel="noopener" class="group inline-flex items-center gap-3 border border-warm-white/10 px-5 py-3.5 hover:border-gold/30 transition-colors duration-300" style="background:#0a0a0a;">
             <svg class="w-4 h-4 text-muted group-hover:text-gold transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L16.2 12l-6.516 3.54z"/></svg>
             <div>
-              <div class="font-heading text-[9px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
-              <div class="font-heading text-[11px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">YouTube Music</div>
+              <div class="font-heading text-[11px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
+              <div class="font-heading text-[13px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">YouTube Music</div>
             </div>
           </a>
           <a href="${ost.appleMusic}" target="_blank" rel="noopener" class="group inline-flex items-center gap-3 border border-warm-white/10 px-5 py-3.5 hover:border-gold/30 transition-colors duration-300" style="background:#0a0a0a;">
             <svg class="w-4 h-4 text-muted group-hover:text-gold transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026C4.786.07 4.043.15 3.34.428 2.004.958 1.04 1.88.475 3.208A5.491 5.491 0 00.05 5.08c-.013.34-.024.68-.024 1.02v11.8c0 .36.01.7.024 1.04.055 1.272.376 2.45 1.084 3.5.834 1.235 1.994 2.015 3.466 2.354.37.087.753.13 1.135.158.386.03.773.04 1.16.04h11.2c.387 0 .773-.01 1.16-.04.382-.028.765-.07 1.135-.158 1.472-.34 2.632-1.12 3.466-2.354.708-1.05 1.03-2.228 1.084-3.5.013-.34.024-.68.024-1.02V6.1c0-.34-.01-.68-.024-1.02l.024.044zm-6.753 5.982v4.712c0 1.04-.766 1.93-1.794 2.05-.112.013-.223.018-.334.018-.92 0-1.787-.59-2.01-1.48a2.06 2.06 0 01-.054-.488c0-1.063.828-1.95 1.876-2.023.34-.024.664.017.967.118V8.1l-5.59 1.307v5.863c0 1.04-.765 1.93-1.793 2.05-.112.013-.223.018-.335.018-.92 0-1.787-.59-2.01-1.48a2.06 2.06 0 01-.053-.488c0-1.063.828-1.95 1.875-2.023.34-.024.664.017.967.118V7.1a.62.62 0 01.468-.6l6.83-1.597a.625.625 0 01.76.606v6.597z"/></svg>
             <div>
-              <div class="font-heading text-[9px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
-              <div class="font-heading text-[11px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">Apple Music</div>
+              <div class="font-heading text-[11px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
+              <div class="font-heading text-[13px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">Apple Music</div>
             </div>
           </a>
         </div>
@@ -1536,41 +1537,42 @@
       const f = FILMS[key];
       if (!f) return '';
 
-      const crewRows = f.crew.map(c => `
-        <div class="flex items-center justify-between py-3 border-b border-warm-white/5">
-          <div>
-            <div class="font-heading text-gold text-[10px] tracking-[0.22em] uppercase mb-0.5">${c.role}</div>
-            <div class="font-display text-sm text-warm-white">${c.name}</div>
-          </div>
-          <div class="flex gap-1">${igIcon(c.ig)}${twIcon(c.tw)}</div>
+      const crewByRole = {};
+      f.crew.forEach(c => {
+        if (!crewByRole[c.role]) crewByRole[c.role] = [];
+        crewByRole[c.role].push(c.name);
+      });
+      const crewRows = Object.entries(crewByRole).map(([role, names]) => `
+        <div class="py-3 border-b border-warm-white/5">
+          <div class="font-heading text-gold text-[11px] tracking-[0.22em] uppercase mb-0.5">${role}</div>
+          <div class="font-display text-sm text-warm-white">${names.join(', ')}</div>
         </div>`).join('');
 
       const castRows = f.cast.length ? f.cast.map(c => `
-        <div class="flex items-center justify-between py-3 border-b border-warm-white/5">
+        <div class="py-3 border-b border-warm-white/5">
           <div class="font-display text-sm text-warm-white">${c.name}</div>
-          <div class="flex gap-1">${igIcon(c.ig)}${twIcon(c.tw)}</div>
         </div>`).join('') : `<p class="font-body text-xs text-muted py-3">TBD</p>`;
 
       const scriptBtn = f.script
         ? (f.status === 'complete'
-          ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+          ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
               Download Script
             </a>`
-          : `<span class="inline-flex items-center gap-2 border border-warm-white/6 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase cursor-not-allowed" style="color:rgba(136,128,122,0.32);" title="Script available after release">
+          : `<span class="inline-flex items-center gap-2 border border-warm-white/6 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase cursor-not-allowed" style="color:rgba(136,128,122,0.32);" title="Script available after release">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
               Script Locked
             </span>`)
         : '';
 
       const letterboxdBtn = f.letterboxd
-        ? `<a href="${f.letterboxd}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+        ? `<a href="${f.letterboxd}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><circle cx="6" cy="12" r="5"/><circle cx="12" cy="12" r="5" opacity="0.7"/><circle cx="18" cy="12" r="5" opacity="0.4"/></svg>
             Log it on Letterboxd
           </a>` : '';
 
       const instaReelBtn = f.instaReel
-        ? `<a href="${f.instaReel}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+        ? `<a href="${f.instaReel}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             Watch Reel
           </a>` : '';
@@ -1580,7 +1582,7 @@
         <div class="pt-16 pb-10 border-b border-warm-white/8">
           <div class="flex items-center gap-5 mb-4">
             <div class="gold-line"></div>
-            <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">${f.genre}</span>
+            <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">${f.genre}</span>
           </div>
           <h2 class="font-display font-bold text-warm-white mb-3" style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing:-0.025em;">${f.title}</h2>
           <p class="font-body text-muted max-w-2xl" style="line-height:1.8; font-size:1rem;">${f.logline}</p>
@@ -1591,7 +1593,7 @@
         <div class="py-10 border-b border-warm-white/8">
           <div class="flex items-center gap-5 mb-8">
             <div class="gold-line"></div>
-            <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Original Score</span>
+            <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Original Score</span>
             <div class="gold-line"></div>
           </div>
           ${vinylPlayerHTML(f)}
@@ -1606,14 +1608,14 @@
             <div>
               <div class="flex items-center gap-5 mb-6">
                 <div class="gold-line"></div>
-                <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Crew</span>
+                <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Crew</span>
               </div>
               ${crewRows}
             </div>
             <div>
               <div class="flex items-center gap-5 mb-6">
                 <div class="gold-line"></div>
-                <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Cast</span>
+                <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Cast</span>
               </div>
               ${castRows}
             </div>
