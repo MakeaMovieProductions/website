@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filmmaker's Toolkit — Make A Movie Productions</title>
+  <meta name="description" content="Free production tools built and battle-tested by Make A Movie Productions. Download the Shot List Template and more.">
+  <meta property="og:title" content="Filmmaker's Toolkit — Make A Movie Productions">
+  <meta property="og:description" content="Free filmmaking tools from Make A Movie Productions. Production-ready templates, free for every filmmaker.">
+  <meta property="og:image" content="/brand_assets/shoot.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cinema-black': '#080808',
+            'cinema-dark':  '#111111',
+            'cinema-card':  '#1A1A1A',
+            'gold':         '#F0C040',
+            'gold-light':   '#FFD966',
+            'gold-dark':    '#C8962A',
+            'amber-glow':   '#E87820',
+            'warm-white':   '#F2EFE6',
+            'muted':        '#88807A',
+          },
+          fontFamily: {
+            'display': ['"Playfair Display"', 'serif'],
+            'heading': ['Oswald', 'sans-serif'],
+            'body':    ['Jost', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Film grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 999; opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #F0C040; border-radius: 2px; }
+
+    /* Nav */
+    .nav-glass {
+      background: rgba(8,8,8,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(240,192,64,0.10);
+    }
+    .nav-link { position: relative; transition: color 0.25s ease; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: #F0C040; transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { color: #F2EFE6; }
+
+    /* Gold rule */
+    .gold-rule { background: linear-gradient(90deg, transparent, rgba(240,192,64,0.3), transparent); height: 1px; }
+    .gold-line  { width: 56px; height: 2px; background: linear-gradient(90deg, #F0C040, #E87820); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
+    }
+    .revealed { opacity: 1; transform: none; }
+    .d1{transition-delay:0.06s} .d2{transition-delay:0.12s} .d3{transition-delay:0.18s}
+    .d4{transition-delay:0.24s} .d5{transition-delay:0.30s} .d6{transition-delay:0.36s}
+    .d7{transition-delay:0.42s}
+
+    /* Floating glass step cards */
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0px);  }
+      50%       { transform: translateY(-9px); }
+    }
+
+    .glass-step {
+      position: relative;
+      background: linear-gradient(135deg,
+        rgba(255,255,255,0.04) 0%,
+        rgba(255,255,255,0.01) 100%
+      );
+      backdrop-filter: blur(22px) saturate(130%);
+      -webkit-backdrop-filter: blur(22px) saturate(130%);
+      border: 1px solid rgba(240,192,64,0.10);
+      border-top-color: rgba(255,255,255,0.09);
+      border-radius: 20px;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.60),
+        0 2px 8px rgba(0,0,0,0.30),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      transition:
+        transform 0.5s cubic-bezier(0.16,1,0.3,1),
+        box-shadow 0.5s ease,
+        border-color 0.3s ease;
+      animation: cardFloat 5.5s ease-in-out infinite;
+    }
+    /* Top shimmer line */
+    .glass-step::before {
+      content: '';
+      position: absolute; top: 0; left: 14%; right: 14%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+      border-radius: 1px;
+    }
+    .glass-step:hover {
+      transform: translateY(-14px) scale(1.015) !important;
+      border-color: rgba(240,192,64,0.30);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.72),
+        0 0 56px rgba(240,192,64,0.09),
+        inset 0 1px 0 rgba(255,255,255,0.09);
+      animation-play-state: paused;
+    }
+    /* Staggered float delays */
+    .glass-step:nth-child(1) { animation-delay: 0.00s; }
+    .glass-step:nth-child(2) { animation-delay: 0.55s; }
+    .glass-step:nth-child(3) { animation-delay: 1.10s; }
+    .glass-step:nth-child(4) { animation-delay: 0.28s; }
+    .glass-step:nth-child(5) { animation-delay: 0.83s; }
+    .glass-step:nth-child(6) { animation-delay: 1.38s; }
+    .glass-step:nth-child(7) { animation-delay: 0.66s; }
+
+    /* Step number glow */
+    .step-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      color: #F0C040;
+      text-shadow: 0 0 20px rgba(240,192,64,0.5);
+    }
+
+    /* Tool overview cards */
+    .tool-tile {
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+    }
+    .tool-tile:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(240,192,64,0.09), 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    /* Download button */
+    .dl-btn {
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .dl-btn:hover {
+      background: #FFD966;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(240,192,64,0.30);
+    }
+    .dl-btn:active { transform: translateY(0); }
+    .dl-btn:focus-visible { outline: 2px solid #F0C040; outline-offset: 3px; }
+
+    /* Section spotlight bg */
+    .steps-bg {
+      background:
+        radial-gradient(ellipse 90% 60% at 15% 40%, rgba(240,192,64,0.04) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 70% at 85% 60%, rgba(232,120,32,0.03) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 50% 100%, rgba(240,192,64,0.03) 0%, transparent 50%),
+        #0A0A0A;
+    }
+    .dl-bg {
+      background:
+        radial-gradient(ellipse 70% 90% at 50% 50%, rgba(240,192,64,0.08) 0%, transparent 65%),
+        #080808;
+    }
+
+    /* Logo flicker */
+    @keyframes flicker {
+      0%,89%,91%,93%,100%{opacity:1} 90%{opacity:0.75} 92%{opacity:0.9}
+    }
+    .logo-name { animation: flicker 9s infinite; }
+
+    /* Shimmer */
+    .shimmer { position: relative; overflow: hidden; }
+    .shimmer::after {
+      content: ''; position: absolute; top: -50%; left: -80%;
+      width: 50%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: skewX(-20deg); transition: left 0.55s ease;
+    }
+    .shimmer:hover::after { left: 160%; }
+  </style>
+</head>
+
+<body class="bg-cinema-black text-warm-white font-body antialiased overflow-x-hidden">
+
+<!-- ╔══════════════════ NAV ══════════════════╗ -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+
+    <a href="/" class="flex items-center gap-3 group">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-9 w-9 rounded-full object-cover">
+      <span class="font-heading tracking-[0.18em] text-gold text-sm uppercase logo-name">Make A Movie</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#about"   class="nav-link font-body text-xs text-muted tracking-widest uppercase">About</a>
+      <a href="/#work"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
+      <a href="/#people"  class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
+      <a href="/#contact" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Contact</a>
+      <a href="/" class="shimmer ml-4 px-5 py-2.5 border border-warm-white/20 text-warm-white/60 font-heading tracking-[0.18em] text-xs uppercase hover:border-gold hover:text-gold transition-colors duration-300">
+        ← Main Site
+      </a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden p-1" aria-label="Open menu">
+      <svg class="w-5 h-5 text-warm-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-white/5 px-6 py-5 flex flex-col gap-5">
+    <a href="/#about"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">About</a>
+    <a href="/#work"    class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Our Work</a>
+    <a href="/#people"  class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">People</a>
+    <a href="/"         class="text-xs text-gold tracking-widest uppercase">← Main Site</a>
+  </div>
+</nav>
+
+<!-- ╔══════════════════ HERO ══════════════════╗ -->
+<section class="relative pt-40 pb-28 overflow-hidden" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,192,64,0.08) 0%, transparent 65%), #080808;">
+
+  <div class="absolute inset-0 pointer-events-none" style="background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(240,192,64,0.008) 3px, rgba(240,192,64,0.008) 4px);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 text-center">
+
+    <div class="flex items-center justify-center gap-5 mb-7">
+      <div class="gold-line"></div>
+      <span class="font-heading text-gold tracking-[0.32em] text-[10px] uppercase">By Make A Movie Productions</span>
+      <div class="gold-line"></div>
+    </div>
+
+    <h1 class="font-display font-bold text-warm-white mb-6" style="font-size: clamp(2.8rem, 7vw, 5.5rem); letter-spacing: -0.03em; line-height: 1.05;">
+      Filmmaker's<br><em class="text-gold">Toolkit</em>
+    </h1>
+
+    <p class="font-body text-muted max-w-xl mx-auto mb-10" style="font-size: 1.05rem; line-height: 1.8;">
+      Production tools built and battle-tested on our own shoots — free for every filmmaker, forever.
+    </p>
+
+    <div class="inline-flex items-center gap-2.5 px-5 py-2.5 border border-gold/20 rounded-full">
+      <span class="w-2 h-2 rounded-full bg-gold" style="box-shadow: 0 0 8px rgba(240,192,64,0.7);"></span>
+      <span class="font-heading text-gold text-[10px] tracking-[0.28em] uppercase">1 Tool Available</span>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- ╔══════════════════ TOOLS GRID ══════════════════╗ -->
+<section class="py-24 bg-cinema-dark">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="text-center mb-16 reveal">
+      <div class="flex items-center justify-center gap-5 mb-6">
+        <div class="gold-line"></div>
+        <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Available Tools</span>
+        <div class="gold-line"></div>
+      </div>
+      <h2 class="font-display font-bold" style="font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.025em;">
+        Everything You Need<br><em class="text-gold">On Set and Off</em>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Shot List Template — active -->
+      <a href="#shotlist" class="reveal d1 tool-tile block bg-cinema-card rounded-sm p-8 border border-warm-white/5 hover:border-gold/20 cursor-pointer group">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-gold/25 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+          <span class="font-heading text-gold text-[9px] tracking-[0.28em] uppercase">Pre-Production</span>
+        </div>
+        <div class="w-12 h-12 border border-gold/20 rounded-sm flex items-center justify-center mb-6 group-hover:border-gold/50 group-hover:bg-gold/5 transition-colors duration-300">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-warm-white mb-3">Shot List Template</h3>
+        <p class="font-body text-sm text-muted mb-6" style="line-height: 1.75;">A production-ready Excel sheet for planning every shot — with crew info, shot language dropdowns, time estimates, and on-set status tracking. Compatible with Google Sheets.</p>
+        <div class="flex items-center gap-2 font-heading text-gold text-[10px] tracking-[0.22em] uppercase group-hover:gap-3 transition-all duration-300">
+          <span>See How It Works</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </a>
+
+      <!-- Coming soon — Call Sheet -->
+      <div class="reveal d2 bg-cinema-card/50 rounded-sm p-8 border border-warm-white/4 opacity-50 cursor-not-allowed">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-warm-white/10 rounded-full">
+          <span class="font-heading text-muted text-[9px] tracking-[0.28em] uppercase">Coming Soon</span>
+        </div>
+        <div class="w-12 h-12 border border-warm-white/10 rounded-sm flex items-center justify-center mb-6">
+          <svg class="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-muted mb-3">Call Sheet Template</h3>
+        <p class="font-body text-sm text-muted/60" style="line-height: 1.75;">Crew call times, locations, scene breakdown, and contact sheet — all in one document.</p>
+      </div>
+
+      <!-- Coming soon — Budget -->
+      <div class="reveal d3 bg-cinema-card/50 rounded-sm p-8 border border-warm-white/4 opacity-50 cursor-not-allowed">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-warm-white/10 rounded-full">
+          <span class="font-heading text-muted text-[9px] tracking-[0.28em] uppercase">Coming Soon</span>
+        </div>
+        <div class="w-12 h-12 border border-warm-white/10 rounded-sm flex items-center justify-center mb-6">
+          <svg class="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-muted mb-3">Production Budget</h3>
+        <p class="font-body text-sm text-muted/60" style="line-height: 1.75;">Track every line item from equipment rental to catering. Built for micro-budget short films.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- ╔══════════════════ SHOT LIST DEEP DIVE ══════════════════╗ -->
+<section id="shotlist" class="steps-bg py-32 relative">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-6 reveal">
+      <div class="flex items-center justify-center gap-5 mb-6">
+        <div class="gold-line"></div>
+        <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">How to Use It</span>
+        <div class="gold-line"></div>
+      </div>
+      <h2 class="font-display font-bold text-warm-white mb-5" style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.025em;">
+        Shot List <em class="text-gold">Template</em>
+      </h2>
+      <p class="font-body text-muted max-w-2xl mx-auto" style="line-height: 1.8; font-size: 1rem;">
+        A 15-column, 500-row production sheet. Seven steps from blank template to locked shot list.
+      </p>
+    </div>
+
+    <!-- File badges -->
+    <div class="flex items-center justify-center gap-3 mb-20 reveal">
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">XLSX</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">~35KB</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">Version 2</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">Google Sheets Compatible</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-gold border border-gold/25 px-3 py-1.5 rounded-full">Free</span>
+    </div>
+
+    <!-- 7 Glass Step Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+
+      <!-- Step 01 -->
+      <div class="glass-step reveal d1 p-8 cursor-default">
+        <div class="flex items-center justify-between mb-6">
+          <span class="step-num">01</span>
+          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
+            <svg class="w-4.5 h-4.5 text-gold" style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Fill Production Info</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Complete the header block at the top — <span class="text-warm-white/80">project name, director, 1st & 2nd A.D., D.P.</span> on the left; <span class="text-warm-white/80">shoot date, call time, wrap time, and set location</span> on the right. This block stays frozen as you scroll.</p>
+      </div>
+
+      <!-- Step 02 -->
+      <div class="glass-step reveal d2 p-8 cursor-default">
+        <div class="flex items-center justify-between mb-6">
+          <span class="step-num">02</span>
+          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
+            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75.125v-5.625A2.25 2.25 0 014.5 10.5h.75m-3 8.625l1.5-1.5M6 18.375V10.5m0 0h10.5A2.25 2.25 0 0118.75 12v6.375a2.25 2.25 0 01-2.25 2.25H6m10.5-9.75h.75A2.25 2.25 0 0119.5 5.25v.75M6 10.5V5.25A2.25 2.25 0 018.25 3h7.5A2.25 2.25 0 0118 5.25v.75M6 10.5H4.875"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Number Scenes & Shots</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Scene # (col A)</span> maps directly to your script's scene number. <span class="text-warm-white/80">Shot # (col B)</span> is the sequential number within that scene. Both are free text — use "3A", "12", or whatever matches your breakdown.</p>
+      </div>
+
+      <!-- Step 03 -->
+      <div class="glass-step reveal d3 p-8 cursor-default">
+        <div class="flex items-center justify-between mb-6">
+          <span class="step-num">03</span>
+          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
+            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Set INT / EXT & Location</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Col E</span> is a colour-coded dropdown — <span style="color:#E87820;">INT</span> (interior), <span style="color:#4DB87A;">EXT</span> (exterior), or <span style="color:#F0C040;">INT/EXT</span> (mixed). <span class="text-warm-white/80">Col F</span> is free text for the specific location: "Park Bench", "Hospital Corridor Level 2", etc.</p>
+      </div>
+
+      <!-- Step 04 -->
+      <div class="glass-step reveal d4 p-8 cursor-default">
+        <div class="flex items-center justify-between mb-6">
+          <span class="step-num">04</span>
+          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
+            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Define Your Shot Language</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Four dropdown columns define your visual grammar: <span class="text-warm-white/80">Shot Size (G), Camera Angle (H), Framing (I)</span>, and <span class="text-warm-white/80">Camera Movement (J)</span>. Every standard cinematic option — EWS to ECU, Eye Level to Dutch Angle — is in the lists.</p>
+      </div>
+
+      <!-- Step 05 -->
+      <div class="glass-step reveal d5 p-8 cursor-default">
+        <div class="flex items-center justify-between mb-6">
+          <span class="step-num">05</span>
+          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
+            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Note Equipment & Lens</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Col K</span> is free text — note the camera body, lens, and any rigs or supports for that specific shot. "Sony FX3 + G Master 85mm + RS4 Gimbal" or just "Tripod + 50mm". This column drives your gear checklist.</p>
+      </div>
+
+      <!-- Step 06 -->
+      <div class="glass-step reveal d6 p-8 cursor-default">
+        <div class="flex items-center justify-between mb-6">
+          <span class="step-num">06</span>
+          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
+            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Estimate Time Blocks</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Setup Time (col L)</span> = time to physically position camera, lighting, and crew. <span class="text-warm-white/80">Shoot Time (col M)</span> = total filming duration. Add both to get the full time block per shot and build a realistic shooting schedule.</p>
+      </div>
+
+      <!-- Step 07 — centered in last row -->
+      <div class="glass-step reveal d7 p-8 cursor-default lg:col-start-2">
+        <div class="flex items-center justify-between mb-6">
+          <span class="step-num">07</span>
+          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
+            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Track Status & Lock Takes</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Shoot Status (col C)</span> is your on-set dashboard: To Shoot → In Progress → Wrapped. After the shoot, enter the chosen take in <span class="text-warm-white/80">Final Take # (col N)</span>, then set <span class="text-warm-white/80">Status (col O)</span> to <span style="color:#4DB87A;">✅</span> Done or <span style="color:#F0C040;">⚠️</span> Reshoot needed.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- ╔══════════════════ DOWNLOAD CTA ══════════════════╗ -->
+<section class="dl-bg py-32">
+  <div class="max-w-2xl mx-auto px-6 lg:px-10 text-center">
+
+    <div class="reveal">
+      <div class="flex items-center justify-center gap-5 mb-8">
+        <div class="gold-line"></div>
+        <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Free Download</span>
+        <div class="gold-line"></div>
+      </div>
+
+      <h2 class="font-display font-bold text-warm-white mb-5" style="font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.025em;">
+        Ready for Your<br><em class="text-gold">Next Project</em>
+      </h2>
+
+      <p class="font-body text-muted mb-10" style="line-height: 1.8; font-size: 1rem;">
+        Open it in Excel, or import into Google Sheets via <em>File → Import → Upload</em>. The dropdowns, conditional formatting, and frozen header all transfer.
+      </p>
+
+      <a href="/digital_assets/ShotListTemplate_v2.xlsx" download="ShotListTemplate_v2.xlsx"
+         class="dl-btn inline-flex items-center gap-3 bg-gold text-cinema-black font-heading tracking-[0.18em] text-sm uppercase px-10 py-5 mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+        </svg>
+        Download Shot List Template
+      </a>
+
+      <div class="flex items-center justify-center gap-4 flex-wrap">
+        <span class="font-body text-xs text-muted/60">XLSX format</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-muted/60">~35 KB</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-muted/60">Version 2</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-muted/60">Excel &amp; Google Sheets</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-gold/70">Free, always</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ╔══════════════════ FOOTER ══════════════════╗ -->
+<footer class="py-12 bg-cinema-black border-t border-warm-white/5">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <a href="/" class="flex items-center gap-3 group">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-7 w-7 rounded-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+      <span class="font-heading tracking-[0.18em] text-muted text-xs uppercase group-hover:text-gold transition-colors duration-300">Make A Movie Productions</span>
+    </a>
+    <p class="font-body text-xs text-muted/40">© 2026 Make A Movie Productions. All tools free for filmmakers.</p>
+    <a href="/" class="font-heading text-[10px] tracking-[0.22em] text-muted uppercase hover:text-gold transition-colors duration-300">← Back to Main Site</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  document.getElementById('menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

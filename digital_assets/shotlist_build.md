@@ -1,5 +1,5 @@
 # Shot List Template — Build Document
-**Current version:** `ShotListTemplate_v2.xlsx`
+**Current version:** `ShotListTemplate_v2.xlsx` (patched — Status emoji column)
 
 ## Source Material
 - **Base template:** `ShotListTemplate_v0.xlsx` — original structure
@@ -56,7 +56,7 @@ Row 7 is a thin separator row (8px high) with a faint gold bottom border. Row 8 
 |---|-----|--------|------|-------|
 | 1 | A | Scene # | Free text | 10 |
 | 2 | B | Shot # | Number | 8 |
-| 3 | C | Status | Dropdown | 13 |
+| 3 | C | Shoot Status | Dropdown | 13 |
 | 4 | D | Description | Free text | 36 |
 | 5 | E | INT/EXT | Dropdown | 9 |
 | 6 | F | Location | Free text | 20 |
@@ -68,7 +68,7 @@ Row 7 is a thin separator row (8px high) with a faint gold bottom border. Row 8 
 | 12 | L | Setup Time | Free text | 12 |
 | 13 | M | Shoot Time | Free text | 12 |
 | 14 | N | Final Take # | Number | 12 |
-| 15 | O | Done | Dropdown | 7 |
+| 15 | O | Status | Dropdown | 14 |
 
 **Scene # (A) comes before Shot # (B)** so rows sort naturally by scene first.
 
@@ -76,7 +76,7 @@ Row 7 is a thin separator row (8px high) with a faint gold bottom border. Row 8 
 
 ## Dropdown Values
 
-### Status (col C)
+### Shoot Status (col C)
 - To Shoot
 - In Progress
 - Wrapped
@@ -122,9 +122,10 @@ Row 7 is a thin separator row (8px high) with a faint gold bottom border. Row 8 
 - Handheld
 - Steadicam / Gimbal
 
-### Done (col O)
-- — (not done)
-- Done
+### Status (col O)
+- ` ` — blank (not yet reviewed)
+- `⚠️` — needs a reshoot
+- `✅` — shot and done
 
 ---
 
@@ -143,7 +144,7 @@ Number. Filled in after the shoot (during DIT review or editing). Records which 
 
 ## Conditional Formatting
 
-### Status (col C)
+### Shoot Status (col C)
 | Value | Background | Text |
 |-------|-----------|------|
 | To Shoot | `#1A1A2E` (deep blue-black) | `#8BA3C8` (slate blue) |
@@ -157,10 +158,15 @@ Number. Filled in after the shoot (during DIT review or editing). Records which 
 | EXT | `#060E08` (deep green-black) | `#4DB87A` (leaf green) |
 | INT/EXT | `#1C1604` (deep gold-black) | `#F0C040` (brand gold) |
 
-### Done (col O)
-| Value | Background | Text |
-|-------|-----------|------|
-| Done | `#0A1A0A` (deep green-black) | `#4DB87A` (leaf green) |
+### Status (col O)
+Formula-based rules detect emoji presence via `ISNUMBER(SEARCH(...))`:
+
+| Value | Rule | Background | Text |
+|-------|------|-----------|------|
+| `⚠️` reshoot | `=ISNUMBER(SEARCH("⚠",O9))` | `#2A1500` (deep amber-black) | `#F0C040` (brand gold) |
+| `✅` done | `=ISNUMBER(SEARCH("✅",O9))` | `#0A1A0A` (deep green-black) | `#4DB87A` (leaf green) |
+
+Blank cells receive no conditional formatting and display default row colors.
 
 ---
 
