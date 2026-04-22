@@ -844,8 +844,8 @@
         <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Setup Time</span> = time to physically position camera, lighting, and crew. <span class="text-warm-white/80">Shoot Time</span> = shot filming duration. Add both to get the full time block per shot and build a realistic shooting schedule.</p>
       </div>
 
-      <!-- animated spreadsheet demo -->
-      <div class="max-w-3xl mx-auto" style="border-radius:10px;border:1px solid rgba(240,192,64,0.12);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.7);">
+      <!-- animated spreadsheet demo — scaled to 70% -->
+      <div class="max-w-3xl mx-auto" style="border-radius:10px;border:1px solid rgba(240,192,64,0.12);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.7);zoom:0.7;">
         <!-- chrome bar -->
         <div style="background:#1c1c2c;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2a2a3c;">
           <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
@@ -1021,6 +1021,12 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') goTo(cur + 1);
       if (e.key === 'ArrowLeft')  goTo(cur - 1);
+    });
+
+    // Set step-num labels from DOM position so they always match carousel order
+    slides.forEach((slide, i) => {
+      const lbl = slide.querySelector('.step-num');
+      if (lbl) lbl.textContent = String(i + 1).padStart(2, '0');
     });
 
     goTo(0);
