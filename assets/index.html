@@ -376,34 +376,11 @@
         <div class="flex gap-2" id="csl-dots"></div>
       </div>
 
-      <!-- Step 02 -->
-      <div class="glass-step reveal d2 p-8 cursor-default">
-        <div class="flex items-center justify-between mb-6">
-          <span class="step-num">02</span>
-          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
-            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75.125v-5.625A2.25 2.25 0 014.5 10.5h.75m-3 8.625l1.5-1.5M6 18.375V10.5m0 0h10.5A2.25 2.25 0 0118.75 12v6.375a2.25 2.25 0 01-2.25 2.25H6m10.5-9.75h.75A2.25 2.25 0 0119.5 5.25v.75M6 10.5V5.25A2.25 2.25 0 018.25 3h7.5A2.25 2.25 0 0118 5.25v.75M6 10.5H4.875"/>
-            </svg>
-          </div>
-        </div>
-        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Number Scenes & Shots</h3>
-        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Scene # </span> maps directly to your script's scene number. <span class="text-warm-white/80">Shot # </span> is the sequential number within that scene. Both are free text — use "3A", "12", or whatever matches your breakdown.</p>
-      </div>
-
-      <!-- Step 03 -->
-      <div class="glass-step reveal d3 p-8 cursor-default">
-        <div class="flex items-center justify-between mb-6">
-          <span class="step-num">03</span>
-          <div class="w-10 h-10 border border-gold/15 rounded-full flex items-center justify-center" style="background: rgba(240,192,64,0.05);">
-            <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="text-gold">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
-            </svg>
-          </div>
-        </div>
-        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Set INT / EXT & Location</h3>
-        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Colour-coded dropdown — <span style="color:#E87820;">INT</span> (interior), <span style="color:#4DB87A;">EXT</span> (exterior), or <span style="color:#F0C040;">INT/EXT</span> (mixed). Also, add the specific location: "Park Bench", "Hospital Corridor Level 2", etc.</p>
-      </div>
+      <div class="relative max-w-2xl mx-auto" style="padding:0 44px;">
+        <button id="csl-prev" style="position:absolute;left:0;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;border-radius:50%;border:1px solid rgba(240,192,64,0.25);background:rgba(240,192,64,0.06);color:#F0C040;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s;" aria-label="Previous">&#8592;</button>
+        <button id="csl-next" style="position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;border-radius:50%;border:1px solid rgba(240,192,64,0.25);background:rgba(240,192,64,0.06);color:#F0C040;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s;" aria-label="Next">&#8594;</button>
+        <div style="overflow:hidden;border-radius:20px;border:1px solid rgba(240,192,64,0.1);box-shadow:0 24px 70px rgba(0,0,0,0.65);background:#0d0d18;">
+          <div id="csl-track" style="display:flex;transition:transform 0.55s cubic-bezier(0.16,1,0.3,1);will-change:transform;">
 
             <!-- SLIDE 01 — Fill Production Info -->
             <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
@@ -809,8 +786,8 @@
           <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Live Example</span>
           <div class="gold-line"></div>
         </div>
-        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Define Your Shot Language</h3>
-        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Four dropdown columns define your visual grammar: <span class="text-warm-white/80">Shot Size, Camera Angle, Framing </span>, and <span class="text-warm-white/80">Camera Movement</span>. Every standard cinematic option — EWS to ECU, Eye Level to Dutch Angle — is in the lists.</p>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">A Real Shot List, Filled In</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Every column from Scene # to Post Status, populated with data from a real production. This is exactly what your sheet looks like on shoot day — dropdowns set, times estimated, statuses tracked.</p>
       </div>
 
       <div style="overflow-x:auto;border-radius:10px;border:1px solid rgba(240,192,64,0.12);box-shadow:0 24px 70px rgba(0,0,0,0.75);">
@@ -827,8 +804,131 @@
           <span style="font-family:Jost,sans-serif;font-size:10px;color:#88807A;">fx</span>
           <span style="font-family:Jost,sans-serif;font-size:11px;color:#F2EFE6;">Wrapped</span>
         </div>
-        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Equipment & Lens</h3>
-        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Note the camera body, lens, and any rigs or supports for that specific shot. "Sony FX3 + G Master 85mm + RS4 Gimbal" or just "Tripod + 50mm". This column drives your gear checklist.</p>
+        <table style="width:100%;border-collapse:collapse;font-family:Jost,sans-serif;font-size:11px;min-width:1100px;">
+          <thead>
+            <tr style="background:#111128;">
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">A<br><span style="color:#6a6060;font-size:7px;">SCENE #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">B<br><span style="color:#6a6060;font-size:7px;">SHOT #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">C<br><span style="color:#6a6060;font-size:7px;">STATUS</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">D<br><span style="color:#6a6060;font-size:7px;">DESCRIPTION</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">E<br><span style="color:#6a6060;font-size:7px;">INT/EXT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">F<br><span style="color:#6a6060;font-size:7px;">LOCATION</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">G<br><span style="color:#6a6060;font-size:7px;">SHOT SIZE</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">H<br><span style="color:#6a6060;font-size:7px;">ANGLE</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">I<br><span style="color:#6a6060;font-size:7px;">FRAMING</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">J<br><span style="color:#6a6060;font-size:7px;">MOVEMENT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">K<br><span style="color:#6a6060;font-size:7px;">EQUIPMENT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">L<br><span style="color:#6a6060;font-size:7px;">SETUP</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">M<br><span style="color:#6a6060;font-size:7px;">SHOOT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">N<br><span style="color:#6a6060;font-size:7px;">TAKE #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">O<br><span style="color:#6a6060;font-size:7px;">POST STATUS</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#1a1a1a;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#0A1A0A;color:#4DB87A;border:1px solid #4DB87A44;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">Wrapped</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Park bench — wide reveal</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#060E08;color:#4DB87A;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">EXT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Campus – Park Bench</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">EWS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Single</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Static</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 24mm + Tripod</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">20 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">30 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">3</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;font-size:14px;">✅</td>
+            </tr>
+            <tr style="background:#141414;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">2</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#0A1A0A;color:#4DB87A;border:1px solid #4DB87A44;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">Wrapped</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Two-shot, friends approach bench</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#060E08;color:#4DB87A;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">EXT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Campus – Park Bench</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">MS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Two-Shot</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Tracking Shot</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 50mm + RS4</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">15 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">45 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;font-size:14px;">✅</td>
+            </tr>
+            <tr style="background:#1a1a1a;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">3</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#2A1A0A;color:#F0C040;border:1px solid #F0C04044;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">In Progress</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">CU — Friend A reacts</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#060E08;color:#4DB87A;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">EXT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Campus – Park Bench</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">CU</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">OTS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Static</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 85mm f/1.4</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">10 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">25 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+            </tr>
+            <tr style="background:#141414;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#0A1A0A;color:#4DB87A;border:1px solid #4DB87A44;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">Wrapped</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">INT restroom — aftermath reveal</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1E0E06;color:#E87820;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">INT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Restroom Level 1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">WS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Low Angle</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Single</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Dolly</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 24mm + Dolly</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">25 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">40 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;font-size:14px;">⚠️</td>
+            </tr>
+            <tr style="background:#1a1a1a;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">2</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1A1A2E;color:#8BA3C8;border:1px solid #8BA3C844;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">To Shoot</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">MCU — protagonist mirror look</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1E0E06;color:#E87820;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">INT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Restroom Level 1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">MCU</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Single</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Static</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 85mm f/1.4</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">15 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">20 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+            </tr>
+            <tr style="background:#141414;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">3</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1A1A2E;color:#8BA3C8;border:1px solid #8BA3C844;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">To Shoot</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">EWS corridor — friends separate</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1E0E06;color:#E87820;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">INT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Corridor Level 2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">EWS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">High Angle</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Two-Shot</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Pan</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 24mm + Tripod</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">30 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">35 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -840,8 +940,8 @@
           <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">See It in Action</span>
           <div class="gold-line"></div>
         </div>
-        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Estimate Time Blocks</h3>
-        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Setup Time</span> = time to physically position camera, lighting, and crew. <span class="text-warm-white/80">Shoot Time</span> = shot filming duration. Add both to get the full time block per shot and build a realistic shooting schedule.</p>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Every Column, Clickable</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Watch the cursor move through the sheet — clicking INT/EXT, Shot Size, Camera Angle, and Status dropdowns one by one. This is exactly how you'll fill it in on shoot day.</p>
       </div>
 
       <!-- animated spreadsheet demo — scaled to 70% -->
@@ -894,8 +994,6 @@
           <!-- dropdown panel (hidden by default) -->
           <div id="demo-dropdown" style="position:absolute;display:none;z-index:30;background:#13111e;border:1px solid rgba(240,192,64,0.4);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,0.8);min-width:120px;overflow:hidden;"></div>
         </div>
-        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Track Status & Lock Takes</h3>
-        <p class="font-body text-sm text-muted" style="line-height: 1.8;"><span class="text-warm-white/80">Shoot Status</span> is your on-set dashboard: To Shoot → In Progress → Wrapped. After the shoot, enter the chosen take in <span class="text-warm-white/80">Final Take #</span>, then set <span class="text-warm-white/80">Status</span> to <span style="color:#4DB87A;">✅</span> Done or <span style="color:#F0C040;">⚠️</span> Reshoot needed.</p>
       </div>
       <p class="text-center font-body text-xs text-muted/50 mt-4" style="letter-spacing:0.05em;">Animation loops automatically · reflects actual Excel dropdown behaviour</p>
     </div>
