@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Make A Movie Productions — Short Film Production House</title>
+  <title>Make A Movie Production — Short Film Production House</title>
+  <meta name="description" content="Make A Movie Production is an independent short film production house crafting authentic, high-quality cinema. Browse our portfolio and get in touch.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Make A Movie Production — Short Film Production House">
+  <meta property="og:description" content="An independent short film production house crafting authentic, high-quality cinema.">
+  <meta property="og:image" content="brand_assets/shoot.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Make A Movie Production">
+  <meta name="twitter:description" content="An independent short film production house crafting authentic, high-quality cinema.">
+  <meta name="twitter:image" content="brand_assets/shoot.jpeg">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -183,6 +193,28 @@
     /* Gold divider */
     .gold-line { width: 56px; height: 2px; background: linear-gradient(90deg, #F0C040, #E87820); }
 
+    /* Cylindrical tweet carousel */
+    .cy-card {
+      position: absolute; width: 100%; height: 100%;
+      border: 1px solid rgba(240,192,64,0.12);
+      background: linear-gradient(135deg, rgba(18,14,8,0.97) 0%, rgba(10,10,10,0.97) 100%);
+      backface-visibility: hidden;
+      box-shadow: 0 0 40px rgba(240,192,64,0.04), inset 0 1px 0 rgba(255,255,255,0.03);
+      transition: filter 0.5s ease;
+    }
+    .cy-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(240,192,64,0.012) 3px, rgba(240,192,64,0.012) 4px);
+      pointer-events: none;
+    }
+    .cy-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      box-shadow: inset 0 0 24px rgba(240,192,64,0.05);
+      pointer-events: none;
+    }
+
     /* Spotlight radial bg */
     .spotlight-bg {
       background:
@@ -215,6 +247,35 @@
     .gold-rule {
       background: linear-gradient(90deg, transparent, rgba(240,192,64,0.3), transparent);
       height: 1px;
+    }
+
+    /* Production status badge on project tiles */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px 4px 6px;
+      background: rgba(8,8,8,0.72);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.development     { background: #8BA3C8; box-shadow: 0 0 5px rgba(139,163,200,0.50); }
+    .status-dot.pre-production  { background: #F0C040; box-shadow: 0 0 5px rgba(240,192,64,0.55); }
+    .status-dot.production      { background: #D44848; box-shadow: 0 0 5px rgba(212,72,72,0.55); }
+    .status-dot.post-production { background: #4DB87A; box-shadow: 0 0 5px rgba(77,184,122,0.55); }
+    .status-dot.release         { background: #FFD966; box-shadow: 0 0 6px rgba(255,217,102,0.65); }
+    .status-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 8px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(242,239,230,0.65);
     }
 
     /* Nav link */
@@ -254,8 +315,9 @@
         <a href="#work"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
         <a href="#people"  class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
         <a href="#process" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Process</a>
-        <a href="#contact" class="shimmer ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black transition-colors duration-300 btn-primary">
-          Let's Create
+        <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
+        <a href="/assets" class="shimmer ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black transition-colors duration-300 btn-primary">
+          Download Assets
         </a>
       </div>
 
@@ -274,7 +336,8 @@
       <a href="#work"     class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Our Work</a>
       <a href="#people"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">People</a>
       <a href="#process"  class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Process</a>
-      <a href="#contact"  class="text-xs text-gold tracking-widest uppercase">Let's Create →</a>
+      <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
+      <a href="/assets"   class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
     </div>
   </nav>
 
@@ -332,7 +395,7 @@
           Start a Project
         </a>
       </div>
-
+<!-- 
       <!-- Stats bar -->
       <div class="hero-stats grid grid-cols-3 gap-0 max-w-sm mx-auto border-t border-warm-white/10 pt-10">
         <div class="pr-6">
@@ -349,7 +412,7 @@
         </div>
       </div>
     </div>
-
+-->
     <!-- Scroll cue -->
     <div class="scroll-dot absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
       <svg class="w-4 h-4 text-warm-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -552,11 +615,13 @@
         <!-- Sitting (2026) — Featured, spans 2 cols -->
         <div class="reveal d1 md:col-span-2 port-card relative cursor-pointer group rounded-sm" style="height: 480px;" data-film="sitting" onclick="openFilmModal('sitting')">
           <!-- Clapboard icon top-right -->
-          <div class="absolute top-4 right-4 z-10 opacity-30">
-            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M4 3h16a1 1 0 011 1v2H3V4a1 1 0 011-1zM3 8h18v13a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm4 3v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/>
-              <path d="M3 6l3-3 2 2-3 3zM8 3l3 3-2 2-3-3zM13 6l3-3 2 2-3 3z" opacity="0.6"/>
-            </svg>
+          <div class="absolute top-4 right-4 z-10 opacity-25">
+            <img src="icons/cinema.png" alt="" class="w-9 h-9" style="filter: invert(1);">
+          </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot post-production"></span>
+            <span class="status-label">Post-Production</span>
           </div>
           <img src="brand_assets/shoot.jpeg" alt="Sitting (2026)" class="port-img w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/95 via-cinema-black/20 to-transparent"></div>
@@ -571,11 +636,13 @@
         <!-- Locked In (2026) -->
         <div class="reveal d2 port-card relative cursor-pointer group rounded-sm" style="height: 480px;" data-film="lockedin" onclick="openFilmModal('lockedin')">
           <!-- Clapboard icon top-right -->
-          <div class="absolute top-4 right-4 z-10 opacity-30">
-            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M4 3h16a1 1 0 011 1v2H3V4a1 1 0 011-1zM3 8h18v13a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm4 3v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/>
-              <path d="M3 6l3-3 2 2-3 3zM8 3l3 3-2 2-3-3zM13 6l3-3 2 2-3 3z" opacity="0.6"/>
-            </svg>
+          <div class="absolute top-4 right-4 z-10 opacity-25">
+            <img src="icons/cinema.png" alt="" class="w-9 h-9" style="filter: invert(1);">
+          </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot production"></span>
+            <span class="status-label">Production</span>
           </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #0e0e14 0%, #141420 50%, #0a0a10 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-20">
@@ -596,11 +663,13 @@
         <!-- Walk With Me (2026) — spans 2 cols -->
         <div class="reveal d2 md:col-span-2 port-card relative cursor-pointer group rounded-sm" style="height: 300px;" data-film="walkwithme" onclick="openFilmModal('walkwithme')">
           <!-- Clapboard icon top-right -->
-          <div class="absolute top-4 right-4 z-10 opacity-30">
-            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M4 3h16a1 1 0 011 1v2H3V4a1 1 0 011-1zM3 8h18v13a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm4 3v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/>
-              <path d="M3 6l3-3 2 2-3 3zM8 3l3 3-2 2-3-3zM13 6l3-3 2 2-3 3z" opacity="0.6"/>
-            </svg>
+          <div class="absolute top-4 right-4 z-10 opacity-25">
+            <img src="icons/cinema.png" alt="" class="w-9 h-9" style="filter: invert(1);">
+          </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot development"></span>
+            <span class="status-label">Development</span>
           </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #120e0a 0%, #1a1208 50%, #0e0c08 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-15">
@@ -621,10 +690,13 @@
         <!-- Untitled Music Video — by Nitish John -->
         <div class="reveal d3 port-card relative cursor-pointer group rounded-sm" style="height: 300px;" data-film="musicvideo" onclick="openFilmModal('musicvideo')">
           <!-- Music note icon top-right -->
-          <div class="absolute top-4 right-4 z-10 opacity-30">
-            <svg class="w-8 h-8 text-warm-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M9 3v10.55A4 4 0 107 17V7h10V3H9z"/>
-            </svg>
+          <div class="absolute top-4 right-4 z-10 opacity-25">
+            <img src="icons/music-note.png" alt="" class="w-9 h-9" style="filter: invert(1);">
+          </div>
+          <!-- Status badge -->
+          <div class="absolute top-4 left-4 z-10 status-badge">
+            <span class="status-dot development"></span>
+            <span class="status-label">Development</span>
           </div>
           <div class="port-img w-full h-full" style="background: linear-gradient(135deg, #0a0e12 0%, #0e1418 50%, #080c10 100%);">
             <div class="w-full h-full flex items-center justify-center opacity-20">
@@ -669,7 +741,7 @@
         <!-- Sai Krishna Meka -->
         <div class="reveal d1 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Sai Krishna Meka" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/sai-krishna-meka.jpeg" alt="Sai Krishna Meka" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <!-- Corner accent -->
@@ -683,7 +755,7 @@
         <!-- Sankalp Gora -->
         <div class="reveal d2 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Sankalp Gora" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/sankalp-gora.jpeg" alt="Sankalp Gora" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-gold opacity-60"></div>
@@ -696,7 +768,7 @@
         <!-- Karthik Valmeekam -->
         <div class="reveal d3 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Karthik Valmeekam" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/karthik-valmeekam.jpeg" alt="Karthik Valmeekam" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-gold opacity-60"></div>
@@ -709,7 +781,7 @@
         <!-- Nikhil Punyala -->
         <div class="reveal d4 group">
           <div class="relative overflow-hidden mb-5" style="aspect-ratio: 1/1;">
-            <img src="https://placehold.co/400x400/111111/1a1a1a" alt="Nikhil Punyala" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <img src="people/nikhil-punyala.jpeg" alt="Nikhil Punyala" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/70 to-transparent"></div>
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: rgba(240,192,64,0.08)"></div>
             <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-gold opacity-60"></div>
@@ -810,7 +882,7 @@
       <blockquote class="font-display font-bold text-warm-white mb-8 relative z-10" style="font-size: clamp(1.5rem, 3.5vw, 2.5rem); line-height: 1.3; letter-spacing: -0.015em;">
         Making a film needs nobody's permission — it needs <em class="text-gold">initiation.</em>
       </blockquote>
-      <cite class="font-heading text-gold tracking-[0.32em] text-[10px] uppercase not-italic">Make A Movie Productions</cite>
+      <cite class="font-heading text-gold tracking-[0.32em] text-[10px] uppercase not-italic">Make A Movie Production</cite>
     </div>
   </section>
 
@@ -857,12 +929,12 @@
 
           <!-- Socials -->
           <div class="flex gap-3">
-            <a href="https://www.instagram.com/makeamovieproductions/" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 border border-warm-white/15 flex items-center justify-center text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+            <a href="https://www.instagram.com/makeamovieproduction/" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 border border-warm-white/15 flex items-center justify-center text-muted hover:border-gold hover:text-gold transition-colors duration-300">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
             </a>
-            <a href="https://www.youtube.com/@MakeAMovieProductions" target="_blank" rel="noopener" aria-label="YouTube" class="w-10 h-10 border border-warm-white/15 flex items-center justify-center text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+            <a href="https://www.youtube.com/@MakeAMovieProduction" target="_blank" rel="noopener" aria-label="YouTube" class="w-10 h-10 border border-warm-white/15 flex items-center justify-center text-muted hover:border-gold hover:text-gold transition-colors duration-300">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
@@ -935,9 +1007,9 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex items-center gap-4">
-          <img src="brand_assets/logo.jpg" alt="Make A Movie Productions" class="h-9 w-9 rounded-full object-cover">
+          <img src="brand_assets/logo.jpg" alt="Make A Movie Production" class="h-9 w-9 rounded-full object-cover">
           <div>
-            <div class="font-heading text-gold tracking-[0.18em] text-xs uppercase">Make A Movie Productions</div>
+            <div class="font-heading text-gold tracking-[0.18em] text-xs uppercase">Make A Movie Production</div>
             <div class="font-body text-muted text-[11px] mt-0.5">Short Film Production House · India &amp; USA</div>
           </div>
         </div>
@@ -956,7 +1028,7 @@
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
-          <p class="font-body text-[11px] text-muted">© 2026 Make A Movie Productions</p>
+          <p class="font-body text-[11px] text-muted">© 2026 Make A Movie Production</p>
         </div>
       </div>
     </div>
@@ -1007,14 +1079,16 @@
       sitting: {
         title: 'Sitting',
         year: 2026,
+        status: 'post-production',
         genre: 'Buddy-Comedy · Short Film',
-        logline: 'A proof-of-concept short by director Nikhil Punyala for his debut feature Chain Gang — two friends, one bench, a lifetime of unspoken things.',
-        letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
+        logline: 'Four friends gather for drinks. As the night deepens, reason quietly slips out of the door, and drunken madness takes it seat at the head of the table.',
+        letterboxd: 'https://letterboxd.com/film/sitting-1/',
         script: 'sitting/screenplay-sitting.pdf',
+        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
-          { role: 'Writer & Director', name: 'Nikhil Punyala', ig: null, tw: null },
-          { role: 'Cinematographer',   name: 'Nithin Dudala',  ig: null, tw: null },
-          { role: 'Music',             name: 'Nitish John',    ig: null, tw: null },
+          { role: 'Writer & Director', name: 'Nikhil Punyala',   ig: null, tw: null },
+          { role: 'Cinematographer',   name: 'Nithin Dudala',    ig: null, tw: null },
+          { role: 'Music',             name: 'Nitish John',      ig: null, tw: null },
           { role: 'Producer',          name: 'Sai Krishna Meka', ig: null, tw: null },
           { role: 'Producer',          name: 'Nikhil Punyala',   ig: null, tw: null },
           { role: 'Asst. Director',    name: 'Nithin Cheruku',   ig: null, tw: null },
@@ -1022,14 +1096,14 @@
           { role: 'Asst. Director',    name: 'Shiva Teja',       ig: null, tw: null },
         ],
         cast: [
-          { name: 'Nanda Kumar Daroju', ig: null, tw: null },
+          { name: 'Nanda Kumar Daroju',  ig: null, tw: null },
           { name: 'Pranay Varma',        ig: null, tw: null },
           { name: 'Nitish John',         ig: null, tw: null },
           { name: 'Siddhartha Rao G',    ig: null, tw: null },
         ],
         equipment: {
           'Camera': [
-            'Sony FX3 with batteries',
+            'Sony FX3',
             'G Master 35mm, 50mm, 85mm, 24–70mm lenses',
             'RS4 Gimbal',
             'Tripod',
@@ -1050,24 +1124,47 @@
         trackTitle: 'Sound of Sitting',
         artist: 'Nitish John',
         albumYear: '2026',
+        btsImages: [
+          'https://ik.imagekit.io/3klnmm4tg/Sitting_BTS/Sitting_BTS1.jpg',
+          'https://ik.imagekit.io/3klnmm4tg/Sitting_BTS/Sitting_BTS2.jpg',
+          'https://ik.imagekit.io/3klnmm4tg/Sitting_BTS/Sitting_BTS3.jpg',
+          'https://ik.imagekit.io/3klnmm4tg/Sitting_BTS/Sitting_BTS4.jpg',
+        ],
+        youtubeVideo: 'https://www.youtube.com/@MakeAMovieProductions',
+        tweets: [
+          { handle: '@placeholder_user1', name: 'Film Fan', text: 'Just watched Sitting and I\'m speechless. The chemistry between the leads is incredible. This is what indie cinema is all about. #Sitting #MakeAMovieProductions', link: 'http://www.google.com/' },
+          { handle: '@placeholder_user2', name: 'Cinema Lover', text: 'Nikhil Punyala is a name to watch. The restraint in Sitting is extraordinary — every frame earns its place. Can\'t wait for Chain Gang.', link: 'http://www.google.com/' },
+          { handle: '@placeholder_user3', name: 'Short Film Fan', text: 'The score in Sitting by @NitishJohn is hauntingly beautiful. Stayed with me all day. Give this film every award. 🎬', link: 'http://www.google.com/' },
+          { handle: '@placeholder_user4', name: 'Indie Cinema', text: 'Proof that you don\'t need a big budget to tell a story that hits hard. Sitting is a masterclass in minimalism. Bravo @makeamovieproductions', link: 'http://www.google.com/' },
+        ],
+        ost: {
+          spotify: 'https://open.spotify.com/',
+          youtubeMusic: 'https://music.youtube.com/',
+          appleMusic: 'https://music.apple.com/',
+        },
       },
       lockedin: {
         title: 'Locked In',
         year: 2026,
+        status: 'production',
         genre: 'Surreal-Thriller · Short Film',
-        logline: 'A man finds himself trapped — not in a room, but in a loop of his own making. Karthik Valmeekam\'s debut short, shot entirely in California.',
-        letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
+        logline: 'A man finds himself trapped not in a room, but in a loop of his own making. Karthik Valmeekam\'s debut short, shot entirely in California.',
+        letterboxd: 'https://letterboxd.com/film/locked-in-1/',
         script: 'lockedin/screenplay-lockedin.pdf',
+        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
           { role: 'Writer & Director',    name: 'Karthik Valmeekam',   ig: null, tw: null },
+          { role: 'Additional Screenplay',name: 'Rajanala Harsha Vardhan Reddy',   ig: null, tw: null },
           { role: 'Dialogues',            name: 'Karthik Valmeekam',   ig: null, tw: null },
           { role: 'Dialogues',            name: 'Sai Krishna Meka',    ig: null, tw: null },
           { role: 'Dialogues',            name: 'Khadyothan',          ig: null, tw: null },
           { role: 'Producer',             name: 'Karthik Valmeekam',   ig: null, tw: null },
+          { role: 'Cinematographer',      name: 'Vishnu',              ig: null, tw: null },
           { role: 'Production Designer',  name: 'Sai Seetal Pendyala', ig: null, tw: null },
           { role: 'Music',                name: 'Nitish John',         ig: null, tw: null },
-          { role: 'Asst. Director',       name: 'Sai Krishna Meka',   ig: null, tw: null },
-          { role: 'Asst. Director',       name: 'Khadyothan Dasari',  ig: null, tw: null },
+          { role: 'Asst. Director',       name: 'Sai Krishna Meka',    ig: null, tw: null },
+          { role: 'Asst. Director',       name: 'Khadyothan Dasari',   ig: null, tw: null },
+          { role: 'Asst. Director',       name: 'Gopal Seshadri',      ig: null, tw: null },
         ],
         cast: [
           { name: 'Rajanala Harsha Vardhan Reddy', ig: null, tw: null },
@@ -1076,14 +1173,33 @@
         ],
         equipment: {},
         hasVinyl: false,
+        btsImages: [
+          'https://placehold.co/600x400/0e0e14/14141e',
+          'https://placehold.co/600x400/100e14/1a181e',
+          'https://placehold.co/600x400/0e0e14/14141e',
+          'https://placehold.co/600x400/0a0a10/10101a',
+        ],
+        youtubeVideo: 'https://www.youtube.com/@MakeAMovieProductions',
+        tweets: [
+          { handle: '@placeholder_user1', name: 'Thriller Fan', text: 'Locked In kept me on the edge of my seat from the first frame to the last. Karthik Valmeekam is something special. Watch this.', link: 'http://www.google.com/' },
+          { handle: '@placeholder_user2', name: 'Cinephile', text: 'The disorientation in Locked In is masterfully crafted. You never quite know what\'s real — and that\'s exactly the point. Brilliant debut.', link: 'http://www.google.com/' },
+          { handle: '@placeholder_user3', name: 'Short Film Buff', text: 'Shot entirely in California and it uses every inch of its location. Locked In is atmospheric filmmaking at its finest. #IndieFilm', link: 'http://www.google.com/' },
+        ],
+        ost: {
+          spotify: 'https://open.spotify.com/',
+          youtubeMusic: 'https://music.youtube.com/',
+          appleMusic: 'https://music.apple.com/',
+        },
       },
       walkwithme: {
         title: 'Walk With Me',
         year: 2026,
+        status: 'development',
         genre: 'Romantic Drama · Short Film',
         logline: 'A romantic drama told through the quietest of gestures. Directed by Sai Krishna Meka, written with Sankalp Gora — featuring feet (yes, you read that right).',
         letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
         script: null,
+        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
           { role: 'Writer & Director', name: 'Sai Krishna Meka', ig: null, tw: null },
           { role: 'Writer',            name: 'Sankalp Gora',     ig: null, tw: null },
@@ -1091,20 +1207,42 @@
         cast: [],
         equipment: {},
         hasVinyl: false,
+        btsImages: [
+          'https://placehold.co/600x400/120e0a/1e1810',
+          'https://placehold.co/600x400/14100c/201a12',
+          'https://placehold.co/600x400/120e0a/1e1810',
+          'https://placehold.co/600x400/0e0c08/181410',
+        ],
+        youtubeVideo: 'https://www.youtube.com/@MakeAMovieProductions',
+        tweets: [
+          { handle: '@placeholder_user1', name: 'Romance Fan', text: 'Walk With Me is the most tender short film I\'ve seen all year. The attention to the small things — literally — is astonishing. More please.', link: 'http://www.google.com/' },
+          { handle: '@placeholder_user2', name: 'Film Student', text: 'Sai Krishna Meka and Sankalp Gora have written something genuinely original. Walk With Me is proof that any perspective can be cinematic.', link: 'http://www.google.com/' },
+        ],
+        ost: {
+          spotify: 'https://open.spotify.com/',
+          youtubeMusic: 'https://music.youtube.com/',
+          appleMusic: 'https://music.apple.com/',
+        },
       },
       musicvideo: {
         title: 'Untitled Music Video',
         year: 2026,
+        status: 'development',
         genre: 'Music Video',
-        logline: 'An untitled music video by Nitish John — currently in development.',
+        logline: 'An untitled music video by Nitish John - currently in development.',
         letterboxd: null,
         script: null,
+        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
           { role: 'Director', name: 'Nitish John', ig: null, tw: null },
         ],
         cast: [],
         equipment: {},
         hasVinyl: false,
+        btsImages: null,
+        youtubeVideo: null,
+        tweets: [],
+        ost: null,
       },
     };
 
@@ -1127,10 +1265,11 @@
       return `
       <div id="vinyl-player" style="background:#111; border:1px solid rgba(240,192,64,0.15); box-shadow: 0 0 60px rgba(240,192,64,0.06); border-radius:2px; padding:0;">
         <div style="padding:8px 20px; border-bottom:1px solid rgba(240,192,64,0.1); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:0.3em; color:#88807A; text-transform:uppercase;">Vinyl Player</span>
-          <span id="vp-playing-badge" style="font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:0.2em; color:#F0C040; text-transform:uppercase; opacity:0; transition:opacity 0.3s;">● Playing</span>
+          <span style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.3em; color:#88807A; text-transform:uppercase;">Vinyl Player</span>
+          <span id="vp-playing-badge" style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.2em; color:#F0C040; text-transform:uppercase; opacity:0; transition:opacity 0.3s;">● Playing</span>
         </div>
-        <div style="display:flex; flex-direction:row; gap:0; align-items:center; padding:32px;">
+        <style>@media(max-width:600px){#vinyl-player .vp-row{flex-direction:column!important;padding:20px!important}#vinyl-disc{width:160px!important;height:160px!important}#vinyl-player .vp-info{padding-left:0!important;padding-top:20px;width:100%}}</style>
+        <div class="vp-row" style="display:flex; flex-direction:row; gap:0; align-items:center; padding:32px;">
           <!-- Vinyl Disc -->
           <div style="flex:0 0 auto; position:relative; cursor:pointer;" id="vinyl-disc-wrap" onclick="vpToggle()">
             <div id="vinyl-disc" style="
@@ -1160,10 +1299,10 @@
           </div>
 
           <!-- Track info + controls -->
-          <div style="flex:1; padding-left:36px; min-width:0;">
+          <div class="vp-info" style="flex:1; padding-left:36px; min-width:0;">
             <div style="font-family:'Playfair Display',serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#F2EFE6; line-height:1.15; margin-bottom:6px;">${film.trackTitle}</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.22em; color:#F0C040; text-transform:uppercase; margin-bottom:4px;">${film.artist}</div>
-            <div style="font-family:'Jost',sans-serif; font-size:11px; color:#88807A; margin-bottom:28px;">${film.title} · ${film.albumYear}</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.22em; color:#F0C040; text-transform:uppercase; margin-bottom:4px;">${film.artist}</div>
+            <div style="font-family:'Jost',sans-serif; font-size:13px; color:#88807A; margin-bottom:28px;">${film.title} · ${film.albumYear}</div>
 
             <!-- Progress bar -->
             <div style="margin-bottom:8px;">
@@ -1171,8 +1310,8 @@
                 <div id="vp-progress-fill" style="height:100%; width:0%; background:#F0C040; border-radius:2px; transition:width 0.1s linear; pointer-events:none;"></div>
               </div>
               <div style="display:flex; justify-content:space-between; margin-top:5px;">
-                <span id="vp-current" style="font-family:'Jost',sans-serif; font-size:10px; color:#88807A;">0:00</span>
-                <span id="vp-duration" style="font-family:'Jost',sans-serif; font-size:10px; color:#88807A;">0:00</span>
+                <span id="vp-current" style="font-family:'Jost',sans-serif; font-size:12px; color:#88807A;">0:00</span>
+                <span id="vp-duration" style="font-family:'Jost',sans-serif; font-size:12px; color:#88807A;">0:00</span>
               </div>
             </div>
 
@@ -1200,11 +1339,11 @@
 
             <!-- Share link -->
             <div style="display:flex; align-items:center; gap:10px;">
-              <button onclick="vpShareLink()" id="vp-share-btn" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(240,192,64,0.2);background:transparent;color:#88807A;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.2)';this.style.color='#88807A'">
+              <button onclick="vpShareLink()" id="vp-share-btn" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(240,192,64,0.2);background:transparent;color:#88807A;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.2)';this.style.color='#88807A'">
                 <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 Share
               </button>
-              <span id="vp-share-toast" style="font-family:'Jost',sans-serif;font-size:10px;color:#F0C040;opacity:0;transition:opacity 0.3s;">Link copied!</span>
+              <span id="vp-share-toast" style="font-family:'Jost',sans-serif;font-size:12px;color:#F0C040;opacity:0;transition:opacity 0.3s;">Link copied!</span>
             </div>
           </div>
         </div>
@@ -1225,16 +1364,16 @@
       let html = `<div class="mt-10">
         <div class="flex items-center gap-5 mb-6">
           <div class="gold-line"></div>
-          <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Equipment Breakdown</span>
+          <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Equipment Breakdown</span>
           <div class="gold-line"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">`;
       for (const [cat, items] of Object.entries(eq)) {
         html += `<div>
-          <div class="font-heading text-warm-white/60 text-[10px] tracking-[0.22em] uppercase mb-3">${cat}</div>
+          <div class="font-heading text-warm-white/60 text-[12px] tracking-[0.22em] uppercase mb-3">${cat}</div>
           <ul class="space-y-2">`;
         for (const item of items) {
-          html += `<li class="font-body text-xs text-muted flex items-start gap-2"><span class="text-gold/40 mt-0.5">—</span><span>${item}</span></li>`;
+          html += `<li class="font-body text-sm text-muted flex items-start gap-2"><span class="text-gold/40 mt-0.5">—</span><span>${item}</span></li>`;
         }
         html += `</ul></div>`;
       }
@@ -1242,36 +1381,204 @@
       return html;
     }
 
+    // ── BTS + YouTube section ─────────────────────────────────────────────
+    function btsHTML(f) {
+      if (!f.btsImages || f.btsImages.length === 0) return '';
+      return `
+      <div class="py-10 border-b border-warm-white/8">
+        <div class="flex items-center gap-5 mb-8">
+          <div class="gold-line"></div>
+          <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Behind the Scenes</span>
+          <div class="gold-line"></div>
+        </div>
+        <!-- 2×2 BTS grid -->
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          ${f.btsImages.map((src, i) => `
+          <div class="relative overflow-hidden group" style="aspect-ratio:4/3;">
+            <img src="${src}" alt="BTS ${i+1}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-cinema-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:rgba(240,192,64,0.04)"></div>
+          </div>`).join('')}
+        </div>
+        <!-- YouTube video tile -->
+        ${f.youtubeVideo ? `
+        <a href="${f.youtubeVideo}" target="_blank" rel="noopener" class="group flex items-center gap-5 border border-warm-white/8 p-5 hover:border-gold/30 transition-colors duration-300" style="background:rgba(240,192,64,0.02);">
+          <div class="flex-shrink-0 w-14 h-14 flex items-center justify-center border border-warm-white/10 group-hover:border-gold/40 transition-colors duration-300" style="background:#0f0f0f;">
+            <svg class="w-6 h-6 text-muted group-hover:text-gold transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-heading text-warm-white/80 text-[12px] tracking-[0.22em] uppercase mb-1 group-hover:text-gold transition-colors duration-300">Watch on YouTube</div>
+            <div class="font-body text-sm text-muted">Make A Movie Productions · Official Channel</div>
+          </div>
+          <svg class="w-4 h-4 text-muted group-hover:text-gold ml-auto transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>` : ''}
+      </div>`;
+    }
+
+    // ── Twitter / X testimonials — 3D cylindrical carousel ───────────────
+    let _cyUID = 0;
+    function tweetsHTML(tweets) {
+      if (!tweets || tweets.length === 0) return '';
+      const uid = 'cy' + (++_cyUID);
+      const cards = tweets.map((t, i) =>
+        '<div class="cy-card" data-index="' + i + '">' +
+        '<div style="padding:22px 24px;height:100%;display:flex;flex-direction:column;justify-content:space-between;">' +
+        '<p style="font-family:\'Jost\',sans-serif;font-size:13px;color:rgba(242,239,230,0.75);line-height:1.8;margin:0 0 18px;">' + t.text + '</p>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;">' +
+        '<div><div style="font-family:\'Playfair Display\',serif;font-size:14px;color:#F2EFE6;font-weight:600;">' + t.name + '</div>' +
+        '<div style="font-family:\'Jost\',sans-serif;font-size:12px;color:#88807A;margin-top:2px;">' + t.handle + '</div></div>' +
+        '<svg width="13" height="13" fill="rgba(240,192,64,0.3)" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
+        '</div></div></div>'
+      ).join('');
+
+      const dots = tweets.map((_, i) =>
+        '<div class="cy-dot" id="' + uid + '-dot-' + i + '" onclick="cyGoTo(\'' + uid + '\',' + i + ')" style="width:' + (i===0?'18':'5') + 'px;height:5px;border-radius:3px;background:' + (i===0?'#F0C040':'rgba(240,192,64,0.2)') + ';cursor:pointer;transition:all 0.3s;"></div>'
+      ).join('');
+
+      return '<div class="py-10 border-b border-warm-white/8">' +
+        '<div class="flex items-center gap-5 mb-10"><div class="gold-line"></div>' +
+        '<span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">What People Are Saying</span>' +
+        '<div class="gold-line"></div></div>' +
+        '<div id="' + uid + '" class="cy-wrap" data-n="' + tweets.length + '" style="position:relative;height:280px;display:flex;align-items:center;justify-content:center;">' +
+        '<div class="cy-scene" style="width:340px;height:220px;position:relative;perspective:900px;">' +
+        '<div id="' + uid + '-rotor" class="cy-rotor" style="width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.33,1,0.68,1);">' +
+        cards + '</div></div>' +
+        '<button onclick="cyPrev(\'' + uid + '\')" style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:36px;height:36px;border:1px solid rgba(240,192,64,0.2);background:rgba(8,8,8,0.8);color:#88807A;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;" onmouseenter="this.style.borderColor=\'#F0C040\';this.style.color=\'#F0C040\'" onmouseleave="this.style.borderColor=\'rgba(240,192,64,0.2)\';this.style.color=\'#88807A\'">' +
+        '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>' +
+        '<button onclick="cyNext(\'' + uid + '\')" style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:36px;height:36px;border:1px solid rgba(240,192,64,0.2);background:rgba(8,8,8,0.8);color:#88807A;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;" onmouseenter="this.style.borderColor=\'#F0C040\';this.style.color=\'#F0C040\'" onmouseleave="this.style.borderColor=\'rgba(240,192,64,0.2)\';this.style.color=\'#88807A\'">' +
+        '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>' +
+        '<div id="' + uid + '-dots" style="position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);display:flex;gap:6px;">' + dots + '</div>' +
+        '</div></div>';
+    }
+
+    // Initialise all .cy-wrap elements inside a container after innerHTML set
+    function initCarousels(container) {
+      container.querySelectorAll('.cy-wrap').forEach(function(wrap) {
+        const id = wrap.id;
+        const n = parseInt(wrap.dataset.n, 10);
+        if (!n || window['_cy_' + id]) return;
+        const angleStep = 360 / n;
+        const radius = Math.round(170 / Math.tan(Math.PI / n)) || 220;
+        let cur = 0;
+        const rotor = document.getElementById(id + '-rotor');
+        const cards = rotor.querySelectorAll('.cy-card');
+
+        cards.forEach(function(card, i) {
+          card.style.transform = 'rotateY(' + (angleStep * i) + 'deg) translateZ(' + radius + 'px)';
+        });
+
+        function updateDots() {
+          for (var i = 0; i < n; i++) {
+            var dot = document.getElementById(id + '-dot-' + i);
+            if (!dot) continue;
+            dot.style.width = i === cur ? '18px' : '5px';
+            dot.style.background = i === cur ? '#F0C040' : 'rgba(240,192,64,0.2)';
+          }
+        }
+
+        function rotate(idx) {
+          cur = ((idx % n) + n) % n;
+          rotor.style.transform = 'rotateY(' + (-angleStep * cur) + 'deg)';
+          cards.forEach(function(card, i) {
+            var diff = ((i - cur + n) % n);
+            var mirror = n - diff;
+            var nearest = Math.min(diff, mirror);
+            var brightness = nearest === 0 ? 1 : nearest === 1 ? 0.45 : 0.15;
+            card.style.filter = 'brightness(' + brightness + ')';
+          });
+          updateDots();
+        }
+
+        window['_cy_' + id] = { next: function(){ rotate(cur+1); }, prev: function(){ rotate(cur-1); }, goTo: rotate };
+        rotate(0);
+      });
+    }
+
+    function cyNext(id) { window['_cy_' + id] && window['_cy_' + id].next(); }
+    function cyPrev(id) { window['_cy_' + id] && window['_cy_' + id].prev(); }
+    function cyGoTo(id, i) { window['_cy_' + id] && window['_cy_' + id].goTo(i); }
+
+    // ── OST links section ─────────────────────────────────────────────────
+    function ostHTML(ost) {
+      if (!ost) return '';
+      return `
+      <div class="py-10">
+        <div class="flex items-center gap-5 mb-8">
+          <div class="gold-line"></div>
+          <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Original Soundtrack</span>
+          <div class="gold-line"></div>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="${ost.spotify}" target="_blank" rel="noopener" class="group inline-flex items-center gap-3 border border-warm-white/10 px-5 py-3.5 hover:border-gold/30 transition-colors duration-300" style="background:#0a0a0a;">
+            <svg class="w-4 h-4 text-muted group-hover:text-gold transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <div>
+              <div class="font-heading text-[11px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
+              <div class="font-heading text-[13px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">Spotify</div>
+            </div>
+          </a>
+          <a href="${ost.youtubeMusic}" target="_blank" rel="noopener" class="group inline-flex items-center gap-3 border border-warm-white/10 px-5 py-3.5 hover:border-gold/30 transition-colors duration-300" style="background:#0a0a0a;">
+            <svg class="w-4 h-4 text-muted group-hover:text-gold transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L16.2 12l-6.516 3.54z"/></svg>
+            <div>
+              <div class="font-heading text-[11px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
+              <div class="font-heading text-[13px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">YouTube Music</div>
+            </div>
+          </a>
+          <a href="${ost.appleMusic}" target="_blank" rel="noopener" class="group inline-flex items-center gap-3 border border-warm-white/10 px-5 py-3.5 hover:border-gold/30 transition-colors duration-300" style="background:#0a0a0a;">
+            <svg class="w-4 h-4 text-muted group-hover:text-gold transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026C4.786.07 4.043.15 3.34.428 2.004.958 1.04 1.88.475 3.208A5.491 5.491 0 00.05 5.08c-.013.34-.024.68-.024 1.02v11.8c0 .36.01.7.024 1.04.055 1.272.376 2.45 1.084 3.5.834 1.235 1.994 2.015 3.466 2.354.37.087.753.13 1.135.158.386.03.773.04 1.16.04h11.2c.387 0 .773-.01 1.16-.04.382-.028.765-.07 1.135-.158 1.472-.34 2.632-1.12 3.466-2.354.708-1.05 1.03-2.228 1.084-3.5.013-.34.024-.68.024-1.02V6.1c0-.34-.01-.68-.024-1.02l.024.044zm-6.753 5.982v4.712c0 1.04-.766 1.93-1.794 2.05-.112.013-.223.018-.334.018-.92 0-1.787-.59-2.01-1.48a2.06 2.06 0 01-.054-.488c0-1.063.828-1.95 1.876-2.023.34-.024.664.017.967.118V8.1l-5.59 1.307v5.863c0 1.04-.765 1.93-1.793 2.05-.112.013-.223.018-.335.018-.92 0-1.787-.59-2.01-1.48a2.06 2.06 0 01-.053-.488c0-1.063.828-1.95 1.875-2.023.34-.024.664.017.967.118V7.1a.62.62 0 01.468-.6l6.83-1.597a.625.625 0 01.76.606v6.597z"/></svg>
+            <div>
+              <div class="font-heading text-[11px] tracking-[0.2em] uppercase text-muted/60 group-hover:text-gold/60 transition-colors duration-300">Listen on</div>
+              <div class="font-heading text-[13px] tracking-[0.15em] uppercase text-warm-white/80 group-hover:text-warm-white transition-colors duration-300">Apple Music</div>
+            </div>
+          </a>
+        </div>
+      </div>`;
+    }
+
     // ── Render modal content ──────────────────────────────────────────────
     function renderModal(key) {
       const f = FILMS[key];
       if (!f) return '';
 
-      const crewRows = f.crew.map(c => `
-        <div class="flex items-center justify-between py-3 border-b border-warm-white/5">
-          <div>
-            <div class="font-heading text-gold text-[10px] tracking-[0.22em] uppercase mb-0.5">${c.role}</div>
-            <div class="font-display text-sm text-warm-white">${c.name}</div>
-          </div>
-          <div class="flex gap-1">${igIcon(c.ig)}${twIcon(c.tw)}</div>
+      const crewByRole = {};
+      f.crew.forEach(c => {
+        if (!crewByRole[c.role]) crewByRole[c.role] = [];
+        crewByRole[c.role].push(c.name);
+      });
+      const crewRows = Object.entries(crewByRole).map(([role, names]) => `
+        <div class="py-3 border-b border-warm-white/5">
+          <div class="font-heading text-gold text-[11px] tracking-[0.22em] uppercase mb-0.5">${role}</div>
+          <div class="font-display text-sm text-warm-white">${names.join(', ')}</div>
         </div>`).join('');
 
       const castRows = f.cast.length ? f.cast.map(c => `
-        <div class="flex items-center justify-between py-3 border-b border-warm-white/5">
+        <div class="py-3 border-b border-warm-white/5">
           <div class="font-display text-sm text-warm-white">${c.name}</div>
-          <div class="flex gap-1">${igIcon(c.ig)}${twIcon(c.tw)}</div>
         </div>`).join('') : `<p class="font-body text-xs text-muted py-3">TBD</p>`;
 
       const scriptBtn = f.script
-        ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
-            Download Script
-          </a>` : '';
+        ? (f.status === 'release'
+          ? `<a href="${f.script}" download class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+              Download Script
+            </a>`
+          : `<span class="inline-flex items-center gap-2 border border-warm-white/6 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase cursor-not-allowed" style="color:rgba(136,128,122,0.32);" title="Script available after release">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+              Script Locked
+            </span>`)
+        : '';
 
       const letterboxdBtn = f.letterboxd
-        ? `<a href="${f.letterboxd}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[10px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+        ? `<a href="${f.letterboxd}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><circle cx="6" cy="12" r="5"/><circle cx="12" cy="12" r="5" opacity="0.7"/><circle cx="18" cy="12" r="5" opacity="0.4"/></svg>
             Log it on Letterboxd
+          </a>` : '';
+
+      const instaReelBtn = f.instaReel
+        ? `<a href="${f.instaReel}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Watch Reel
           </a>` : '';
 
       return `
@@ -1279,22 +1586,25 @@
         <div class="pt-16 pb-10 border-b border-warm-white/8">
           <div class="flex items-center gap-5 mb-4">
             <div class="gold-line"></div>
-            <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">${f.genre}</span>
+            <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">${f.genre}</span>
           </div>
           <h2 class="font-display font-bold text-warm-white mb-3" style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing:-0.025em;">${f.title}</h2>
           <p class="font-body text-muted max-w-2xl" style="line-height:1.8; font-size:1rem;">${f.logline}</p>
-          <div class="flex flex-wrap gap-3 mt-6">${scriptBtn}${letterboxdBtn}</div>
+          <div class="flex flex-wrap gap-3 mt-6">${scriptBtn}${letterboxdBtn}${instaReelBtn}</div>
         </div>
 
         ${f.hasVinyl ? `<!-- Vinyl Player -->
         <div class="py-10 border-b border-warm-white/8">
           <div class="flex items-center gap-5 mb-8">
             <div class="gold-line"></div>
-            <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Original Score</span>
+            <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Original Score</span>
             <div class="gold-line"></div>
           </div>
           ${vinylPlayerHTML(f)}
         </div>` : ''}
+
+        <!-- BTS + YouTube -->
+        ${btsHTML(f)}
 
         <!-- Cast & Crew split -->
         <div class="py-10 border-b border-warm-white/8">
@@ -1302,14 +1612,14 @@
             <div>
               <div class="flex items-center gap-5 mb-6">
                 <div class="gold-line"></div>
-                <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Crew</span>
+                <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Crew</span>
               </div>
               ${crewRows}
             </div>
             <div>
               <div class="flex items-center gap-5 mb-6">
                 <div class="gold-line"></div>
-                <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Cast</span>
+                <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Cast</span>
               </div>
               ${castRows}
             </div>
@@ -1318,6 +1628,12 @@
 
         <!-- Equipment -->
         ${equipmentHTML(f.equipment)}
+
+        <!-- Twitter Testimonials -->
+        ${tweetsHTML(f.tweets)}
+
+        <!-- OST -->
+        ${ostHTML(f.ost)}
       `;
     }
 
@@ -1329,6 +1645,7 @@
       const modal = document.getElementById('film-modal');
       const content = document.getElementById('modal-content');
       content.innerHTML = renderModal(key);
+      initCarousels(content);
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       // Update URL hash (enables direct linking & browser back)

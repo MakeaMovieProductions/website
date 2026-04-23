@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filmmaker's Toolkit — Make A Movie Production</title>
+  <meta name="description" content="Free production tools built and battle-tested by Make A Movie Production. Download the Shot List Template and more.">
+  <meta property="og:title" content="Filmmaker's Toolkit — Make A Movie Production">
+  <meta property="og:description" content="Free filmmaking tools from Make A Movie Production. Production-ready templates, free for every filmmaker.">
+  <meta property="og:image" content="/brand_assets/shoot.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cinema-black': '#080808',
+            'cinema-dark':  '#111111',
+            'cinema-card':  '#1A1A1A',
+            'gold':         '#F0C040',
+            'gold-light':   '#FFD966',
+            'gold-dark':    '#C8962A',
+            'amber-glow':   '#E87820',
+            'warm-white':   '#F2EFE6',
+            'muted':        '#88807A',
+          },
+          fontFamily: {
+            'display': ['"Playfair Display"', 'serif'],
+            'heading': ['Oswald', 'sans-serif'],
+            'body':    ['Jost', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Film grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 999; opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #F0C040; border-radius: 2px; }
+
+    /* Nav */
+    .nav-glass {
+      background: rgba(8,8,8,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(240,192,64,0.10);
+    }
+    .nav-link { position: relative; transition: color 0.25s ease; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: #F0C040; transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { color: #F2EFE6; }
+
+    /* Gold rule */
+    .gold-rule { background: linear-gradient(90deg, transparent, rgba(240,192,64,0.3), transparent); height: 1px; }
+    .gold-line  { width: 56px; height: 2px; background: linear-gradient(90deg, #F0C040, #E87820); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
+    }
+    .revealed { opacity: 1; transform: none; }
+    .d1{transition-delay:0.06s} .d2{transition-delay:0.12s} .d3{transition-delay:0.18s}
+    .d4{transition-delay:0.24s} .d5{transition-delay:0.30s} .d6{transition-delay:0.36s}
+    .d7{transition-delay:0.42s}
+
+    /* Floating glass step cards */
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0px);  }
+      50%       { transform: translateY(-9px); }
+    }
+
+    .glass-step {
+      position: relative;
+      background: linear-gradient(135deg,
+        rgba(255,255,255,0.04) 0%,
+        rgba(255,255,255,0.01) 100%
+      );
+      backdrop-filter: blur(22px) saturate(130%);
+      -webkit-backdrop-filter: blur(22px) saturate(130%);
+      border: 1px solid rgba(240,192,64,0.10);
+      border-top-color: rgba(255,255,255,0.09);
+      border-radius: 20px;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.60),
+        0 2px 8px rgba(0,0,0,0.30),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      transition:
+        transform 0.5s cubic-bezier(0.16,1,0.3,1),
+        box-shadow 0.5s ease,
+        border-color 0.3s ease;
+      animation: cardFloat 5.5s ease-in-out infinite;
+    }
+    /* Top shimmer line */
+    .glass-step::before {
+      content: '';
+      position: absolute; top: 0; left: 14%; right: 14%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+      border-radius: 1px;
+    }
+    .glass-step:hover {
+      transform: translateY(-14px) scale(1.015) !important;
+      border-color: rgba(240,192,64,0.30);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.72),
+        0 0 56px rgba(240,192,64,0.09),
+        inset 0 1px 0 rgba(255,255,255,0.09);
+      animation-play-state: paused;
+    }
+    /* Staggered float delays */
+    .glass-step:nth-child(1) { animation-delay: 0.00s; }
+    .glass-step:nth-child(2) { animation-delay: 0.55s; }
+    .glass-step:nth-child(3) { animation-delay: 1.10s; }
+    .glass-step:nth-child(4) { animation-delay: 0.28s; }
+    .glass-step:nth-child(5) { animation-delay: 0.83s; }
+    .glass-step:nth-child(6) { animation-delay: 1.38s; }
+    .glass-step:nth-child(7) { animation-delay: 0.66s; }
+
+    /* Step number glow */
+    .step-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      color: #F0C040;
+      text-shadow: 0 0 20px rgba(240,192,64,0.5);
+    }
+
+    /* Tool overview cards */
+    .tool-tile {
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+    }
+    .tool-tile:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(240,192,64,0.09), 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    /* Download button */
+    .dl-btn {
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .dl-btn:hover {
+      background: #FFD966;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(240,192,64,0.30);
+    }
+    .dl-btn:active { transform: translateY(0); }
+    .dl-btn:focus-visible { outline: 2px solid #F0C040; outline-offset: 3px; }
+
+    /* Section spotlight bg */
+    .steps-bg {
+      background:
+        radial-gradient(ellipse 90% 60% at 15% 40%, rgba(240,192,64,0.04) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 70% at 85% 60%, rgba(232,120,32,0.03) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 50% 100%, rgba(240,192,64,0.03) 0%, transparent 50%),
+        #0A0A0A;
+    }
+    .dl-bg {
+      background:
+        radial-gradient(ellipse 70% 90% at 50% 50%, rgba(240,192,64,0.08) 0%, transparent 65%),
+        #080808;
+    }
+
+    /* Logo flicker */
+    @keyframes flicker {
+      0%,89%,91%,93%,100%{opacity:1} 90%{opacity:0.75} 92%{opacity:0.9}
+    }
+    .logo-name { animation: flicker 9s infinite; }
+
+    /* Shimmer */
+    .shimmer { position: relative; overflow: hidden; }
+    .shimmer::after {
+      content: ''; position: absolute; top: -50%; left: -80%;
+      width: 50%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: skewX(-20deg); transition: left 0.55s ease;
+    }
+    .shimmer:hover::after { left: 160%; }
+
+    /* Carousel: disable glass-step float inside carousel track */
+    #csl-track .csl-slide { animation: none !important; }
+    #csl-track .csl-slide:hover { transform: none !important; animation-play-state: unset; }
+  </style>
+</head>
+
+<body class="bg-cinema-black text-warm-white font-body antialiased overflow-x-hidden">
+
+<!-- ╔══════════════════ NAV ══════════════════╗ -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+
+    <a href="/" class="flex items-center gap-3 group">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-9 w-9 rounded-full object-cover">
+      <span class="font-heading tracking-[0.18em] text-gold text-sm uppercase logo-name">Make A Movie</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#about"   class="nav-link font-body text-xs text-muted tracking-widest uppercase">About</a>
+      <a href="/#work"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
+      <a href="/#people"  class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
+      <a href="/#contact" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Contact</a>
+      <a href="/" class="shimmer ml-4 px-5 py-2.5 border border-warm-white/20 text-warm-white/60 font-heading tracking-[0.18em] text-xs uppercase hover:border-gold hover:text-gold transition-colors duration-300">
+        ← Main Site
+      </a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden p-1" aria-label="Open menu">
+      <svg class="w-5 h-5 text-warm-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-white/5 px-6 py-5 flex flex-col gap-5">
+    <a href="/#about"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">About</a>
+    <a href="/#work"    class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Our Work</a>
+    <a href="/#people"  class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">People</a>
+    <a href="/"         class="text-xs text-gold tracking-widest uppercase">← Main Site</a>
+  </div>
+</nav>
+
+<!-- ╔══════════════════ HERO ══════════════════╗ -->
+<section class="relative pt-40 pb-28 overflow-hidden" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,192,64,0.08) 0%, transparent 65%), #080808;">
+
+  <div class="absolute inset-0 pointer-events-none" style="background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(240,192,64,0.008) 3px, rgba(240,192,64,0.008) 4px);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 text-center">
+
+    <div class="flex items-center justify-center gap-5 mb-7">
+      <div class="gold-line"></div>
+      <span class="font-heading text-gold tracking-[0.32em] text-[10px] uppercase">By Make A Movie Production</span>
+      <div class="gold-line"></div>
+    </div>
+
+    <h1 class="font-display font-bold text-warm-white mb-6" style="font-size: clamp(2.8rem, 7vw, 5.5rem); letter-spacing: -0.03em; line-height: 1.05;">
+      Filmmaker's<br><em class="text-gold">Toolkit</em>
+    </h1>
+
+    <p class="font-body text-muted max-w-xl mx-auto mb-10" style="font-size: 1.05rem; line-height: 1.8;">
+      Production tools built and battle-tested on our own shoots — free for every filmmaker, forever.
+    </p>
+
+    <div class="inline-flex items-center gap-2.5 px-5 py-2.5 border border-gold/20 rounded-full">
+      <span class="w-2 h-2 rounded-full bg-gold" style="box-shadow: 0 0 8px rgba(240,192,64,0.7);"></span>
+      <span class="font-heading text-gold text-[10px] tracking-[0.28em] uppercase">1 Tool Available</span>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- ╔══════════════════ TOOLS GRID ══════════════════╗ -->
+<section class="py-24 bg-cinema-dark">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="text-center mb-16 reveal">
+      <div class="flex items-center justify-center gap-5 mb-6">
+        <div class="gold-line"></div>
+        <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Available Tools</span>
+        <div class="gold-line"></div>
+      </div>
+      <h2 class="font-display font-bold" style="font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.025em;">
+        Everything You Need<br><em class="text-gold">On Set and Off</em>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Shot List Template — active -->
+      <a href="#shotlist" class="reveal d1 tool-tile block bg-cinema-card rounded-sm p-8 border border-warm-white/5 hover:border-gold/20 cursor-pointer group">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-gold/25 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+          <span class="font-heading text-gold text-[9px] tracking-[0.28em] uppercase">Pre-Production</span>
+        </div>
+        <div class="w-12 h-12 border border-gold/20 rounded-sm flex items-center justify-center mb-6 group-hover:border-gold/50 group-hover:bg-gold/5 transition-colors duration-300">
+          <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-warm-white mb-3">Shot List Template</h3>
+        <p class="font-body text-sm text-muted mb-6" style="line-height: 1.75;">A production-ready Excel sheet for planning every shot — with crew info, shot language dropdowns, time estimates, and on-set status tracking. Compatible with Google Sheets.</p>
+        <div class="flex items-center gap-2 font-heading text-gold text-[10px] tracking-[0.22em] uppercase group-hover:gap-3 transition-all duration-300">
+          <span>See How It Works</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </a>
+
+      <!-- Coming soon — Call Sheet -->
+      <div class="reveal d2 bg-cinema-card/50 rounded-sm p-8 border border-warm-white/4 opacity-50 cursor-not-allowed">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-warm-white/10 rounded-full">
+          <span class="font-heading text-muted text-[9px] tracking-[0.28em] uppercase">Coming Soon</span>
+        </div>
+        <div class="w-12 h-12 border border-warm-white/10 rounded-sm flex items-center justify-center mb-6">
+          <svg class="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-muted mb-3">Call Sheet Template</h3>
+        <p class="font-body text-sm text-muted/60" style="line-height: 1.75;">Crew call times, locations, scene breakdown, and contact sheet — all in one document.</p>
+      </div>
+
+      <!-- Coming soon — Budget -->
+      <div class="reveal d3 bg-cinema-card/50 rounded-sm p-8 border border-warm-white/4 opacity-50 cursor-not-allowed">
+        <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-warm-white/10 rounded-full">
+          <span class="font-heading text-muted text-[9px] tracking-[0.28em] uppercase">Coming Soon</span>
+        </div>
+        <div class="w-12 h-12 border border-warm-white/10 rounded-sm flex items-center justify-center mb-6">
+          <svg class="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-muted mb-3">Production Budget</h3>
+        <p class="font-body text-sm text-muted/60" style="line-height: 1.75;">Track every line item from equipment rental to catering. Built for micro-budget short films.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- ╔══════════════════ SHOT LIST DEEP DIVE ══════════════════╗ -->
+<section id="shotlist" class="steps-bg py-32 relative">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-6 reveal">
+      <div class="flex items-center justify-center gap-5 mb-6">
+        <div class="gold-line"></div>
+        <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">How to Use It</span>
+        <div class="gold-line"></div>
+      </div>
+      <h2 class="font-display font-bold text-warm-white mb-5" style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.025em;">
+        Shot List <em class="text-gold">Template</em>
+      </h2>
+      <p class="font-body text-muted max-w-2xl mx-auto" style="line-height: 1.8; font-size: 1rem;">
+        A 15-column, 500-row production sheet. Seven steps from blank template to locked shot list.
+      </p>
+    </div>
+
+    <!-- File badges -->
+    <div class="flex items-center justify-center gap-3 mb-20 reveal">
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">XLSX</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">~35KB</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">Version 2</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-muted border border-warm-white/10 px-3 py-1.5 rounded-full">Google Sheets Compatible</span>
+      <span class="font-heading text-[9px] tracking-[0.22em] uppercase text-gold border border-gold/25 px-3 py-1.5 rounded-full">Free</span>
+    </div>
+
+    <!-- ── STEP CAROUSEL ──────────────────────────────────────── -->
+    <div class="reveal" id="step-carousel-wrap">
+
+      <!-- step counter + dots -->
+      <div class="flex flex-col items-center gap-3 mb-10">
+        <p class="font-heading text-[10px] tracking-[0.28em] uppercase" style="color:rgba(240,192,64,0.5);">
+          Step <span id="csl-num" class="text-gold">01</span> of 07
+        </p>
+        <div class="flex gap-2" id="csl-dots"></div>
+      </div>
+
+      <div class="relative max-w-2xl mx-auto" style="padding:0 44px;">
+        <button id="csl-prev" style="position:absolute;left:0;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;border-radius:50%;border:1px solid rgba(240,192,64,0.25);background:rgba(240,192,64,0.06);color:#F0C040;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s;" aria-label="Previous">&#8592;</button>
+        <button id="csl-next" style="position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:10;width:36px;height:36px;border-radius:50%;border:1px solid rgba(240,192,64,0.25);background:rgba(240,192,64,0.06);color:#F0C040;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s;" aria-label="Next">&#8594;</button>
+        <div style="overflow:hidden;border-radius:20px;border:1px solid rgba(240,192,64,0.1);box-shadow:0 24px 70px rgba(0,0,0,0.65);background:#0d0d18;">
+          <div id="csl-track" style="display:flex;transition:transform 0.55s cubic-bezier(0.16,1,0.3,1);will-change:transform;">
+
+            <!-- SLIDE 01 — Fill Production Info -->
+            <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
+              <div style="height:210px;overflow:hidden;position:relative;background:#07070d;border-bottom:1px solid rgba(240,192,64,0.08);">
+                <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                  <rect width="560" height="210" fill="#07070d"/>
+                  <!-- frozen header bar -->
+                  <rect width="560" height="36" fill="#0f0f1a"/>
+                  <text x="16" y="23" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" letter-spacing="3" opacity="0.9">PRODUCTION HEADER — FROZEN ROW 1</text>
+                  <line x1="0" y1="36" x2="560" y2="36" stroke="#F0C040" stroke-width="1" stroke-opacity="0.25"/>
+                  <!-- LEFT FIELDS -->
+                  <text x="16" y="56" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Project Name</text>
+                  <rect x="16" y="60" width="180" height="22" rx="3" fill="#111120" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4"/>
+                  <text x="24" y="75" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">Sitting (2026)</text>
+                  <text x="16" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Director</text>
+                  <rect x="16" y="104" width="84" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="24" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">N. Punyala</text>
+                  <text x="108" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">1st A.D.</text>
+                  <rect x="108" y="104" width="88" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="116" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">M. Singh</text>
+                  <text x="16" y="144" font-family="Jost,sans-serif" font-size="9" fill="#88807A">D.P.</text>
+                  <rect x="16" y="148" width="180" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="24" y="163" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">A. Rajan</text>
+                  <!-- DIVIDER -->
+                  <line x1="224" y1="44" x2="224" y2="200" stroke="#2a2a3a" stroke-width="1"/>
+                  <!-- RIGHT FIELDS -->
+                  <text x="240" y="56" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Shoot Date</text>
+                  <rect x="240" y="60" width="120" height="22" rx="3" fill="#111120" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4"/>
+                  <text x="248" y="75" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">Apr 15, 2026</text>
+                  <text x="240" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Call Time</text>
+                  <rect x="240" y="104" width="56" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="248" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">07:00</text>
+                  <text x="304" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Wrap</text>
+                  <rect x="304" y="104" width="56" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="312" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">19:00</text>
+                  <text x="240" y="144" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Set Location</text>
+                  <rect x="240" y="148" width="300" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="248" y="163" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">WALC Campus — Park Bench (Ext.)</text>
+                  <!-- freeze indicator line -->
+                  <rect x="0" y="205" width="560" height="3" fill="url(#g1)" opacity="0.8"/>
+                  <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#F0C040" stop-opacity="0"/><stop offset="50%" stop-color="#F0C040" stop-opacity="1"/><stop offset="100%" stop-color="#F0C040" stop-opacity="0"/></linearGradient></defs>
+                </svg>
+              </div>
+              <div style="padding:28px 32px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <span class="step-num">01</span>
+                  <div style="width:34px;height:34px;border:1px solid rgba(240,192,64,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,192,64,0.05);">
+                    <svg width="16" height="16" fill="none" stroke="#F0C040" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg>
+                  </div>
+                </div>
+                <h3 class="font-display text-xl font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Fill Production Info</h3>
+                <p class="font-body text-sm text-muted" style="line-height:1.8;">Complete the header block at the top — <span class="text-warm-white/80">project name, director, 1st &amp; 2nd A.D., D.P.</span> on the left; <span class="text-warm-white/80">shoot date, call time, wrap time, and set location</span> on the right. This block stays frozen as you scroll.</p>
+              </div>
+            </div>
+
+            <!-- SLIDE 02 — Number Scenes & Shots -->
+            <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
+              <div style="height:210px;overflow:hidden;position:relative;background:#07070d;border-bottom:1px solid rgba(240,192,64,0.08);">
+                <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                  <rect width="560" height="210" fill="#07070d"/>
+                  <!-- header row -->
+                  <rect width="560" height="32" fill="#0f0f1a"/>
+                  <!-- col headers -->
+                  <rect x="20" y="6" width="80" height="20" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="60" y="20" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">A — Scene #</text>
+                  <rect x="116" y="6" width="80" height="20" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="156" y="20" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">B — Shot #</text>
+                  <rect x="212" y="6" width="180" height="20" rx="3" fill="#1a1a28" stroke="#333" stroke-width="1"/>
+                  <text x="302" y="20" font-family="Oswald,sans-serif" font-size="10" fill="#88807A" text-anchor="middle" letter-spacing="1">D — Shot Description</text>
+                  <!-- data rows -->
+                  <rect x="20" y="40" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="60" y="56" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
+                  <rect x="116" y="40" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="156" y="56" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">1</text>
+                  <rect x="212" y="40" width="180" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="220" y="56" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Park bench — wide reveal</text>
+
+                  <rect x="20" y="70" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="60" y="86" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
+                  <rect x="116" y="70" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="156" y="86" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">2</text>
+                  <rect x="212" y="70" width="180" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="220" y="86" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Two-shot, friends approach</text>
+
+                  <rect x="20" y="100" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="60" y="116" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
+                  <rect x="116" y="100" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="156" y="116" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">3</text>
+                  <rect x="212" y="100" width="180" height="24" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="220" y="116" font-family="Jost,sans-serif" font-size="11" fill="#88807A">CU — Friend A reacts</text>
+
+                  <rect x="20" y="130" width="80" height="24" rx="2" fill="#0f1218" stroke="#1e2a3a"/>
+                  <text x="60" y="146" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">2</text>
+                  <rect x="116" y="130" width="80" height="24" rx="2" fill="#0f1218" stroke="#1e2a3a"/>
+                  <text x="156" y="146" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">1</text>
+                  <rect x="212" y="130" width="180" height="24" rx="2" fill="#0f1218" stroke="#1e2a3a"/>
+                  <text x="220" y="146" font-family="Jost,sans-serif" font-size="11" fill="#88807A">INT restroom — aftermath</text>
+
+                  <!-- scene break line -->
+                  <line x1="20" y1="128" x2="400" y2="128" stroke="#F0C040" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="4 3"/>
+                  <text x="410" y="143" font-family="Oswald,sans-serif" font-size="8" fill="#F0C040" opacity="0.4" letter-spacing="2">SCENE 2</text>
+
+                  <!-- row count indicator -->
+                  <text x="20" y="195" font-family="Jost,sans-serif" font-size="9" fill="#88807A" opacity="0.6">500 rows available · free text · use "3A", "12", or any format</text>
+                </svg>
+              </div>
+              <div style="padding:28px 32px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <span class="step-num">02</span>
+                  <div style="width:34px;height:34px;border:1px solid rgba(240,192,64,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,192,64,0.05);">
+                    <svg width="16" height="16" fill="none" stroke="#F0C040" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75.125v-5.625A2.25 2.25 0 014.5 10.5h.75m-3 8.625l1.5-1.5M6 18.375V10.5m0 0h10.5A2.25 2.25 0 0118.75 12v6.375a2.25 2.25 0 01-2.25 2.25H6m10.5-9.75h.75A2.25 2.25 0 0119.5 5.25v.75M6 10.5V5.25A2.25 2.25 0 018.25 3h7.5A2.25 2.25 0 0118 5.25v.75M6 10.5H4.875"/></svg>
+                  </div>
+                </div>
+                <h3 class="font-display text-xl font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Number Scenes &amp; Shots</h3>
+                <p class="font-body text-sm text-muted" style="line-height:1.8;"><span class="text-warm-white/80">Scene # (col A)</span> maps directly to your script's scene number. <span class="text-warm-white/80">Shot # (col B)</span> is the sequential number within that scene. Both are free text — use "3A", "12", or whatever matches your breakdown.</p>
+              </div>
+            </div>
+
+            <!-- SLIDE 03 — INT / EXT & Location -->
+            <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
+              <div style="height:210px;overflow:hidden;position:relative;background:#07070d;border-bottom:1px solid rgba(240,192,64,0.08);">
+                <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                  <rect width="560" height="210" fill="#07070d"/>
+                  <!-- col header -->
+                  <rect x="20" y="14" width="100" height="24" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="70" y="30" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">E — INT/EXT</text>
+                  <rect x="136" y="14" width="200" height="24" rx="3" fill="#1a1a28" stroke="#333"/>
+                  <text x="236" y="30" font-family="Oswald,sans-serif" font-size="10" fill="#88807A" text-anchor="middle" letter-spacing="1">F — Location</text>
+                  <!-- dropdown open on row 1 -->
+                  <!-- active cell highlight -->
+                  <rect x="20" y="44" width="100" height="26" rx="2" fill="#1a1520" stroke="#E87820" stroke-width="1.5"/>
+                  <text x="38" y="60" font-family="Jost,sans-serif" font-size="12" fill="#E87820" font-weight="600">INT</text>
+                  <polygon points="100,55 108,55 104,62" fill="#E87820" opacity="0.6"/>
+                  <!-- dropdown panel -->
+                  <rect x="20" y="72" width="100" height="88" rx="4" fill="#16141f" stroke="#E87820" stroke-width="1" stroke-opacity="0.5"/>
+                  <rect x="20" y="72" width="100" height="27" rx="4 4 0 0" fill="#1e1826"/>
+                  <text x="38" y="90" font-family="Jost,sans-serif" font-size="12" fill="#E87820" font-weight="700">INT</text>
+                  <text x="84" y="90" font-family="Jost,sans-serif" font-size="9" fill="#E87820" opacity="0.5">✓</text>
+                  <line x1="20" y1="99" x2="120" y2="99" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="38" y="115" font-family="Jost,sans-serif" font-size="12" fill="#4DB87A">EXT</text>
+                  <line x1="20" y1="124" x2="120" y2="124" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="38" y="140" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">INT/EXT</text>
+                  <line x1="20" y1="149" x2="120" y2="149" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="38" y="162" font-family="Jost,sans-serif" font-size="11" fill="#88807A">—</text>
+                  <!-- rows for location col -->
+                  <rect x="136" y="44" width="200" height="26" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="148" y="60" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">WALC Restroom</text>
+                  <rect x="136" y="76" width="200" height="26" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="148" y="92" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Hospital Corridor Level 2</text>
+                  <rect x="136" y="108" width="200" height="26" rx="2" fill="#111120" stroke="#222"/>
+                  <text x="148" y="124" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Park Bench — WALC Lawn</text>
+                  <!-- color legend -->
+                  <circle cx="360" cy="65" r="5" fill="#E87820"/>
+                  <text x="372" y="69" font-family="Jost,sans-serif" font-size="11" fill="#E87820">Interior</text>
+                  <circle cx="360" cy="90" r="5" fill="#4DB87A"/>
+                  <text x="372" y="94" font-family="Jost,sans-serif" font-size="11" fill="#4DB87A">Exterior</text>
+                  <circle cx="360" cy="115" r="5" fill="#F0C040"/>
+                  <text x="372" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">Both</text>
+                </svg>
+              </div>
+              <div style="padding:28px 32px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <span class="step-num">03</span>
+                  <div style="width:34px;height:34px;border:1px solid rgba(240,192,64,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,192,64,0.05);">
+                    <svg width="16" height="16" fill="none" stroke="#F0C040" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                  </div>
+                </div>
+                <h3 class="font-display text-xl font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Set INT / EXT &amp; Location</h3>
+                <p class="font-body text-sm text-muted" style="line-height:1.8;"><span class="text-warm-white/80">Col E</span> is a colour-coded dropdown — <span style="color:#E87820;">INT</span> (interior), <span style="color:#4DB87A;">EXT</span> (exterior), or <span style="color:#F0C040;">INT/EXT</span> (mixed). <span class="text-warm-white/80">Col F</span> is free text for the specific location: "Park Bench", "Hospital Corridor Level 2", etc.</p>
+              </div>
+            </div>
+
+            <!-- SLIDE 04 — Shot Language -->
+            <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
+              <div style="height:210px;overflow:hidden;position:relative;background:#07070d;border-bottom:1px solid rgba(240,192,64,0.08);">
+                <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                  <rect width="560" height="210" fill="#07070d"/>
+                  <!-- 4 column headers -->
+                  <rect x="16" y="12" width="116" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="74" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">G — SHOT SIZE</text>
+                  <rect x="144" y="12" width="116" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="202" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">H — CAM ANGLE</text>
+                  <rect x="272" y="12" width="116" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="330" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">I — FRAMING</text>
+                  <rect x="400" y="12" width="140" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="470" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">J — MOVEMENT</text>
+
+                  <!-- Row 1 — active cells with values -->
+                  <rect x="16" y="42" width="116" height="26" rx="2" fill="#1a1520" stroke="#E87820" stroke-width="1.5"/>
+                  <text x="30" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Medium Shot</text>
+                  <polygon points="118,53 126,53 122,60" fill="#E87820" opacity="0.5"/>
+
+                  <rect x="144" y="42" width="116" height="26" rx="2" fill="#111120" stroke="#333"/>
+                  <text x="158" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Eye Level</text>
+                  <polygon points="246,53 254,53 250,60" fill="#88807A" opacity="0.4"/>
+
+                  <rect x="272" y="42" width="116" height="26" rx="2" fill="#111120" stroke="#333"/>
+                  <text x="286" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Rule of Thirds</text>
+                  <polygon points="374,53 382,53 378,60" fill="#88807A" opacity="0.4"/>
+
+                  <rect x="400" y="42" width="140" height="26" rx="2" fill="#111120" stroke="#333"/>
+                  <text x="414" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Slow Push</text>
+                  <polygon points="526,53 534,53 530,60" fill="#88807A" opacity="0.4"/>
+
+                  <!-- Dropdown open on Shot Size -->
+                  <rect x="16" y="70" width="116" height="116" rx="4" fill="#13111e" stroke="#E87820" stroke-width="1" stroke-opacity="0.5"/>
+                  <text x="30" y="90" font-family="Jost,sans-serif" font-size="11" fill="#88807A">EWS</text>
+                  <text x="30" y="108" font-family="Jost,sans-serif" font-size="11" fill="#88807A">WS</text>
+                  <text x="30" y="126" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6" font-weight="600">MS ✓</text>
+                  <text x="30" y="144" font-family="Jost,sans-serif" font-size="11" fill="#88807A">CU</text>
+                  <text x="30" y="162" font-family="Jost,sans-serif" font-size="11" fill="#88807A">ECU</text>
+                  <text x="30" y="180" font-family="Jost,sans-serif" font-size="11" fill="#88807A">OTS</text>
+                  <line x1="16" y1="100" x2="132" y2="100" stroke="#2a2a3a"/>
+                  <line x1="16" y1="116" x2="132" y2="116" stroke="#2a2a3a"/>
+                  <line x1="16" y1="132" x2="132" y2="132" stroke="#F0C040" stroke-opacity="0.2"/>
+                  <line x1="16" y1="150" x2="132" y2="150" stroke="#2a2a3a"/>
+                  <line x1="16" y1="166" x2="132" y2="166" stroke="#2a2a3a"/>
+                </svg>
+              </div>
+              <div style="padding:28px 32px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <span class="step-num">04</span>
+                  <div style="width:34px;height:34px;border:1px solid rgba(240,192,64,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,192,64,0.05);">
+                    <svg width="16" height="16" fill="none" stroke="#F0C040" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"/></svg>
+                  </div>
+                </div>
+                <h3 class="font-display text-xl font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Define Your Shot Language</h3>
+                <p class="font-body text-sm text-muted" style="line-height:1.8;">Four dropdown columns define your visual grammar: <span class="text-warm-white/80">Shot Size (G), Camera Angle (H), Framing (I)</span>, and <span class="text-warm-white/80">Camera Movement (J)</span>. Every standard cinematic option — EWS to ECU, Eye Level to Dutch Angle — is in the lists.</p>
+              </div>
+            </div>
+
+            <!-- SLIDE 05 — Equipment & Lens -->
+            <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
+              <div style="height:210px;overflow:hidden;position:relative;background:#07070d;border-bottom:1px solid rgba(240,192,64,0.08);">
+                <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                  <rect width="560" height="210" fill="#07070d"/>
+                  <rect width="560" height="32" fill="#0f0f1a"/>
+                  <text x="30" y="21" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" letter-spacing="2">K — EQUIPMENT &amp; LENS</text>
+                  <!-- camera icon outline -->
+                  <rect x="28" y="48" width="60" height="46" rx="6" fill="none" stroke="#F0C040" stroke-width="1.5" stroke-opacity="0.4"/>
+                  <circle cx="58" cy="71" r="14" fill="none" stroke="#F0C040" stroke-width="1.5" stroke-opacity="0.4"/>
+                  <circle cx="58" cy="71" r="8" fill="none" stroke="#F0C040" stroke-width="1" stroke-opacity="0.25"/>
+                  <rect x="36" y="42" width="12" height="8" rx="2" fill="#F0C040" fill-opacity="0.2"/>
+                  <!-- gear entries -->
+                  <rect x="102" y="44" width="300" height="28" rx="4" fill="#111120" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
+                  <text x="114" y="62" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Sony FX3 + G Master 85mm f/1.4</text>
+                  <rect x="102" y="80" width="300" height="28" rx="4" fill="#111120" stroke="#222"/>
+                  <text x="114" y="98" font-family="Jost,sans-serif" font-size="12" fill="#88807A">Sony FX3 + 50mm + Ronin RS4</text>
+                  <rect x="102" y="116" width="300" height="28" rx="4" fill="#111120" stroke="#222"/>
+                  <text x="114" y="134" font-family="Jost,sans-serif" font-size="12" fill="#88807A">Sony FX3 + 24mm + Tripod</text>
+                  <rect x="102" y="152" width="300" height="28" rx="4" fill="#111120" stroke="#222"/>
+                  <text x="114" y="170" font-family="Jost,sans-serif" font-size="12" fill="#88807A">Sony FX3 + Macro + Static</text>
+                  <!-- gear checklist label -->
+                  <text x="416" y="58" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.7">→ Gear checklist</text>
+                  <text x="416" y="74" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.5">auto-populates</text>
+                  <text x="416" y="90" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.3">from this column</text>
+                </svg>
+              </div>
+              <div style="padding:28px 32px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <span class="step-num">05</span>
+                  <div style="width:34px;height:34px;border:1px solid rgba(240,192,64,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,192,64,0.05);">
+                    <svg width="16" height="16" fill="none" stroke="#F0C040" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"/></svg>
+                  </div>
+                </div>
+                <h3 class="font-display text-xl font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Note Equipment &amp; Lens</h3>
+                <p class="font-body text-sm text-muted" style="line-height:1.8;"><span class="text-warm-white/80">Col K</span> is free text — note the camera body, lens, and any rigs or supports for that specific shot. "Sony FX3 + G Master 85mm + RS4 Gimbal" or just "Tripod + 50mm". This column drives your gear checklist.</p>
+              </div>
+            </div>
+
+            <!-- SLIDE 06 — Time Blocks -->
+            <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
+              <div style="height:210px;overflow:hidden;position:relative;background:#07070d;border-bottom:1px solid rgba(240,192,64,0.08);">
+                <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                  <rect width="560" height="210" fill="#07070d"/>
+                  <!-- header -->
+                  <rect width="560" height="32" fill="#0f0f1a"/>
+                  <text x="30" y="21" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" letter-spacing="2">L — SETUP TIME &nbsp;&nbsp;·&nbsp;&nbsp; M — SHOOT TIME &nbsp;&nbsp;·&nbsp;&nbsp; TOTAL BLOCK</text>
+                  <!-- legend -->
+                  <rect x="380" y="44" width="12" height="10" rx="2" fill="#E87820" opacity="0.8"/>
+                  <text x="396" y="54" font-family="Jost,sans-serif" font-size="10" fill="#E87820">Setup</text>
+                  <rect x="440" y="44" width="12" height="10" rx="2" fill="#F0C040" opacity="0.8"/>
+                  <text x="456" y="54" font-family="Jost,sans-serif" font-size="10" fill="#F0C040">Shoot</text>
+                  <!-- Shot 1 bar -->
+                  <text x="28" y="74" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.1</text>
+                  <rect x="90" y="62" width="50" height="18" rx="2" fill="#E87820" opacity="0.7"/>
+                  <text x="95" y="74" font-family="Jost,sans-serif" font-size="10" fill="#fff">20m</text>
+                  <rect x="142" y="62" width="90" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
+                  <text x="147" y="74" font-family="Jost,sans-serif" font-size="10" fill="#000">30m</text>
+                  <text x="238" y="74" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">50m total</text>
+                  <!-- Shot 2 bar -->
+                  <text x="28" y="100" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.2</text>
+                  <rect x="90" y="88" width="38" height="18" rx="2" fill="#E87820" opacity="0.7"/>
+                  <text x="95" y="100" font-family="Jost,sans-serif" font-size="10" fill="#fff">15m</text>
+                  <rect x="130" y="88" width="120" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
+                  <text x="135" y="100" font-family="Jost,sans-serif" font-size="10" fill="#000">45m</text>
+                  <text x="256" y="100" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">60m total</text>
+                  <!-- Shot 3 bar -->
+                  <text x="28" y="126" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.3</text>
+                  <rect x="90" y="114" width="25" height="18" rx="2" fill="#E87820" opacity="0.7"/>
+                  <text x="92" y="126" font-family="Jost,sans-serif" font-size="10" fill="#fff">10m</text>
+                  <rect x="117" y="114" width="65" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
+                  <text x="122" y="126" font-family="Jost,sans-serif" font-size="10" fill="#000">25m</text>
+                  <text x="188" y="126" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">35m total</text>
+                  <!-- Shot 4 bar -->
+                  <text x="28" y="152" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.2 Sh.1</text>
+                  <rect x="90" y="140" width="65" height="18" rx="2" fill="#E87820" opacity="0.7"/>
+                  <text x="95" y="152" font-family="Jost,sans-serif" font-size="10" fill="#fff">25m</text>
+                  <rect x="157" y="140" width="100" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
+                  <text x="162" y="152" font-family="Jost,sans-serif" font-size="10" fill="#000">40m</text>
+                  <text x="263" y="152" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">65m total</text>
+                  <!-- total line -->
+                  <line x1="28" y1="176" x2="360" y2="176" stroke="#2a2a3a" stroke-width="1"/>
+                  <text x="28" y="192" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Day total:</text>
+                  <text x="90" y="192" font-family="Jost,sans-serif" font-size="10" fill="#F0C040" font-weight="600">3h 30m &nbsp;— schedule fits 07:00–19:00 wrap</text>
+                </svg>
+              </div>
+              <div style="padding:28px 32px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <span class="step-num">06</span>
+                  <div style="width:34px;height:34px;border:1px solid rgba(240,192,64,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,192,64,0.05);">
+                    <svg width="16" height="16" fill="none" stroke="#F0C040" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                </div>
+                <h3 class="font-display text-xl font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Estimate Time Blocks</h3>
+                <p class="font-body text-sm text-muted" style="line-height:1.8;"><span class="text-warm-white/80">Setup Time (col L)</span> = time to physically position camera, lighting, and crew. <span class="text-warm-white/80">Shoot Time (col M)</span> = total filming duration. Add both to get the full time block per shot and build a realistic shooting schedule.</p>
+              </div>
+            </div>
+
+            <!-- SLIDE 07 — Status & Lock Takes -->
+            <div class="csl-slide" style="flex:0 0 100%;min-width:100%;">
+              <div style="height:210px;overflow:hidden;position:relative;background:#07070d;border-bottom:1px solid rgba(240,192,64,0.08);">
+                <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                  <rect width="560" height="210" fill="#07070d"/>
+                  <rect width="560" height="32" fill="#0f0f1a"/>
+                  <text x="28" y="21" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" letter-spacing="2">C — STATUS &nbsp;·&nbsp; N — FINAL TAKE # &nbsp;·&nbsp; O — POST STATUS</text>
+                  <!-- col sub-headers -->
+                  <text x="34" y="48" font-family="Jost,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">SHOOT STATUS</text>
+                  <text x="202" y="48" font-family="Jost,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">FINAL TAKE #</text>
+                  <text x="320" y="48" font-family="Jost,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">POST STATUS</text>
+                  <!-- Row 1 — Done -->
+                  <rect x="28" y="54" width="140" height="24" rx="12" fill="#0d2016" stroke="#4DB87A" stroke-width="1"/>
+                  <circle cx="46" cy="66" r="5" fill="#4DB87A"/>
+                  <text x="58" y="70" font-family="Jost,sans-serif" font-size="11" fill="#4DB87A">Wrapped</text>
+                  <rect x="200" y="58" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
+                  <text x="222" y="70" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6" text-anchor="middle">3</text>
+                  <rect x="318" y="54" width="100" height="24" rx="12" fill="#0d2016" stroke="#4DB87A" stroke-width="1"/>
+                  <text x="358" y="70" font-family="Jost,sans-serif" font-size="13" text-anchor="middle">✅</text>
+                  <!-- Row 2 — In Progress -->
+                  <rect x="28" y="86" width="140" height="24" rx="12" fill="#1e1408" stroke="#E87820" stroke-width="1"/>
+                  <circle cx="46" cy="98" r="5" fill="#E87820"/>
+                  <text x="58" y="102" font-family="Jost,sans-serif" font-size="11" fill="#E87820">In Progress</text>
+                  <rect x="200" y="90" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
+                  <text x="222" y="102" font-family="Jost,sans-serif" font-size="12" fill="#88807A" text-anchor="middle">—</text>
+                  <rect x="318" y="86" width="100" height="24" rx="12" fill="#111120" stroke="#333"/>
+                  <text x="358" y="102" font-family="Jost,sans-serif" font-size="11" fill="#88807A" text-anchor="middle">pending</text>
+                  <!-- Row 3 — Reshoot -->
+                  <rect x="28" y="118" width="140" height="24" rx="12" fill="#1a180a" stroke="#F0C040" stroke-width="1"/>
+                  <circle cx="46" cy="130" r="5" fill="#F0C040"/>
+                  <text x="58" y="134" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">Wrapped</text>
+                  <rect x="200" y="122" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
+                  <text x="222" y="134" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6" text-anchor="middle">1</text>
+                  <rect x="318" y="118" width="100" height="24" rx="12" fill="#1a180a" stroke="#F0C040" stroke-width="1"/>
+                  <text x="358" y="134" font-family="Jost,sans-serif" font-size="13" text-anchor="middle">⚠️</text>
+                  <!-- Row 4 — To Shoot -->
+                  <rect x="28" y="150" width="140" height="24" rx="12" fill="#111120" stroke="#333"/>
+                  <circle cx="46" cy="162" r="5" fill="#88807A" fill-opacity="0.4"/>
+                  <text x="58" y="166" font-family="Jost,sans-serif" font-size="11" fill="#88807A">To Shoot</text>
+                  <rect x="200" y="154" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
+                  <text x="222" y="166" font-family="Jost,sans-serif" font-size="12" fill="#88807A" text-anchor="middle">—</text>
+                  <rect x="318" y="150" width="100" height="24" rx="12" fill="#111120" stroke="#333"/>
+                  <text x="358" y="166" font-family="Jost,sans-serif" font-size="11" fill="#88807A" text-anchor="middle">—</text>
+                  <!-- arrow flow -->
+                  <text x="450" y="68" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.6">To Shoot</text>
+                  <text x="459" y="82" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.4">↓</text>
+                  <text x="442" y="96" font-family="Jost,sans-serif" font-size="10" fill="#E87820" opacity="0.7">In Progress</text>
+                  <text x="459" y="110" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.4">↓</text>
+                  <text x="451" y="124" font-family="Jost,sans-serif" font-size="10" fill="#4DB87A" opacity="0.8">Wrapped</text>
+                </svg>
+              </div>
+              <div style="padding:28px 32px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <span class="step-num">07</span>
+                  <div style="width:34px;height:34px;border:1px solid rgba(240,192,64,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(240,192,64,0.05);">
+                    <svg width="16" height="16" fill="none" stroke="#F0C040" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                </div>
+                <h3 class="font-display text-xl font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Track Status &amp; Lock Takes</h3>
+                <p class="font-body text-sm text-muted" style="line-height:1.8;"><span class="text-warm-white/80">Shoot Status (col C)</span> is your on-set dashboard: To Shoot → In Progress → Wrapped. After the shoot, enter the chosen take in <span class="text-warm-white/80">Final Take # (col N)</span>, then set <span class="text-warm-white/80">Status (col O)</span> to <span style="color:#4DB87A;">✅</span> Done or <span style="color:#F0C040;">⚠️</span> Reshoot needed.</p>
+              </div>
+            </div>
+
+          </div><!-- /track -->
+        </div><!-- /clip -->
+      </div><!-- /card+arrows -->
+    </div><!-- /carousel -->
+
+    <!-- ── EXCEL SHEET SNIPPET ────────────────────────────────── -->
+    <div class="mt-28 reveal">
+      <div class="text-center mb-10">
+        <div class="flex items-center justify-center gap-5 mb-5">
+          <div class="gold-line"></div>
+          <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Live Example</span>
+          <div class="gold-line"></div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">A Real Shot List, Filled In</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Every column from Scene # to Post Status, populated with data from a real production. This is exactly what your sheet looks like on shoot day — dropdowns set, times estimated, statuses tracked.</p>
+      </div>
+
+      <div style="overflow-x:auto;border-radius:10px;border:1px solid rgba(240,192,64,0.12);box-shadow:0 24px 70px rgba(0,0,0,0.75);">
+        <!-- App chrome bar -->
+        <div style="background:#1c1c2c;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2a2a3c;min-width:1100px;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+          <span style="font-family:Jost,sans-serif;font-size:11px;color:#88807A;margin-left:10px;">ShotListTemplate_v2.xlsx — Sheet1</span>
+        </div>
+        <!-- formula bar -->
+        <div style="background:#17172a;padding:4px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #232336;min-width:1100px;">
+          <span style="font-family:Jost,sans-serif;font-size:10px;color:#F0C040;background:#0f0f1e;border:1px solid #2a2a3c;padding:2px 8px;border-radius:3px;min-width:36px;text-align:center;">C2</span>
+          <span style="font-family:Jost,sans-serif;font-size:10px;color:#88807A;">fx</span>
+          <span style="font-family:Jost,sans-serif;font-size:11px;color:#F2EFE6;">Wrapped</span>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-family:Jost,sans-serif;font-size:11px;min-width:1100px;">
+          <thead>
+            <tr style="background:#111128;">
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">A<br><span style="color:#6a6060;font-size:7px;">SCENE #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">B<br><span style="color:#6a6060;font-size:7px;">SHOT #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">C<br><span style="color:#6a6060;font-size:7px;">STATUS</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">D<br><span style="color:#6a6060;font-size:7px;">DESCRIPTION</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">E<br><span style="color:#6a6060;font-size:7px;">INT/EXT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">F<br><span style="color:#6a6060;font-size:7px;">LOCATION</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">G<br><span style="color:#6a6060;font-size:7px;">SHOT SIZE</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">H<br><span style="color:#6a6060;font-size:7px;">ANGLE</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">I<br><span style="color:#6a6060;font-size:7px;">FRAMING</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">J<br><span style="color:#6a6060;font-size:7px;">MOVEMENT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">K<br><span style="color:#6a6060;font-size:7px;">EQUIPMENT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">L<br><span style="color:#6a6060;font-size:7px;">SETUP</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">M<br><span style="color:#6a6060;font-size:7px;">SHOOT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">N<br><span style="color:#6a6060;font-size:7px;">TAKE #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">O<br><span style="color:#6a6060;font-size:7px;">POST STATUS</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#1a1a1a;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#0A1A0A;color:#4DB87A;border:1px solid #4DB87A44;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">Wrapped</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Park bench — wide reveal</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#060E08;color:#4DB87A;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">EXT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Campus – Park Bench</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">EWS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Single</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Static</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 24mm + Tripod</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">20 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">30 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">3</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;font-size:14px;">✅</td>
+            </tr>
+            <tr style="background:#141414;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">2</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#0A1A0A;color:#4DB87A;border:1px solid #4DB87A44;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">Wrapped</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Two-shot, friends approach bench</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#060E08;color:#4DB87A;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">EXT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Campus – Park Bench</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">MS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Two-Shot</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Tracking Shot</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 50mm + RS4</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">15 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">45 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;font-size:14px;">✅</td>
+            </tr>
+            <tr style="background:#1a1a1a;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">3</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#2A1A0A;color:#F0C040;border:1px solid #F0C04044;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">In Progress</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">CU — Friend A reacts</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#060E08;color:#4DB87A;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">EXT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Campus – Park Bench</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">CU</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">OTS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Static</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 85mm f/1.4</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">10 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">25 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+            </tr>
+            <tr style="background:#141414;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#0A1A0A;color:#4DB87A;border:1px solid #4DB87A44;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">Wrapped</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">INT restroom — aftermath reveal</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1E0E06;color:#E87820;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">INT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Restroom Level 1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">WS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Low Angle</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Single</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Dolly</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 24mm + Dolly</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">25 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">40 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;font-size:14px;">⚠️</td>
+            </tr>
+            <tr style="background:#1a1a1a;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">2</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1A1A2E;color:#8BA3C8;border:1px solid #8BA3C844;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">To Shoot</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">MCU — protagonist mirror look</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1E0E06;color:#E87820;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">INT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Restroom Level 1</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">MCU</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Eye Level</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Single</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Static</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 85mm f/1.4</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">15 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">20 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+            </tr>
+            <tr style="background:#141414;">
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F0C040;font-weight:700;">3</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">1</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1A1A2E;color:#8BA3C8;border:1px solid #8BA3C844;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:600;white-space:nowrap;">To Shoot</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">EWS corridor — friends separate</td>
+              <td style="padding:6px 8px;text-align:center;border:1px solid #222;"><span style="background:#1E0E06;color:#E87820;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;">INT</span></td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">WALC Corridor Level 2</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">EWS</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">High Angle</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">Two-Shot</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;">Pan</td>
+              <td style="padding:8px 10px;border:1px solid #222;color:#88807A;white-space:nowrap;">Sony FX3 + 24mm + Tripod</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">30 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#F2EFE6;white-space:nowrap;">35 min</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+              <td style="padding:8px 10px;text-align:center;border:1px solid #222;color:#88807A;">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── DROPDOWN DEMO ANIMATION ────────────────────────────── -->
+    <div class="mt-28 reveal">
+      <div class="text-center mb-10">
+        <div class="flex items-center justify-center gap-5 mb-5">
+          <div class="gold-line"></div>
+          <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">See It in Action</span>
+          <div class="gold-line"></div>
+        </div>
+        <h3 class="font-display text-lg font-semibold text-warm-white mb-3" style="letter-spacing:-0.01em;">Every Column, Clickable</h3>
+        <p class="font-body text-sm text-muted" style="line-height: 1.8;">Watch the cursor move through the sheet — clicking INT/EXT, Shot Size, Camera Angle, and Status dropdowns one by one. This is exactly how you'll fill it in on shoot day.</p>
+      </div>
+
+      <!-- animated spreadsheet demo — scaled to 70% -->
+      <div class="max-w-3xl mx-auto" style="border-radius:10px;border:1px solid rgba(240,192,64,0.12);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.7);zoom:0.7;">
+        <!-- chrome bar -->
+        <div style="background:#1c1c2c;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2a2a3c;">
+          <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+          <span style="font-family:Jost,sans-serif;font-size:11px;color:#88807A;margin-left:10px;">ShotListTemplate_v2.xlsx</span>
+          <span style="margin-left:auto;font-family:Jost,sans-serif;font-size:10px;color:#88807A;background:#0f0f1e;border:1px solid #2a2a3c;padding:2px 8px;border-radius:3px;" id="demo-cell-ref">E2</span>
+        </div>
+        <!-- demo grid -->
+        <div style="background:#0d0d18;position:relative;overflow:hidden;" id="demo-grid-wrap">
+          <table id="demo-grid" style="width:100%;border-collapse:collapse;font-family:Jost,sans-serif;font-size:12px;">
+            <thead>
+              <tr style="background:#111128;">
+                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;width:60px;">A<br><span style="color:#88807A;font-size:8px;">SCENE</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;width:50px;">B<br><span style="color:#88807A;font-size:8px;">SHOT</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-e">E<br><span style="color:#88807A;font-size:8px;">INT/EXT</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-g">G<br><span style="color:#88807A;font-size:8px;">SHOT SIZE</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-h">H<br><span style="color:#88807A;font-size:8px;">ANGLE</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-j">J<br><span style="color:#88807A;font-size:8px;">MOVEMENT</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-c">C<br><span style="color:#88807A;font-size:8px;">STATUS</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="demo-row-1" style="border-bottom:1px solid #1e1e2e;">
+                <td style="padding:9px 12px;text-align:center;border-right:1px solid #1e1e2e;color:#F0C040;font-weight:700;">1</td>
+                <td style="padding:9px 12px;text-align:center;border-right:1px solid #1e1e2e;color:#F2EFE6;">1</td>
+                <td id="dc-e" style="padding:6px 8px;text-align:center;border-right:1px solid #1e1e2e;cursor:pointer;"><span id="dc-e-val" style="display:inline-block;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:700;background:#111120;color:#88807A;border:1px solid #333;">—  ▾</span></td>
+                <td id="dc-g" style="padding:6px 8px;text-align:center;border-right:1px solid #1e1e2e;cursor:pointer;"><span id="dc-g-val" style="display:inline-block;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:700;background:#111120;color:#88807A;border:1px solid #333;">—  ▾</span></td>
+                <td id="dc-h" style="padding:6px 8px;text-align:center;border-right:1px solid #1e1e2e;cursor:pointer;"><span id="dc-h-val" style="display:inline-block;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:700;background:#111120;color:#88807A;border:1px solid #333;">—  ▾</span></td>
+                <td id="dc-j" style="padding:6px 8px;text-align:center;border-right:1px solid #1e1e2e;cursor:pointer;"><span id="dc-j-val" style="display:inline-block;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:700;background:#111120;color:#88807A;border:1px solid #333;">—  ▾</span></td>
+                <td id="dc-c" style="padding:6px 8px;text-align:center;cursor:pointer;"><span id="dc-c-val" style="display:inline-block;border-radius:20px;padding:3px 12px;font-size:10px;background:#111120;color:#88807A;border:1px solid #333;">—  ▾</span></td>
+              </tr>
+              <tr style="background:#0a0a16;border-bottom:1px solid #1e1e2e;opacity:0.4;">
+                <td style="padding:9px 12px;text-align:center;border-right:1px solid #1e1e2e;color:#F0C040;font-weight:700;">1</td>
+                <td style="padding:9px 12px;text-align:center;border-right:1px solid #1e1e2e;color:#F2EFE6;">2</td>
+                <td colspan="5" style="padding:9px 12px;text-align:center;color:#88807A;font-size:10px;">· · · row ready to fill · · ·</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- animated cursor -->
+          <div id="demo-cursor" style="position:absolute;pointer-events:none;z-index:20;transition:left 0.6s cubic-bezier(0.34,1.56,0.64,1),top 0.6s cubic-bezier(0.34,1.56,0.64,1);opacity:0;">
+            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L1 19L5.5 14.5L8.5 21L10.5 20L7.5 13.5L14 13.5L1 1Z" fill="#F0C040" stroke="#080808" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <!-- dropdown panel (hidden by default) -->
+          <div id="demo-dropdown" style="position:absolute;display:none;z-index:30;background:#13111e;border:1px solid rgba(240,192,64,0.4);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,0.8);min-width:120px;overflow:hidden;"></div>
+        </div>
+      </div>
+      <p class="text-center font-body text-xs text-muted/50 mt-4" style="letter-spacing:0.05em;">Animation loops automatically · reflects actual Excel dropdown behaviour</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- ╔══════════════════ DOWNLOAD CTA ══════════════════╗ -->
+<section class="dl-bg py-32">
+  <div class="max-w-2xl mx-auto px-6 lg:px-10 text-center">
+
+    <div class="reveal">
+      <div class="flex items-center justify-center gap-5 mb-8">
+        <div class="gold-line"></div>
+        <span class="font-heading text-gold tracking-[0.28em] text-[10px] uppercase">Free Download</span>
+        <div class="gold-line"></div>
+      </div>
+
+      <h2 class="font-display font-bold text-warm-white mb-5" style="font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.025em;">
+        Ready for Your<br><em class="text-gold">Next Project</em>
+      </h2>
+
+      <p class="font-body text-muted mb-10" style="line-height: 1.8; font-size: 1rem;">
+        Open it in Excel, or import into Google Sheets via <em>File → Import → Upload</em>. The dropdowns, conditional formatting, and frozen header all transfer.
+      </p>
+
+      <a href="/digital_assets/ShotListTemplate_v2.xlsx" download="ShotListTemplate_v2.xlsx"
+         class="dl-btn inline-flex items-center gap-3 bg-gold text-cinema-black font-heading tracking-[0.18em] text-sm uppercase px-10 py-5 mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+        </svg>
+        Download Shot List Template
+      </a>
+
+      <div class="flex items-center justify-center gap-4 flex-wrap">
+        <span class="font-body text-xs text-muted/60">XLSX format</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-muted/60">~35 KB</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-muted/60">Version 2</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-muted/60">Excel &amp; Google Sheets</span>
+        <span class="text-muted/30">·</span>
+        <span class="font-body text-xs text-gold/70">Free, always</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ╔══════════════════ FOOTER ══════════════════╗ -->
+<footer class="py-12 bg-cinema-black border-t border-warm-white/5">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <a href="/" class="flex items-center gap-3 group">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-7 w-7 rounded-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+      <span class="font-heading tracking-[0.18em] text-muted text-xs uppercase group-hover:text-gold transition-colors duration-300">Make A Movie Production</span>
+    </a>
+    <p class="font-body text-xs text-muted/40">© 2026 Make A Movie Production. All tools free for filmmakers.</p>
+    <a href="/" class="font-heading text-[10px] tracking-[0.22em] text-muted uppercase hover:text-gold transition-colors duration-300">← Back to Main Site</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  document.getElementById('menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── CAROUSEL ────────────────────────────────────────────────
+  (function() {
+    const track   = document.getElementById('csl-track');
+    const dotsEl  = document.getElementById('csl-dots');
+    const numEl   = document.getElementById('csl-num');
+    const prevBtn = document.getElementById('csl-prev');
+    const nextBtn = document.getElementById('csl-next');
+    if (!track) return;
+
+    const slides = track.querySelectorAll('.csl-slide');
+    const total  = slides.length;
+    let cur = 0;
+    let startX = 0;
+
+    // build dots
+    const dots = [];
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('button');
+      d.style.cssText = 'width:6px;height:6px;border-radius:50%;border:none;cursor:pointer;transition:all 0.3s ease;background:rgba(240,192,64,0.25);padding:0;';
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+      dots.push(d);
+    }
+
+    function goTo(n) {
+      cur = (n + total) % total;
+      track.style.transform = `translateX(-${cur * 100}%)`;
+      numEl.textContent = String(cur + 1).padStart(2, '0');
+      dots.forEach((d, i) => {
+        d.style.background = i === cur ? '#F0C040' : 'rgba(240,192,64,0.25)';
+        d.style.width  = i === cur ? '18px' : '6px';
+        d.style.borderRadius = '3px';
+      });
+    }
+
+    prevBtn.addEventListener('click', () => goTo(cur - 1));
+    nextBtn.addEventListener('click', () => goTo(cur + 1));
+
+    // swipe
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
+    });
+
+    // keyboard (when focused)
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') goTo(cur + 1);
+      if (e.key === 'ArrowLeft')  goTo(cur - 1);
+    });
+
+    // Set step-num labels from DOM position so they always match carousel order
+    slides.forEach((slide, i) => {
+      const lbl = slide.querySelector('.step-num');
+      if (lbl) lbl.textContent = String(i + 1).padStart(2, '0');
+    });
+
+    goTo(0);
+  })();
+
+  // ── DROPDOWN DEMO ANIMATION ──────────────────────────────────
+  (function() {
+    const cursor   = document.getElementById('demo-cursor');
+    const dropdown = document.getElementById('demo-dropdown');
+    const cellRef  = document.getElementById('demo-cell-ref');
+    const wrap     = document.getElementById('demo-grid-wrap');
+    if (!cursor || !dropdown || !wrap) return;
+
+    const steps = [
+      {
+        cellId: 'dc-e', valId: 'dc-e-val', ref: 'E2', headId: 'dh-e',
+        options: ['EXT', 'INT', 'INT/EXT'],
+        colors:  ['#4DB87A', '#E87820', '#F0C040'],
+        bgs:     ['#1a2a10', '#2a1408', '#1a180a'],
+        borders: ['#4DB87A', '#E87820', '#F0C040'],
+        pick: 0,
+        renderVal: (v, c, bg, b) => `<span style="display:inline-block;background:${bg};border:1px solid ${b};border-radius:4px;padding:3px 10px;color:${c};font-size:10px;font-weight:700;">${v}  ▾</span>`,
+      },
+      {
+        cellId: 'dc-g', valId: 'dc-g-val', ref: 'G2', headId: 'dh-g',
+        options: ['EWS', 'WS', 'MS', 'CU', 'ECU', 'OTS'],
+        colors:  Array(6).fill('#F2EFE6'),
+        bgs:     Array(6).fill('#111120'),
+        borders: Array(6).fill('#444'),
+        pick: 2,
+        renderVal: (v) => `<span style="display:inline-block;background:#1a1a28;border:1px solid #F0C040;border-radius:4px;padding:3px 12px;color:#F2EFE6;font-size:10px;font-weight:700;">${v}  ▾</span>`,
+      },
+      {
+        cellId: 'dc-h', valId: 'dc-h-val', ref: 'H2', headId: 'dh-h',
+        options: ['Eye Level', 'Low Angle', 'High Angle', 'Dutch Angle', 'Overhead'],
+        colors:  Array(5).fill('#F2EFE6'),
+        bgs:     Array(5).fill('#111120'),
+        borders: Array(5).fill('#444'),
+        pick: 0,
+        renderVal: (v) => `<span style="display:inline-block;background:#1a1a28;border:1px solid #F0C040;border-radius:4px;padding:3px 12px;color:#F2EFE6;font-size:10px;font-weight:700;">${v}  ▾</span>`,
+      },
+      {
+        cellId: 'dc-j', valId: 'dc-j-val', ref: 'J2', headId: 'dh-j',
+        options: ['Static', 'Pan', 'Tilt', 'Slow Push', 'Pull', 'Handheld'],
+        colors:  Array(6).fill('#F2EFE6'),
+        bgs:     Array(6).fill('#111120'),
+        borders: Array(6).fill('#444'),
+        pick: 3,
+        renderVal: (v) => `<span style="display:inline-block;background:#1a1a28;border:1px solid #F0C040;border-radius:4px;padding:3px 12px;color:#F2EFE6;font-size:10px;font-weight:700;">${v}  ▾</span>`,
+      },
+      {
+        cellId: 'dc-c', valId: 'dc-c-val', ref: 'C2', headId: 'dh-c',
+        options: ['To Shoot', 'In Progress', 'Wrapped'],
+        colors:  ['#88807A', '#E87820', '#4DB87A'],
+        bgs:     ['#111120',  '#1e1408',  '#0d2016'],
+        borders: ['#333',     '#E87820',  '#4DB87A'],
+        pick: 1,
+        renderVal: (v, c, bg, b) => `<span style="display:inline-flex;align-items:center;gap:5px;background:${bg};border:1px solid ${b};border-radius:20px;padding:3px 12px;color:${c};font-size:10px;"><span style="width:6px;height:6px;border-radius:50%;background:${c};flex-shrink:0;"></span>${v}  ▾</span>`,
+      },
+    ];
+
+    let stepIdx = 0;
+    let phase = 'move'; // move → open → pick → rest → next
+    let timer = null;
+    let curHighlight = null;
+    let headHighlight = null;
+
+    function getCenter(el) {
+      const wr = wrap.getBoundingClientRect();
+      const er = el.getBoundingClientRect();
+      return {
+        x: er.left - wr.left + er.width / 2 - 10,
+        y: er.top  - wr.top  + er.height / 2 - 12,
+      };
+    }
+
+    function clearHighlights() {
+      if (curHighlight) { curHighlight.style.outline = ''; curHighlight = null; }
+      if (headHighlight) { headHighlight.style.background = ''; headHighlight = null; }
+    }
+
+    function showDropdown(step) {
+      const cell = document.getElementById(step.cellId);
+      if (!cell) return;
+      const wr = wrap.getBoundingClientRect();
+      const cr = cell.getBoundingClientRect();
+      const top  = cr.bottom - wr.top + 2;
+      const left = cr.left - wr.left;
+      dropdown.style.left = left + 'px';
+      dropdown.style.top  = top + 'px';
+      dropdown.innerHTML  = step.options.map((o, i) => {
+        const active = i === step.pick;
+        return `<div class="dd-opt" data-idx="${i}" style="padding:8px 14px;cursor:pointer;font-family:Jost,sans-serif;font-size:12px;color:${active ? step.colors[i] : '#88807A'};background:${active ? 'rgba(240,192,64,0.05)' : 'transparent'};border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;gap:12px;white-space:nowrap;">
+          <span>${o}</span>${active ? '<span style="color:#F0C040;font-size:10px;">✓</span>' : ''}
+        </div>`;
+      }).join('');
+      dropdown.style.display = 'block';
+    }
+
+    function hideDropdown() { dropdown.style.display = 'none'; }
+
+    function highlightOption(step, idx) {
+      dropdown.querySelectorAll('.dd-opt').forEach((el, i) => {
+        el.style.background = i === idx ? 'rgba(240,192,64,0.12)' : (i === step.pick ? 'rgba(240,192,64,0.05)' : 'transparent');
+        el.style.color = step.colors[i] || '#F2EFE6';
+      });
+    }
+
+    function applyValue(step) {
+      const valEl = document.getElementById(step.valId);
+      if (!valEl) return;
+      const i = step.pick;
+      valEl.innerHTML = step.renderVal(step.options[i], step.colors[i], step.bgs[i], step.borders[i]);
+    }
+
+    function run() {
+      const step = steps[stepIdx];
+      const cell = document.getElementById(step.cellId);
+      const head = document.getElementById(step.headId);
+      if (!cell) { next(); return; }
+
+      clearHighlights();
+      const pos = getCenter(cell);
+
+      // phase: move cursor
+      cursor.style.opacity = '1';
+      cursor.style.left = pos.x + 'px';
+      cursor.style.top  = pos.y + 'px';
+      if (cellRef) cellRef.textContent = step.ref;
+
+      timer = setTimeout(() => {
+        // phase: click (scale cursor)
+        cursor.style.transform = 'scale(0.7)';
+        cell.style.outline = '2px solid rgba(240,192,64,0.6)';
+        curHighlight = cell;
+        if (head) { head.style.background = 'rgba(240,192,64,0.08)'; headHighlight = head; }
+        timer = setTimeout(() => {
+          cursor.style.transform = 'scale(1)';
+          showDropdown(step);
+          timer = setTimeout(() => {
+            // phase: hover over pick option
+            highlightOption(step, step.pick);
+            const opts = dropdown.querySelectorAll('.dd-opt');
+            if (opts[step.pick]) {
+              const wr = wrap.getBoundingClientRect();
+              const or = opts[step.pick].getBoundingClientRect();
+              cursor.style.left = (or.left - wr.left + 10) + 'px';
+              cursor.style.top  = (or.top  - wr.top + or.height / 2 - 12) + 'px';
+            }
+            timer = setTimeout(() => {
+              // phase: click option
+              cursor.style.transform = 'scale(0.7)';
+              timer = setTimeout(() => {
+                cursor.style.transform = 'scale(1)';
+                hideDropdown();
+                applyValue(step);
+                clearHighlights();
+                timer = setTimeout(() => {
+                  stepIdx = (stepIdx + 1) % steps.length;
+                  // after last step, fade out + restart
+                  if (stepIdx === 0) {
+                    cursor.style.opacity = '0';
+                    timer = setTimeout(() => {
+                      // reset all values
+                      steps.forEach(s => {
+                        const v = document.getElementById(s.valId);
+                        if (v) v.innerHTML = `<span style="display:inline-block;border-radius:4px;padding:3px 10px;font-size:10px;font-weight:700;background:#111120;color:#88807A;border:1px solid #333;">—  ▾</span>`;
+                      });
+                      run();
+                    }, 1200);
+                  } else {
+                    run();
+                  }
+                }, 700);
+              }, 180);
+            }, 900);
+          }, 800);
+        }, 200);
+      }, 700);
+    }
+
+    // start after a short delay
+    setTimeout(() => {
+      cursor.style.opacity = '0';
+      run();
+    }, 1200);
+  })();
+</script>
+
+</body>
+</html>

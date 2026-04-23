@@ -25,7 +25,11 @@ const MIME = {
 
 http.createServer((req, res) => {
   let urlPath = req.url.split('?')[0];
-  if (urlPath === '/') urlPath = '/index.html';
+  if (urlPath === '/' || urlPath === '') urlPath = '/index.html';
+  // Directory index support: /merch → /merch/index.html
+  if (!path.extname(urlPath)) {
+    urlPath = urlPath.replace(/\/?$/, '/index.html');
+  }
 
   const filePath = path.join(__dirname, urlPath);
   const ext = path.extname(filePath);
