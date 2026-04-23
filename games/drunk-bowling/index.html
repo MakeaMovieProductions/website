@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drunk Bowling — Make A Movie Production</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Jost:wght@300;400;500&family=Oswald:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'cinema-black':'#080808','cinema-dark':'#111111','cinema-card':'#1A1A1A',
+          'gold':'#F0C040','gold-light':'#FFD966','gold-dark':'#C8962A',
+          'amber-glow':'#E87820','warm-white':'#F2EFE6','muted':'#88807A',
+        },
+        fontFamily: {
+          'display':['"Playfair Display"','serif'],
+          'heading':['Oswald','sans-serif'],
+          'body':['Jost','sans-serif'],
+          'mono':['"Share Tech Mono"','monospace'],
+        },
+      }}
+    }
+  </script>
+  <style>
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:999;
+      opacity:0.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size:180px 180px;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-track{background:#080808}
+    ::-webkit-scrollbar-thumb{background:#F0C040;border-radius:2px}
+    .nav-glass{background:rgba(8,8,8,0.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(240,192,64,0.10)}
+    .nav-link{position:relative;transition:color 0.25s ease}
+    .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#F0C040;transition:width 0.3s ease}
+    .nav-link:hover::after{width:100%}
+    .nav-link:hover{color:#F2EFE6}
+    @keyframes flicker{0%,89%,91%,93%,100%{opacity:1}90%{opacity:0.75}92%{opacity:0.9}}
+    .logo-name{animation:flicker 9s infinite}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .fade-up{animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+    @keyframes pulse-glow{0%,100%{box-shadow:0 0 30px rgba(240,192,64,0.1),0 0 80px rgba(240,192,64,0.04)}50%{box-shadow:0 0 50px rgba(240,192,64,0.2),0 0 100px rgba(240,192,64,0.08)}}
+    .game-wrap{animation:pulse-glow 4s ease-in-out infinite}
+    #gameCanvas{display:block;width:100%;height:auto;cursor:crosshair;touch-action:none}
+    .info-card{background:#111;border:1px solid rgba(240,192,64,0.08);transition:border-color 0.3s ease,transform 0.35s cubic-bezier(0.16,1,0.3,1)}
+    .info-card:hover{border-color:rgba(240,192,64,0.22);transform:translateY(-4px)}
+    .modal-overlay{background:rgba(8,8,8,0.92);backdrop-filter:blur(14px)}
+    .lvl-dot{width:10px;height:10px;border-radius:50%;transition:background 0.3s,box-shadow 0.3s}
+  </style>
+</head>
+<body class="bg-cinema-black text-warm-white font-body antialiased overflow-x-hidden">
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-9 w-9 rounded-full object-cover">
+      <span class="font-heading tracking-[0.18em] text-gold text-sm uppercase logo-name">Make A Movie</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#about"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">About</a>
+      <a href="/#work"     class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
+      <a href="/games"     class="nav-link font-body text-xs tracking-widest uppercase" style="color:#F0C040;">Games</a>
+      <a href="/assets"    class="ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black" style="transition:background 0.25s ease,color 0.25s ease;">Download Assets</a>
+    </div>
+    <button id="menu-btn" class="md:hidden p-1">
+      <svg class="w-5 h-5 text-warm-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-white/5 px-6 py-5 flex flex-col gap-5">
+    <a href="/games"  class="text-xs tracking-widest uppercase" style="color:#F0C040;">← Back to Games</a>
+    <a href="/assets" class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="pt-32 pb-12 text-center relative overflow-hidden" style="background:radial-gradient(ellipse 80% 55% at 50% 0%,rgba(240,192,64,0.06) 0%,transparent 70%),#080808;">
+  <div class="absolute top-0 left-0 right-0 h-2.5" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 14px,rgba(240,192,64,0.3) 14px,rgba(240,192,64,0.3) 22px);"></div>
+  <div class="max-w-2xl mx-auto px-6">
+    <p class="font-heading text-xs tracking-[0.32em] mb-4 fade-up" style="color:#F0C040;animation-delay:0.1s;opacity:0;">Make A Movie Production Presents</p>
+    <h1 class="font-display mb-3 fade-up" style="font-size:clamp(2.6rem,7vw,5rem);letter-spacing:-0.025em;line-height:1.05;animation-delay:0.25s;opacity:0;">
+      Drunk<br><em style="color:#F0C040;">Bowling</em>
+    </h1>
+    <div class="w-14 h-0.5 mx-auto mb-5 fade-up" style="background:linear-gradient(90deg,#F0C040,#E87820);animation-delay:0.4s;opacity:0;"></div>
+    <p class="font-body text-sm leading-relaxed max-w-md mx-auto fade-up" style="color:#88807A;animation-delay:0.5s;opacity:0;">
+      Sling a wobbly coconut across a bar table. Knock down all the bottles. Mind the spills. Don't question the physics.
+    </p>
+  </div>
+</section>
+
+<!-- GAME AREA -->
+<section class="pb-16 px-4">
+  <div class="max-w-3xl mx-auto">
+
+    <!-- Window chrome -->
+    <div class="game-wrap rounded-sm overflow-hidden" style="border:1px solid rgba(240,192,64,0.18);">
+      <div class="flex items-center justify-between px-4 py-2.5 select-none" style="background:#161616;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full" style="background:#D44848;"></div>
+          <div class="w-3 h-3 rounded-full" style="background:#F0C040;"></div>
+          <div class="w-3 h-3 rounded-full" style="background:#4DB87A;"></div>
+        </div>
+        <span id="windowTitle" style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#88807A;letter-spacing:0.06em;">
+          drunk_bowling.exe — Level 1 / 5
+        </span>
+        <span id="windowShots" style="font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(240,192,64,0.5);letter-spacing:0.1em;">0 SHOTS</span>
+      </div>
+      <div class="relative" style="background:#0b0b0b;">
+        <canvas id="gameCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Level dots -->
+    <div class="mt-5 flex items-center justify-center gap-3">
+      <span class="font-heading text-xs tracking-widest uppercase mr-2" style="color:#88807A;font-size:9px;">PROGRESS</span>
+      <div id="levelDots" class="flex gap-2.5"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-5" style="font-size:11px;color:#88807A;">
+      <span class="flex items-center gap-2">
+        <span style="padding:3px 9px;background:#1a1a1a;border:1px solid rgba(240,192,64,0.22);color:#F0C040;font-size:9px;font-family:'Share Tech Mono',monospace;border-radius:2px;">DRAG</span>
+        Pull coconut back, release to fire
+      </span>
+      <span class="flex items-center gap-2">
+        <span style="width:8px;height:8px;border-radius:50%;background:#3D2006;border:1px solid rgba(240,192,64,0.3);display:inline-block;"></span>
+        Spill = slow zone
+      </span>
+      <span class="flex items-center gap-2">
+        <span style="width:8px;height:8px;border-radius:2px;background:#EDE2CA;display:inline-block;"></span>
+        Napkin = speed boost
+      </span>
+      <span class="flex items-center gap-2">
+        <span style="width:8px;height:8px;border-radius:50%;background:#F5EDDA;display:inline-block;"></span>
+        Bone = bumper
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- INFO CARDS -->
+<section class="pb-24 px-6">
+  <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-4">
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:22px;margin-bottom:12px;">🥥</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-3" style="color:#F0C040;">The Coconut</h3>
+      <p class="font-body text-xs leading-relaxed" style="color:#88807A;">
+        The coconut's center of mass is off-center. Every shot hooks, curves, and wobbles differently. Trust your gut — not the trajectory line.
+      </p>
+    </div>
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:22px;margin-bottom:12px;">🍺</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-3" style="color:#F0C040;">Knock 'Em All</h3>
+      <p class="font-body text-xs leading-relaxed" style="color:#88807A;">
+        A direct hit scatters bottles — chain reactions count. If the coconut stops with bottles still standing, the round resets. No lives. No timer. Pure stubbornness.
+      </p>
+    </div>
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:22px;margin-bottom:12px;">🏆</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-3" style="color:#F0C040;">5 Rounds</h3>
+      <ul class="font-body text-xs space-y-1.5 leading-relaxed" style="color:#88807A;">
+        <li>1 — First Round</li>
+        <li>2 — Spilled Stout</li>
+        <li>3 — Wing Night</li>
+        <li>4 — Happy Hour</li>
+        <li>5 — Last Call</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WIN MODAL -->
+<div id="winModal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-overlay">
+  <div class="max-w-sm w-full mx-6 p-10 text-center" style="background:#111;border:1px solid rgba(240,192,64,0.28);box-shadow:0 0 100px rgba(240,192,64,0.14);">
+    <p style="font-size:40px;margin-bottom:16px;">🍺</p>
+    <p class="font-heading text-xs tracking-[0.32em] uppercase mb-3" style="color:#F0C040;">Bar Closed</p>
+    <h2 class="font-display text-3xl text-warm-white mb-4" style="letter-spacing:-0.02em;">You Cleared the Bar!</h2>
+    <p class="font-body text-sm leading-relaxed mb-7" style="color:#88807A;">All 5 rounds knocked down. Vikas, Nandu, and Arjun are impressed. Now go watch one of our films.</p>
+    <a href="/games" class="inline-block px-6 py-3 font-heading tracking-[0.2em] text-xs uppercase text-cinema-black bg-gold hover:bg-gold-light mr-3" style="transition:background 0.25s ease;">More Games</a>
+    <button id="closeWinModal" class="inline-block px-6 py-3 font-heading tracking-[0.2em] text-xs uppercase border border-gold text-gold hover:bg-gold/10" style="transition:background 0.25s ease;">Play Again</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="py-8 text-center" style="border-top:1px solid rgba(240,192,64,0.08);">
+  <p class="font-body text-xs tracking-widest" style="color:#88807A;">© 2025 MAKE A MOVIE PRODUCTION</p>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  DRUNK BOWLING — Physics puzzle game
+//  Engine: Matter.js 0.19 + HTML5 Canvas (manual render)
+// ══════════════════════════════════════════════════════
+const { Engine, Bodies, Body, World, Events, Vector, Composite } = Matter;
+
+const canvas = document.getElementById('gameCanvas');
+const ctx    = canvas.getContext('2d');
+const W = 780, H = 440;
+canvas.width = W; canvas.height = H;
+
+// ── Table bounds ─────────────────────────────────────
+const TL=50, TR=730, TT=50, TB=390;
+const TCX=(TL+TR)/2, TCY=(TT+TB)/2;
+
+// ── Slingshot ────────────────────────────────────────
+const FORK_A  = { x:118, y:198 };
+const FORK_B  = { x:118, y:242 };
+const REST    = { x:148, y:220 };  // coconut at rest
+const MAX_DRAG = 105;
+const POWER    = 0.44;
+const COCONUT_R = 17;
+const BOTTLE_R  = 9;
+
+// ── Physics engine (top-down, no gravity) ────────────
+const engine = Engine.create({ gravity: { x:0, y:0 }, positionIterations:10, velocityIterations:8 });
+const world  = engine.world;
+
+// ── Level definitions ────────────────────────────────
+const LEVELS = [
+  {
+    name:'First Round', sub:'Warm up — straight shot',
+    bottles:[
+      {x:560,y:190},{x:560,y:230},{x:560,y:270},
+      {x:600,y:210},{x:600,y:250},
+    ],
+    obstacles:[],
+  },
+  {
+    name:'Spilled Stout', sub:'Mind the puddle',
+    bottles:[
+      {x:565,y:185},{x:595,y:172},{x:625,y:188},
+      {x:580,y:225},{x:610,y:225},
+    ],
+    obstacles:[
+      { type:'spill', x:345, y:176, w:120, h:72 },
+    ],
+  },
+  {
+    name:'Wing Night', sub:'Bank shots welcome',
+    bottles:[
+      {x:575,y:152},{x:608,y:145},{x:640,y:158},
+      {x:592,y:195},{x:624,y:192},
+    ],
+    obstacles:[
+      { type:'bumper', x:385, y:238, r:22 },
+      { type:'bumper', x:468, y:178, r:19 },
+    ],
+  },
+  {
+    name:'Happy Hour', sub:'Use the napkin ramp',
+    bottles:[
+      {x:588,y:162},{x:618,y:152},{x:605,y:200},
+      {x:638,y:185},{x:652,y:225},
+    ],
+    obstacles:[
+      { type:'spill', x:325, y:272, w:135, h:68 },
+      { type:'ramp',  x:318, y:192, w:72,  h:19 },
+    ],
+  },
+  {
+    name:'Last Call', sub:'The gauntlet',
+    bottles:[
+      {x:548,y:158},{x:575,y:143},{x:602,y:158},
+      {x:562,y:200},{x:589,y:200},{x:616,y:192},
+      {x:575,y:242},{x:602,y:232},
+    ],
+    obstacles:[
+      { type:'bumper', x:328, y:215, r:21 },
+      { type:'spill',  x:408, y:278, w:108, h:58 },
+      { type:'bumper', x:482, y:172, r:19 },
+      { type:'ramp',   x:258, y:245, w:68,  h:17 },
+    ],
+  },
+];
+
+// ── Game state ────────────────────────────────────────
+let currentLevel  = parseInt(localStorage.getItem('drunkBowlingLevel') || '0');
+currentLevel = Math.min(currentLevel, LEVELS.length-1);
+let gameState = 'idle';  // idle | aiming | rolling | checking | levelWin | levelLose | gameDone
+let shots     = 0;
+
+// ── Bodies ───────────────────────────────────────────
+let wallBodies   = [];
+let coconutBody  = null;
+let levelBodies  = [];  // all bodies for current level
+let bottleStates = [];  // { body, knocked, popX, popY }
+let bumperData   = [];  // { body, r }
+let spillZones   = [];
+let rampZones    = [];
+let pendingRemove = [];
+
+// ── Drag ──────────────────────────────────────────────
+let isDragging = false;
+let dragPos    = { ...REST };
+
+// ── Visual effects ───────────────────────────────────
+let popEffects = [];  // { x, y, life, lines[] }
+
+// ── Audio ─────────────────────────────────────────────
+let audioCtx = null;
+function audio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+function playLaunch() {
+  try {
+    const a=audio(), o=a.createOscillator(), g=a.createGain();
+    o.type='sawtooth';
+    o.frequency.setValueAtTime(200,a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(80,a.currentTime+0.13);
+    g.gain.setValueAtTime(0.22,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.16);
+    o.connect(g); g.connect(a.destination);
+    o.start(); o.stop(a.currentTime+0.16);
+  } catch(e){}
+}
+function playClink(freq=1100) {
+  try {
+    const a=audio(), o=a.createOscillator(), g=a.createGain();
+    o.type='sine';
+    o.frequency.setValueAtTime(freq+Math.random()*300,a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(freq*0.5,a.currentTime+0.28);
+    g.gain.setValueAtTime(0.28,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.3);
+    o.connect(g); g.connect(a.destination);
+    o.start(); o.stop(a.currentTime+0.3);
+  } catch(e){}
+}
+function playThwack() {
+  try {
+    const a=audio(), o=a.createOscillator(), g=a.createGain();
+    o.type='square';
+    o.frequency.setValueAtTime(110,a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(55,a.currentTime+0.09);
+    g.gain.setValueAtTime(0.28,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.1);
+    o.connect(g); g.connect(a.destination);
+    o.start(); o.stop(a.currentTime+0.1);
+  } catch(e){}
+}
+function playWin() {
+  try {
+    const a=audio(), notes=[523,659,784,1047];
+    notes.forEach((f,i)=>{
+      const o=a.createOscillator(), g=a.createGain();
+      o.type='sine'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.18,a.currentTime+i*0.13);
+      g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+i*0.13+0.35);
+      o.connect(g); g.connect(a.destination);
+      o.start(a.currentTime+i*0.13); o.stop(a.currentTime+i*0.13+0.35);
+    });
+  } catch(e){}
+}
+
+// ── Wall setup (once) ─────────────────────────────────
+function setupWalls() {
+  const o={isStatic:true,label:'wall',restitution:0.45,friction:0.04};
+  wallBodies=[
+    Bodies.rectangle(TCX,TT-26,TR-TL+60,52,o),
+    Bodies.rectangle(TCX,TB+26,TR-TL+60,52,o),
+    Bodies.rectangle(TL-26,TCY,52,TB-TT+60,o),
+    Bodies.rectangle(TR+26,TCY,52,TB-TT+60,o),
+  ];
+  World.add(world,wallBodies);
+}
+
+// ── Level loading ─────────────────────────────────────
+function addToLevel(body) { World.add(world,body); levelBodies.push(body); return body; }
+
+function loadLevel(idx) {
+  // Remove previous level bodies
+  levelBodies.forEach(b=>{ try{World.remove(world,b);}catch(e){} });
+  levelBodies=[];
+  pendingRemove=[];
+  bottleStates=[];
+  bumperData=[];
+  spillZones=[];
+  rampZones=[];
+  popEffects=[];
+
+  const lvl=LEVELS[idx];
+
+  // Coconut (static until launched)
+  coconutBody = addToLevel(Bodies.circle(REST.x,REST.y,COCONUT_R,{
+    label:'coconut', restitution:0.42, friction:0.005,
+    frictionAir:0.020, isStatic:true, density:0.003,
+  }));
+
+  // Bottles
+  lvl.bottles.forEach(bp=>{
+    const b=addToLevel(Bodies.circle(bp.x,bp.y,BOTTLE_R,{
+      label:'bottle', restitution:0.48, friction:0.06,
+      frictionAir:0.022, density:0.0015,
+    }));
+    bottleStates.push({body:b,knocked:false});
+  });
+
+  // Obstacles
+  lvl.obstacles.forEach(obs=>{
+    if(obs.type==='bumper'){
+      const b=addToLevel(Bodies.circle(obs.x,obs.y,obs.r,{
+        label:'bumper', isStatic:true, restitution:0.85, friction:0.01,
+      }));
+      bumperData.push({body:b,r:obs.r});
+    } else if(obs.type==='spill'){
+      spillZones.push({...obs});
+    } else if(obs.type==='ramp'){
+      rampZones.push({...obs,used:false});
+    }
+  });
+
+  shots=0;
+  isDragging=false;
+  dragPos={...REST};
+  gameState='idle';
+
+  updateUI();
+}
+
+// ── Collision events ──────────────────────────────────
+Events.on(engine,'collisionStart',function(e){
+  for(const pair of e.pairs){
+    const {bodyA,bodyB}=pair;
+    const isCoco  = b=>b.label==='coconut';
+    const isBot   = b=>b.label==='bottle';
+    const isBump  = b=>b.label==='bumper';
+
+    const relVel=()=>Vector.magnitude({
+      x:bodyA.velocity.x-bodyB.velocity.x,
+      y:bodyA.velocity.y-bodyB.velocity.y,
+    });
+
+    if((isCoco(bodyA)&&isBot(bodyB))||(isCoco(bodyB)&&isBot(bodyA))){
+      if(relVel()>1.8){ knockBottle(isBot(bodyA)?bodyA:bodyB); playClink(); }
+    }
+    if((isCoco(bodyA)&&isBump(bodyB))||(isCoco(bodyB)&&isBump(bodyA))){
+      playThwack();
+    }
+    if(isBot(bodyA)&&isBot(bodyB)){
+      if(relVel()>2.2){ knockBottle(bodyA); knockBottle(bodyB); playClink(900); }
+    }
+  }
+});
+
+function knockBottle(body){
+  const st=bottleStates.find(s=>s.body===body&&!s.knocked);
+  if(!st) return;
+  st.knocked=true;
+  pendingRemove.push(body);
+  const pe={x:body.position.x, y:body.position.y, life:1.0, lines:[]};
+  for(let i=0;i<10;i++){
+    const ang=(i/10)*Math.PI*2;
+    pe.lines.push({ang, len:9+Math.random()*14});
+  }
+  popEffects.push(pe);
+}
+
+// ── Wobble + spill + ramp ─────────────────────────────
+Events.on(engine,'beforeUpdate',function(){
+  if(!coconutBody) return;
+
+  // Keep coconut still during aim
+  if(gameState==='idle'||gameState==='aiming'){
+    const t=gameState==='aiming'?dragPos:REST;
+    Body.setPosition(coconutBody,t);
+    Body.setVelocity(coconutBody,{x:0,y:0});
+    Body.setAngularVelocity(coconutBody,0);
+    return;
+  }
+
+  if(gameState!=='rolling') return;
+  const spd=Vector.magnitude(coconutBody.velocity);
+
+  // Speed cap
+  if(spd>24){
+    const v=coconutBody.velocity;
+    Body.setVelocity(coconutBody,{x:v.x/spd*24,y:v.y/spd*24});
+  }
+
+  // Wobble torque: tied to body rotation — creates lopsided rolling
+  if(spd>0.4){
+    const w=Math.sin(coconutBody.angle*3.5)*spd*0.00020;
+    const wp=Math.cos(coconutBody.angle*3.5)*spd*0.00013;
+    Body.applyForce(coconutBody,coconutBody.position,{x:w,y:wp});
+  }
+
+  const pos=coconutBody.position;
+
+  // Spill zones — brake
+  for(const spill of spillZones){
+    if(pos.x>spill.x&&pos.x<spill.x+spill.w&&pos.y>spill.y&&pos.y<spill.y+spill.h){
+      const v=coconutBody.velocity;
+      Body.setVelocity(coconutBody,{x:v.x*0.92,y:v.y*0.92});
+    }
+  }
+
+  // Ramp zones — boost
+  for(const ramp of rampZones){
+    if(!ramp.used&&pos.x>ramp.x&&pos.x<ramp.x+ramp.w&&pos.y>ramp.y&&pos.y<ramp.y+ramp.h){
+      ramp.used=true;
+      const v=coconutBody.velocity;
+      const s=Vector.magnitude(v)||0.01;
+      Body.setVelocity(coconutBody,{x:v.x/s*(s*2.1),y:v.y/s*(s*2.1)});
+    }
+  }
+});
+
+Events.on(engine,'afterUpdate',function(){
+  if(gameState!=='rolling'||!coconutBody) return;
+  const spd=Vector.magnitude(coconutBody.velocity);
+  if(spd<0.14){
+    gameState='checking';
+    setTimeout(checkWinLose, 500);
+  }
+});
+
+function checkWinLose(){
+  const remaining=bottleStates.filter(s=>!s.knocked).length;
+  if(remaining===0){
+    gameState='levelWin';
+    playWin();
+    localStorage.setItem('drunkBowlingLevel',String(Math.max(currentLevel+1,parseInt(localStorage.getItem('drunkBowlingLevel')||'0'))));
+    setTimeout(()=>{
+      if(currentLevel>=LEVELS.length-1){
+        gameState='gameDone';
+        document.getElementById('winModal').classList.remove('hidden');
+      } else {
+        currentLevel++;
+        loadLevel(currentLevel);
+      }
+    },1800);
+  } else {
+    gameState='levelLose';
+    setTimeout(()=>{ loadLevel(currentLevel); }, 1400);
+  }
+}
+
+// ── Launch ────────────────────────────────────────────
+function launch(){
+  if(gameState!=='aiming') return;
+  const dx=REST.x-dragPos.x, dy=REST.y-dragPos.y;
+  const dist=Math.sqrt(dx*dx+dy*dy);
+  if(dist<6){ gameState='idle'; isDragging=false; return; }
+  Body.setStatic(coconutBody,false);
+  Body.setPosition(coconutBody,{...dragPos});
+  Body.setVelocity(coconutBody,{x:dx*POWER,y:dy*POWER});
+  Body.setAngularVelocity(coconutBody,(Math.random()-0.5)*0.4);
+  shots++;
+  gameState='rolling';
+  isDragging=false;
+  rampZones.forEach(r=>r.used=false);
+  playLaunch();
+  updateUI();
+}
+
+// ── Input ─────────────────────────────────────────────
+function getPos(e){
+  const rect=canvas.getBoundingClientRect();
+  const sx=canvas.width/rect.width, sy=canvas.height/rect.height;
+  const src=e.touches?e.touches[0]:e;
+  return{x:(src.clientX-rect.left)*sx,y:(src.clientY-rect.top)*sy};
+}
+function onDown(e){
+  e.preventDefault();
+  const p=getPos(e);
+  if(gameState!=='idle'&&gameState!=='aiming') return;
+  const dx=p.x-REST.x, dy=p.y-REST.y;
+  if(Math.sqrt(dx*dx+dy*dy)<38){
+    isDragging=true; gameState='aiming'; dragPos={...p};
+  }
+}
+function onMove(e){
+  e.preventDefault();
+  if(!isDragging) return;
+  const p=getPos(e);
+  const dx=p.x-REST.x, dy=p.y-REST.y;
+  const dist=Math.sqrt(dx*dx+dy*dy);
+  if(dist>MAX_DRAG) dragPos={x:REST.x+(dx/dist)*MAX_DRAG,y:REST.y+(dy/dist)*MAX_DRAG};
+  else dragPos={...p};
+}
+function onUp(e){ e.preventDefault(); if(isDragging) launch(); }
+
+canvas.addEventListener('mousedown',onDown);
+canvas.addEventListener('mousemove',onMove);
+canvas.addEventListener('mouseup',onUp);
+canvas.addEventListener('touchstart',onDown,{passive:false});
+canvas.addEventListener('touchmove',onMove,{passive:false});
+canvas.addEventListener('touchend',onUp,{passive:false});
+
+// ── UI update ─────────────────────────────────────────
+function updateUI(){
+  const lvl=LEVELS[currentLevel];
+  document.getElementById('windowTitle').textContent=
+    `drunk_bowling.exe — ${lvl.name} (${currentLevel+1}/${LEVELS.length})`;
+  document.getElementById('windowShots').textContent=
+    `${shots} SHOT${shots!==1?'S':''}`;
+
+  // Level dots
+  const dotsEl=document.getElementById('levelDots');
+  dotsEl.innerHTML='';
+  const maxReached=parseInt(localStorage.getItem('drunkBowlingLevel')||'0');
+  LEVELS.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='lvl-dot';
+    if(i<currentLevel||(i===currentLevel&&gameState==='levelWin'))
+      d.style.cssText='background:#F0C040;box-shadow:0 0 6px rgba(240,192,64,0.6)';
+    else if(i===currentLevel)
+      d.style.cssText='background:rgba(240,192,64,0.4);box-shadow:0 0 4px rgba(240,192,64,0.3);border:1px solid #F0C040';
+    else
+      d.style.cssText='background:rgba(136,128,122,0.25);border:1px solid rgba(136,128,122,0.3)';
+    dotsEl.appendChild(d);
+  });
+}
+
+// ── DRAW ──────────────────────────────────────────────
+function drawTable(){
+  // Wood grain base
+  const g=ctx.createLinearGradient(TL,TT,TR,TB);
+  g.addColorStop(0,'#2C1505');
+  g.addColorStop(0.35,'#3A1A08');
+  g.addColorStop(0.65,'#321605');
+  g.addColorStop(1,'#2A1204');
+  ctx.fillStyle=g; ctx.fillRect(TL,TT,TR-TL,TB-TT);
+
+  // Grain lines
+  ctx.save();
+  for(let y=TT;y<TB;y+=10){
+    ctx.strokeStyle=`rgba(255,180,80,${0.015+Math.sin(y*0.25)*0.008})`;
+    ctx.lineWidth=0.8;
+    ctx.beginPath();
+    ctx.moveTo(TL,y+Math.sin(y*0.08)*1.5);
+    ctx.bezierCurveTo(TL+(TR-TL)*0.3,y+Math.sin(y*0.09)*2,TL+(TR-TL)*0.7,y+Math.sin(y*0.07)*1.5,TR,y+Math.sin(y*0.1)*1);
+    ctx.stroke();
+  }
+  // Darker grain
+  for(let y=TT+5;y<TB;y+=10){
+    ctx.strokeStyle=`rgba(0,0,0,${0.03+Math.sin(y*0.18)*0.015})`;
+    ctx.lineWidth=0.5;
+    ctx.beginPath();
+    ctx.moveTo(TL,y); ctx.lineTo(TR,y); ctx.stroke();
+  }
+  ctx.restore();
+
+  // Table border
+  ctx.strokeStyle='#180A01'; ctx.lineWidth=8;
+  ctx.strokeRect(TL,TT,TR-TL,TB-TT);
+  ctx.strokeStyle='rgba(255,160,50,0.12)'; ctx.lineWidth=1.5;
+  ctx.strokeRect(TL+4,TT+4,TR-TL-8,TB-TT-8);
+}
+
+function drawObstacles(){
+  // Spills
+  spillZones.forEach(s=>{
+    const cx=s.x+s.w/2, cy=s.y+s.h/2;
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(s.w,s.h)*0.65);
+    g.addColorStop(0,'rgba(22,8,0,0.82)');
+    g.addColorStop(0.65,'rgba(18,5,0,0.65)');
+    g.addColorStop(1,'rgba(10,3,0,0)');
+    ctx.fillStyle=g;
+    ctx.beginPath(); ctx.ellipse(cx,cy,s.w/2,s.h/2,0,0,Math.PI*2); ctx.fill();
+    // Glossy highlight
+    ctx.fillStyle='rgba(160,60,0,0.07)';
+    ctx.beginPath(); ctx.ellipse(cx-s.w*0.15,cy-s.h*0.2,s.w*0.22,s.h*0.18,-0.3,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='rgba(240,192,64,0.3)';
+    ctx.font='8px "Share Tech Mono",monospace'; ctx.textAlign='center';
+    ctx.fillText('STICKY SPILL',cx,cy+3);
+  });
+
+  // Ramps (folded napkin)
+  rampZones.forEach(ramp=>{
+    ctx.save();
+    ctx.fillStyle=ramp.used?'rgba(210,195,160,0.35)':'rgba(242,230,195,0.88)';
+    ctx.strokeStyle='rgba(180,160,120,0.55)'; ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(ramp.x,          ramp.y+ramp.h);
+    ctx.lineTo(ramp.x+ramp.w,   ramp.y+ramp.h*0.25);
+    ctx.lineTo(ramp.x+ramp.w,   ramp.y);
+    ctx.lineTo(ramp.x,          ramp.y+ramp.h*0.75);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // Crease
+    ctx.strokeStyle='rgba(160,140,100,0.4)'; ctx.lineWidth=0.8;
+    ctx.beginPath();
+    ctx.moveTo(ramp.x+ramp.w*0.25,ramp.y+ramp.h*0.62);
+    ctx.lineTo(ramp.x+ramp.w*0.85,ramp.y+ramp.h*0.12);
+    ctx.stroke();
+    ctx.fillStyle=ramp.used?'rgba(136,128,122,0.4)':'rgba(100,85,60,0.7)';
+    ctx.font='7px "Share Tech Mono",monospace'; ctx.textAlign='center';
+    ctx.fillText('RAMP',ramp.x+ramp.w/2,ramp.y+ramp.h/2+3);
+    ctx.restore();
+  });
+
+  // Bumpers (bones)
+  bumperData.forEach(bmp=>{
+    const {x,y}=bmp.body.position, r=bmp.r;
+    ctx.save();
+    // Bone shaft
+    ctx.fillStyle='#F0E6CD'; ctx.strokeStyle='#C8B890'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.ellipse(x,y,r,r*0.48,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    // End knobs
+    ['left','right'].forEach(side=>{
+      const ex=x+(side==='left'?-r*0.72:r*0.72);
+      ctx.fillStyle='#E8DBB5'; ctx.strokeStyle='#C8B890'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.arc(ex,y,r*0.42,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    });
+    // Highlight
+    ctx.fillStyle='rgba(255,255,255,0.28)';
+    ctx.beginPath(); ctx.ellipse(x-3,y-r*0.22,r*0.45,r*0.18,-0.15,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  });
+}
+
+function drawBottles(){
+  bottleStates.forEach(st=>{
+    if(st.knocked) return;
+    const {x,y}=st.body.position, r=BOTTLE_R;
+    ctx.save();
+    // Glass body
+    ctx.fillStyle='#7A4A08';
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    // Amber gradient
+    const bg=ctx.createRadialGradient(x-2,y-2,0,x,y,r);
+    bg.addColorStop(0,'rgba(210,125,30,0.75)');
+    bg.addColorStop(0.55,'rgba(140,75,10,0.5)');
+    bg.addColorStop(1,'rgba(60,30,0,0)');
+    ctx.fillStyle=bg; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    // Label
+    ctx.fillStyle='rgba(255,255,255,0.55)';
+    ctx.fillRect(x-3.5,y-1.5,7,3);
+    // Gold cap
+    ctx.fillStyle='#F0C040';
+    ctx.beginPath(); ctx.arc(x,y,r*0.32,0,Math.PI*2); ctx.fill();
+    // Specular
+    ctx.fillStyle='rgba(255,255,255,0.38)';
+    ctx.beginPath(); ctx.ellipse(x-3,y-3,2.5,1.8,-0.5,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  });
+}
+
+function drawPopEffects(){
+  for(let i=popEffects.length-1;i>=0;i--){
+    const pe=popEffects[i];
+    ctx.save(); ctx.globalAlpha=Math.max(0,pe.life);
+    const prog=1-pe.life;
+    pe.lines.forEach(ln=>{
+      const sr=prog*16, er=sr+ln.len*pe.life;
+      ctx.strokeStyle='#FFFFFF'; ctx.lineWidth=1.8;
+      ctx.beginPath();
+      ctx.moveTo(pe.x+Math.cos(ln.ang)*sr,pe.y+Math.sin(ln.ang)*sr);
+      ctx.lineTo(pe.x+Math.cos(ln.ang)*er,pe.y+Math.sin(ln.ang)*er);
+      ctx.stroke();
+    });
+    // Gold flash
+    ctx.fillStyle='rgba(240,192,64,0.6)';
+    ctx.beginPath(); ctx.arc(pe.x,pe.y,prog*10,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+    pe.life-=0.048;
+    if(pe.life<=0) popEffects.splice(i,1);
+  }
+}
+
+function drawCoconut(){
+  if(!coconutBody) return;
+  const {x,y}=coconutBody.position, ang=coconutBody.angle, r=COCONUT_R;
+  ctx.save(); ctx.translate(x,y); ctx.rotate(ang);
+  // Shadow
+  ctx.fillStyle='rgba(0,0,0,0.28)';
+  ctx.beginPath(); ctx.ellipse(3,4,r+1,r-2,0,0,Math.PI*2); ctx.fill();
+  // Green body
+  ctx.fillStyle='#286218';
+  ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.fill();
+  // Lighter mid
+  ctx.fillStyle='#34781F';
+  ctx.beginPath(); ctx.arc(-3,-3,r*0.68,0,Math.PI*2); ctx.fill();
+  // Bumpy ridges (3 curved grooves)
+  ctx.strokeStyle='#1A4510'; ctx.lineWidth=1.6;
+  for(let i=0;i<3;i++){
+    ctx.save(); ctx.rotate(i*Math.PI*2/3);
+    ctx.beginPath(); ctx.arc(r*0.28,0,r*0.62,-0.85,0.85); ctx.stroke();
+    ctx.restore();
+  }
+  // Highlights
+  ctx.fillStyle='rgba(90,180,60,0.38)';
+  ctx.beginPath(); ctx.ellipse(-5,-5,6,4,-0.4,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,0.45)';
+  ctx.beginPath(); ctx.ellipse(-6,-6,2.5,1.8,-0.4,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawSlingshot(){
+  ctx.save();
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  // Handle
+  ctx.strokeStyle='#7A4D22'; ctx.lineWidth=7;
+  ctx.beginPath();
+  ctx.moveTo(FORK_A.x-8,FORK_A.y+62); ctx.lineTo(FORK_A.x+2,TCY); ctx.stroke();
+  // Fork arms
+  ctx.strokeStyle='#8B5A28'; ctx.lineWidth=6;
+  ctx.beginPath(); ctx.moveTo(FORK_A.x+2,TCY); ctx.lineTo(FORK_A.x,FORK_A.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(FORK_A.x+2,TCY); ctx.lineTo(FORK_B.x,FORK_B.y); ctx.stroke();
+  // Wood highlight
+  ctx.strokeStyle='rgba(255,190,100,0.22)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(FORK_A.x+2,TCY); ctx.lineTo(FORK_A.x,FORK_A.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(FORK_A.x+2,TCY); ctx.lineTo(FORK_B.x,FORK_B.y); ctx.stroke();
+
+  // Rubber band (only when idle/aiming)
+  if(gameState==='idle'||gameState==='aiming'){
+    const cp=gameState==='aiming'?dragPos:REST;
+    // Shadow rubber band
+    ctx.strokeStyle='rgba(0,0,0,0.3)'; ctx.lineWidth=4;
+    ctx.beginPath(); ctx.moveTo(FORK_A.x,FORK_A.y); ctx.lineTo(cp.x+1,cp.y+1); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(FORK_B.x,FORK_B.y); ctx.lineTo(cp.x+1,cp.y+1); ctx.stroke();
+    // Rubber band
+    ctx.strokeStyle='#7A3A18'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(FORK_A.x,FORK_A.y); ctx.lineTo(cp.x,cp.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(FORK_B.x,FORK_B.y); ctx.lineTo(cp.x,cp.y); ctx.stroke();
+    ctx.strokeStyle='rgba(180,90,40,0.35)'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(FORK_A.x,FORK_A.y); ctx.lineTo(cp.x,cp.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(FORK_B.x,FORK_B.y); ctx.lineTo(cp.x,cp.y); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawTrajectory(){
+  const dx=REST.x-dragPos.x, dy=REST.y-dragPos.y;
+  const dist=Math.sqrt(dx*dx+dy*dy);
+  if(dist<6) return;
+  const ux=dx/dist, uy=dy/dist;
+  const pct=dist/MAX_DRAG;
+
+  ctx.save();
+  ctx.setLineDash([5,7]);
+  ctx.strokeStyle=`rgba(240,192,64,${0.3+pct*0.35})`;
+  ctx.lineWidth=1.5;
+  ctx.beginPath();
+  let started=false;
+  for(let t=0;t<=680;t+=10){
+    const px=dragPos.x+ux*t, py=dragPos.y+uy*t;
+    if(px<TL+2||px>TR-2||py<TT+2||py>TB-2) break;
+    if(!started){ctx.moveTo(px,py);started=true;}
+    else ctx.lineTo(px,py);
+  }
+  ctx.stroke(); ctx.setLineDash([]);
+
+  // Power label
+  const col=pct>0.7?'#D44848':pct>0.4?'#F0C040':'#4DB87A';
+  ctx.fillStyle=col;
+  ctx.font='bold 8px "Share Tech Mono",monospace';
+  ctx.textAlign='left';
+  ctx.fillText(`PWR ${Math.round(pct*100)}%`, dragPos.x+12, dragPos.y-8);
+  ctx.restore();
+}
+
+function drawHUD(){
+  const remaining=bottleStates.filter(s=>!s.knocked).length;
+  const total=bottleStates.length;
+  // HUD panel
+  ctx.fillStyle='rgba(0,0,0,0.58)'; ctx.fillRect(TL,TT,216,40);
+  ctx.strokeStyle='rgba(240,192,64,0.18)'; ctx.lineWidth=0.5;
+  ctx.strokeRect(TL,TT,216,40);
+  ctx.font='7px "Share Tech Mono",monospace';
+  ctx.fillStyle='rgba(240,192,64,0.65)'; ctx.textAlign='left';
+  ctx.fillText(`LVL ${currentLevel+1}/${LEVELS.length}  ·  ${LEVELS[currentLevel].name.toUpperCase()}`,TL+8,TT+13);
+  ctx.fillStyle='rgba(136,128,122,0.8)';
+  ctx.fillText(`${remaining}/${total} BOTTLES  ·  ${shots} SHOT${shots!==1?'S':''}`,TL+8,TT+28);
+}
+
+function drawIdleOverlay(){
+  ctx.fillStyle='rgba(8,8,8,0.65)'; ctx.fillRect(TL,TT,TR-TL,TB-TT);
+  ctx.textAlign='center';
+  ctx.font='bold 26px "Playfair Display",serif';
+  ctx.fillStyle='#F0C040';
+  ctx.fillText('DRUNK BOWLING',W/2,H/2-28);
+  ctx.font='10px "Share Tech Mono",monospace';
+  ctx.fillStyle='#F2EFE6';
+  ctx.fillText('DRAG THE COCONUT BACK — RELEASE TO FIRE',W/2,H/2+8);
+  ctx.font='8px "Share Tech Mono",monospace';
+  ctx.fillStyle='rgba(136,128,122,0.65)';
+  ctx.fillText(`ROUND ${currentLevel+1}: ${LEVELS[currentLevel].sub.toUpperCase()}`,W/2,H/2+28);
+  if(Math.floor(Date.now()/560)%2===0){
+    ctx.fillStyle='#F0C040'; ctx.fillRect(W/2-3,H/2+36,6,2);
+  }
+}
+
+function drawLevelWin(){
+  ctx.fillStyle='rgba(8,8,8,0.62)'; ctx.fillRect(TL,TT,TR-TL,TB-TT);
+  ctx.textAlign='center';
+  ctx.font='bold 30px "Playfair Display",serif';
+  ctx.fillStyle='#F0C040';
+  ctx.fillText('STRIKE!',W/2,H/2-12);
+  ctx.font='10px "Share Tech Mono",monospace';
+  ctx.fillStyle='#F2EFE6';
+  ctx.fillText(`ALL BOTTLES DOWN  ·  ${shots} SHOT${shots!==1?'S':''}`,W/2,H/2+18);
+  if(currentLevel<LEVELS.length-1){
+    ctx.fillStyle='rgba(136,128,122,0.6)';
+    ctx.font='8px "Share Tech Mono",monospace';
+    ctx.fillText('NEXT ROUND...',W/2,H/2+38);
+  }
+}
+
+function drawLevelLose(){
+  ctx.fillStyle='rgba(8,8,8,0.62)'; ctx.fillRect(TL,TT,TR-TL,TB-TT);
+  ctx.textAlign='center';
+  ctx.font='bold 22px "Playfair Display",serif';
+  ctx.fillStyle='#D44848';
+  ctx.fillText('COCONUT STOPPED.',W/2,H/2-10);
+  ctx.font='9px "Share Tech Mono",monospace';
+  ctx.fillStyle='rgba(136,128,122,0.75)';
+  ctx.fillText('RESETTING...',W/2,H/2+16);
+}
+
+// ── Main render frame ─────────────────────────────────
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  drawTable();
+  drawObstacles();
+  drawBottles();
+  drawPopEffects();
+  drawCoconut();
+  drawSlingshot();
+  if(gameState==='aiming') drawTrajectory();
+  if(gameState!=='idle') drawHUD();
+  if(gameState==='idle')     drawIdleOverlay();
+  if(gameState==='levelWin') drawLevelWin();
+  if(gameState==='levelLose')drawLevelLose();
+}
+
+// ── Game loop ─────────────────────────────────────────
+let lastT=0;
+function loop(ts){
+  const dt=Math.min(ts-lastT,50); lastT=ts;
+
+  // Remove knocked bottles after physics step (allow one step of momentum transfer)
+  if(pendingRemove.length){
+    pendingRemove.forEach(b=>{ try{World.remove(world,b);}catch(e){} });
+    pendingRemove=[];
+  }
+
+  Engine.update(engine,dt);
+  draw();
+  requestAnimationFrame(loop);
+}
+
+// ── Modal ─────────────────────────────────────────────
+document.getElementById('closeWinModal').addEventListener('click',()=>{
+  document.getElementById('winModal').classList.add('hidden');
+  currentLevel=0;
+  localStorage.removeItem('drunkBowlingLevel');
+  loadLevel(0);
+});
+document.getElementById('menu-btn').addEventListener('click',()=>{
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+
+// ── Init ──────────────────────────────────────────────
+setupWalls();
+loadLevel(currentLevel);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
