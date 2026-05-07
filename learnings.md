@@ -14,3 +14,5 @@ Description: These are my learnings from the projects that I worked on as a prod
 - Create a shot list and create a shot "order" in which those shots can be captured with minimum wastage of time and energy
 - Cover windows with trash bags to block sunlight and create night effect
 - Avoid renting equipment and always opt for jugaad no matter what
+- **Don't leave anything in a car if you are in SF**
+- **Milpitas Janaki Ram Pataas**
