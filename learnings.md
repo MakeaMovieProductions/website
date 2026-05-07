@@ -7,7 +7,6 @@ Description: These are my learnings from the projects that I worked on as a prod
 - The color grading/DI process charges 2k INR per minute of footage according to the industry standard rate (Nithin's contact charges 15k INR)
 - The first day of shoot is always going to be a warmup and will fetch very less footage
 - SFX costs 10k INR (Nitish's contact)
-- 
 
 ## Project 2: Locked In
 - Do rehearsals with actors before the shoot
