@@ -317,6 +317,7 @@
         <a href="#process" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Process</a>
         <a href="/games" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Games</a>
         <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
+        <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Games <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
         <a href="/assets" class="shimmer ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black transition-colors duration-300 btn-primary">
           Download Assets
         </a>
@@ -339,6 +340,7 @@
       <a href="#process"  class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Process</a>
       <a href="/games" class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Games</a>
       <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
+      <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Games <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
       <a href="/assets"   class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
     </div>
   </nav>
@@ -958,29 +960,32 @@
             <div class="font-heading text-gold text-[10px] tracking-[0.28em] uppercase mb-3">Support Our Films</div>
             <p class="font-body text-muted text-xs mb-4" style="line-height: 1.7;">We create independent films on passion and dedication. If our work moves you, we'd be deeply grateful for any contribution — big or small.</p>
             <div class="space-y-2 font-body text-xs text-muted/70">
-              <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">Phone</span><span>+1 (415) 555-0192</span></div>
+              <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">Phone</span><span>+1 (765) 746-9849</span></div>
               <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">Zelle</span><span>makeamovieprod@gmail.com</span></div>
-              <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">UPI</span><span>makeamovieprod@upi</span></div>
             </div>
           </div>
         </div>
 
         <!-- Right: Form -->
         <div class="reveal-right">
-          <form class="space-y-5" onsubmit="return false;">
+          <!-- Web3Forms: get your free access key at https://web3forms.com — enter makeamovieprod@gmail.com -->
+          <form id="contact-form" class="space-y-5">
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+            <input type="hidden" name="subject" value="New Contact from Make A Movie Productions Website">
+            <input type="hidden" name="from_name" value="Make A Movie Productions Website">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label class="font-heading text-[10px] tracking-[0.22em] uppercase text-muted block mb-2">Your Name</label>
-                <input type="text" placeholder="Jane Smith" class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18">
+                <input type="text" name="name" required placeholder="Jane Smith" class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18">
               </div>
               <div>
                 <label class="font-heading text-[10px] tracking-[0.22em] uppercase text-muted block mb-2">Email</label>
-                <input type="email" placeholder="you@email.com" class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18">
+                <input type="email" name="email" required placeholder="you@email.com" class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18">
               </div>
             </div>
             <div>
               <label class="font-heading text-[10px] tracking-[0.22em] uppercase text-muted block mb-2">Project Type</label>
-              <select class="w-full bg-cinema-card border border-warm-white/8 text-muted font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 appearance-none cursor-pointer">
+              <select name="project_type" class="w-full bg-cinema-card border border-warm-white/8 text-muted font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 appearance-none cursor-pointer">
                 <option value="">Select a service…</option>
                 <option>Short Film Production</option>
                 <option>Cinematography Only</option>
@@ -991,9 +996,10 @@
             </div>
             <div>
               <label class="font-heading text-[10px] tracking-[0.22em] uppercase text-muted block mb-2">Tell Us Your Story</label>
-              <textarea rows="5" placeholder="Describe your project, vision, and timeline…" class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18 resize-none"></textarea>
+              <textarea name="message" rows="5" placeholder="Describe your project, vision, and timeline…" class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18 resize-none"></textarea>
             </div>
-            <button type="submit" class="shimmer btn-primary w-full py-4 bg-gold text-cinema-black font-heading tracking-[0.22em] text-xs uppercase focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cinema-black">
+            <div id="form-status" class="hidden font-body text-xs py-2 px-4 border"></div>
+            <button id="form-submit-btn" type="submit" class="shimmer btn-primary w-full py-4 bg-gold text-cinema-black font-heading tracking-[0.22em] text-xs uppercase focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cinema-black">
               Send Message
             </button>
           </form>
@@ -1060,6 +1066,41 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
+
+    // Contact form submission via Web3Forms
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const btn = document.getElementById('form-submit-btn');
+      const status = document.getElementById('form-status');
+
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      status.className = 'hidden font-body text-xs py-2 px-4 border';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        const data = await res.json();
+        if (data.success) {
+          status.textContent = 'Message sent — we\'ll be in touch soon.';
+          status.className = 'font-body text-xs py-2 px-4 border border-gold/30 text-gold/80';
+          form.reset();
+          btn.textContent = 'Send Message';
+          btn.disabled = false;
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        status.textContent = 'Something went wrong. Please email us directly at makeamovieprod@gmail.com';
+        status.className = 'font-body text-xs py-2 px-4 border border-warm-white/15 text-muted';
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+      }
+    });
   </script>
 
   <!-- ╔══════════════════ FILM MODALS ══════════════════╗ -->
