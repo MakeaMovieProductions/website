@@ -966,11 +966,9 @@
 
         <!-- Right: Form -->
         <div class="reveal-right">
-          <!-- Web3Forms: get your free access key at https://web3forms.com — enter makeamovieprod@gmail.com -->
           <form id="contact-form" class="space-y-5">
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
-            <input type="hidden" name="subject" value="New Contact from Make A Movie Productions Website">
-            <input type="hidden" name="from_name" value="Make A Movie Productions Website">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label class="font-heading text-[10px] tracking-[0.22em] uppercase text-muted block mb-2">Your Name</label>
@@ -1065,7 +1063,7 @@
 
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
 
-    // Contact form submission via Web3Forms
+    // Contact form submission via Formsubmit.co
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = this;
@@ -1077,13 +1075,14 @@
       status.className = 'hidden font-body text-xs py-2 px-4 border';
 
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
+        const formData = new FormData(form);
+        const res = await fetch('https://formsubmit.co/ajax/makeamovieprod@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+          headers: { 'Accept': 'application/json' },
+          body: formData
         });
         const data = await res.json();
-        if (data.success) {
+        if (data.success === 'true' || data.success === true) {
           status.textContent = 'Message sent — we\'ll be in touch soon.';
           status.className = 'font-body text-xs py-2 px-4 border border-gold/30 text-gold/80';
           form.reset();
