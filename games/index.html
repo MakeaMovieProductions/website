@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games — Make A Movie Production</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Jost:wght@300;400;500&family=Oswald:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'cinema-black':'#080808','cinema-dark':'#111111','cinema-card':'#1A1A1A',
+          'gold':'#F0C040','gold-light':'#FFD966','gold-dark':'#C8962A',
+          'amber-glow':'#E87820','warm-white':'#F2EFE6','muted':'#88807A',
+        },
+        fontFamily: {
+          'display':['"Playfair Display"','serif'],
+          'heading':['Oswald','sans-serif'],
+          'body':['Jost','sans-serif'],
+          'mono':['"Share Tech Mono"','monospace'],
+        },
+      }}
+    }
+  </script>
+  <style>
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:999;
+      opacity:0.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size:180px 180px;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-track{background:#080808}
+    ::-webkit-scrollbar-thumb{background:#F0C040;border-radius:2px}
+    .nav-glass{background:rgba(8,8,8,0.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(240,192,64,0.10)}
+    .nav-link{position:relative;transition:color 0.25s ease}
+    .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#F0C040;transition:width 0.3s ease}
+    .nav-link:hover::after{width:100%}
+    .nav-link:hover{color:#F2EFE6}
+    @keyframes flicker{0%,89%,91%,93%,100%{opacity:1}90%{opacity:0.75}92%{opacity:0.9}}
+    .logo-name{animation:flicker 9s infinite}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .fade-up{animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+
+    .game-card {
+      background: #111;
+      border: 1px solid rgba(240,192,64,0.1);
+      transition: border-color 0.35s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+      overflow: hidden;
+    }
+    .game-card:hover {
+      border-color: rgba(240,192,64,0.32);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 40px rgba(240,192,64,0.07);
+    }
+    .game-card-preview {
+      transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
+    }
+    .game-card:hover .game-card-preview { transform: scale(1.04); }
+
+    .play-btn {
+      transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    }
+    .play-btn:hover { background: #FFD966; transform: scale(1.02); }
+    .play-btn:active { transform: scale(0.98); }
+  </style>
+</head>
+<body class="bg-cinema-black text-warm-white font-body antialiased overflow-x-hidden">
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-9 w-9 rounded-full object-cover">
+      <span class="font-heading tracking-[0.18em] text-gold text-sm uppercase logo-name">Make A Movie</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#about"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">About</a>
+      <a href="/#services" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Services</a>
+      <a href="/#work"     class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
+      <a href="/#people"   class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
+      <a href="/games"     class="nav-link font-body text-xs tracking-widest uppercase" style="color:#F0C040;">Games</a>
+      <a href="/assets"    class="ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black" style="transition:background 0.25s ease,color 0.25s ease;">
+        Download Assets
+      </a>
+    </div>
+    <button id="menu-btn" class="md:hidden p-1">
+      <svg class="w-5 h-5 text-warm-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-white/5 px-6 py-5 flex flex-col gap-5">
+    <a href="/#about"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">About</a>
+    <a href="/#work"    class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Our Work</a>
+    <a href="/games"    class="text-xs tracking-widest uppercase" style="color:#F0C040;">Games</a>
+    <a href="/assets"   class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="pt-32 pb-16 text-center relative overflow-hidden" style="background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(240,192,64,0.07) 0%,transparent 70%),#080808;">
+  <div class="absolute top-0 left-0 right-0 h-2.5" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 14px,rgba(240,192,64,0.3) 14px,rgba(240,192,64,0.3) 22px);"></div>
+  <div class="max-w-2xl mx-auto px-6">
+    <p class="font-heading text-xs tracking-[0.35em] mb-5 fade-up" style="color:#F0C040;animation-delay:0.1s;opacity:0;">Make A Movie Production</p>
+    <h1 class="font-display mb-4 fade-up" style="font-size:clamp(2.8rem,7vw,5rem);letter-spacing:-0.025em;line-height:1.05;animation-delay:0.25s;opacity:0;">
+      The <em style="color:#F0C040;">Arcade</em>
+    </h1>
+    <div class="w-14 h-0.5 mx-auto mb-5 fade-up" style="background:linear-gradient(90deg,#F0C040,#E87820);animation-delay:0.4s;opacity:0;"></div>
+    <p class="font-body text-sm leading-relaxed max-w-sm mx-auto fade-up" style="color:#88807A;animation-delay:0.5s;opacity:0;">
+      Browser games built by the crew. No accounts. No installs. Just play.
+    </p>
+  </div>
+</section>
+
+<!-- GAME CARDS -->
+<section class="pb-28 px-6">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+
+    <!-- The Endless Render -->
+    <a href="/games/endless-render" class="game-card rounded-sm block group">
+      <!-- Preview canvas mockup -->
+      <div class="relative overflow-hidden" style="height:220px;background:#0a0a0a;">
+        <div class="game-card-preview w-full h-full flex items-center justify-center relative">
+          <!-- NLE timeline preview (pure CSS/SVG) -->
+          <svg width="100%" height="100%" viewBox="0 0 500 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#090909"/>
+                <stop offset="1" stop-color="#0d0d0d"/>
+              </linearGradient>
+            </defs>
+            <rect width="500" height="200" fill="url(#bgGrad)"/>
+            <!-- Grid lines -->
+            <line x1="0" y1="50"  x2="500" y2="50"  stroke="rgba(240,192,64,0.06)" stroke-width="1"/>
+            <line x1="0" y1="100" x2="500" y2="100" stroke="rgba(240,192,64,0.06)" stroke-width="1"/>
+            <line x1="0" y1="150" x2="500" y2="150" stroke="rgba(240,192,64,0.06)" stroke-width="1"/>
+            <!-- Timeline ground -->
+            <rect x="0" y="145" width="500" height="55" fill="#151515"/>
+            <rect x="0" y="145" width="500" height="1" fill="#F0C040" opacity="0.8"/>
+            <!-- Waveform -->
+            <polyline points="0,162 20,158 40,166 60,155 80,168 100,157 120,164 140,153 160,168 180,158 200,165 220,155 240,162 260,157 280,165 300,153 320,168 340,156 360,163 380,155 400,166 420,158 440,163 460,155 480,165 500,160" fill="none" stroke="rgba(240,192,64,0.3)" stroke-width="1"/>
+            <!-- Clip blocks -->
+            <rect x="20" y="165" width="120" height="16" fill="rgba(0,70,150,0.3)" stroke="rgba(0,70,150,0.5)" stroke-width="0.5"/>
+            <rect x="150" y="165" width="90" height="16" fill="rgba(70,0,110,0.3)" stroke="rgba(70,0,110,0.5)" stroke-width="0.5"/>
+            <rect x="250" y="165" width="140" height="16" fill="rgba(0,90,50,0.3)" stroke="rgba(0,90,50,0.5)" stroke-width="0.5"/>
+            <rect x="400" y="165" width="80" height="16" fill="rgba(110,50,0,0.3)" stroke="rgba(110,50,0,0.5)" stroke-width="0.5"/>
+            <!-- Obstacles (simplified) -->
+            <rect x="280" y="118" width="38" height="25" fill="#8B0013" rx="1"/>
+            <text x="299" y="134" text-anchor="middle" fill="#FF2244" font-size="6" font-family="monospace">OFFLINE</text>
+            <circle cx="380" cy="128" r="14" fill="none"/>
+            <path d="M366,128 a14,14 0 0,1 28,0" fill="#D44848" opacity="0.8"/>
+            <path d="M366,128 a14,14 0 0,0 28,0" fill="#F0C040" opacity="0.8"/>
+            <!-- Character (pixel) -->
+            <rect x="160" y="112" width="12" height="7" fill="#F2EFE6"/><!-- head -->
+            <rect x="161" y="119" width="10" height="10" fill="#F2EFE6"/><!-- body -->
+            <rect x="161" y="109" width="10" height="2" fill="#F0C040"/><!-- headphone -->
+            <rect x="160" y="129" width="4" height="7" fill="#2a2a2a"/><!-- leg L -->
+            <rect x="167" y="129" width="4" height="4" fill="#2a2a2a"/><!-- leg R -->
+            <!-- Score box -->
+            <rect x="340" y="8" width="148" height="40" fill="rgba(0,0,0,0.65)"/>
+            <rect x="340" y="8" width="148" height="40" fill="none" stroke="rgba(240,192,64,0.2)" stroke-width="0.5"/>
+            <text x="348" y="22" fill="rgba(240,192,64,0.7)" font-size="7" font-family="monospace">FRAMES RENDERED</text>
+            <text x="348" y="40" fill="#F0C040" font-size="18" font-family="monospace" font-weight="bold">024580</text>
+          </svg>
+          <!-- Scanlines -->
+          <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);"></div>
+        </div>
+        <!-- Gradient overlay -->
+        <div class="absolute bottom-0 left-0 right-0 h-12" style="background:linear-gradient(0deg,#111,transparent);"></div>
+      </div>
+
+      <!-- Card info -->
+      <div class="p-6">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <p class="font-heading text-xs tracking-[0.25em] uppercase mb-1" style="color:#88807A;">Endless Runner</p>
+            <h2 class="font-display text-2xl text-warm-white" style="letter-spacing:-0.02em;">The Endless Render</h2>
+          </div>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:9px;padding:3px 8px;background:rgba(77,184,122,0.12);border:1px solid rgba(77,184,122,0.3);color:#4DB87A;letter-spacing:0.12em;">LIVE</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed mb-5" style="color:#88807A;">
+          The export is stuck at 99%. Sprint across the editing timeline, dodge software crashes, and push the render to completion. High score saved locally.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-4 text-xs" style="color:#88807A;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.08em;">
+            <span>SPACE / TAP</span>
+            <span>·</span>
+            <span>ENDLESS</span>
+          </div>
+          <span class="play-btn px-5 py-2 font-heading tracking-[0.2em] text-xs uppercase text-cinema-black bg-gold">
+            Play →
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Drunk Bowling -->
+    <a href="/games/drunk-bowling" class="game-card rounded-sm block group">
+      <!-- Preview -->
+      <div class="relative overflow-hidden" style="height:220px;background:#0a0a0a;">
+        <div class="game-card-preview w-full h-full flex items-center justify-center relative">
+          <svg width="100%" height="100%" viewBox="0 0 500 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="woodGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2C1505"/>
+                <stop offset="0.5" stop-color="#3A1A08"/>
+                <stop offset="1" stop-color="#2A1204"/>
+              </linearGradient>
+            </defs>
+            <!-- Table background -->
+            <rect x="20" y="15" width="460" height="170" fill="url(#woodGrad)" rx="2"/>
+            <!-- Wood grain -->
+            <line x1="20" y1="35" x2="480" y2="36" stroke="rgba(255,180,80,0.06)" stroke-width="1"/>
+            <line x1="20" y1="55" x2="480" y2="54" stroke="rgba(255,180,80,0.05)" stroke-width="1"/>
+            <line x1="20" y1="75" x2="480" y2="76" stroke="rgba(255,180,80,0.06)" stroke-width="1"/>
+            <line x1="20" y1="95" x2="480" y2="94" stroke="rgba(255,180,80,0.05)" stroke-width="1"/>
+            <line x1="20" y1="115" x2="480" y2="116" stroke="rgba(255,180,80,0.06)" stroke-width="1"/>
+            <line x1="20" y1="135" x2="480" y2="134" stroke="rgba(255,180,80,0.05)" stroke-width="1"/>
+            <line x1="20" y1="155" x2="480" y2="156" stroke="rgba(255,180,80,0.06)" stroke-width="1"/>
+            <!-- Table border -->
+            <rect x="20" y="15" width="460" height="170" fill="none" stroke="#180A01" stroke-width="6" rx="2"/>
+            <!-- Slingshot fork -->
+            <line x1="80" y1="145" x2="95" y2="100" stroke="#8B5A28" stroke-width="5" stroke-linecap="round"/>
+            <line x1="95" y1="100" x2="82" y2="72"  stroke="#8B5A28" stroke-width="4" stroke-linecap="round"/>
+            <line x1="95" y1="100" x2="82" y2="128" stroke="#8B5A28" stroke-width="4" stroke-linecap="round"/>
+            <!-- Coconut -->
+            <circle cx="118" cy="100" r="14" fill="#286218"/>
+            <circle cx="113" cy="95"  r="9"  fill="#34781F" opacity="0.7"/>
+            <!-- Rubber bands -->
+            <line x1="82" y1="72"  x2="118" y2="100" stroke="#7A3A18" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="82" y1="128" x2="118" y2="100" stroke="#7A3A18" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Trajectory (dotted) -->
+            <line x1="118" y1="100" x2="380" y2="100" stroke="rgba(240,192,64,0.45)" stroke-width="1.5" stroke-dasharray="5,7"/>
+            <!-- Spill zone -->
+            <ellipse cx="265" cy="118" rx="52" ry="30" fill="rgba(22,8,0,0.72)"/>
+            <text x="265" y="122" text-anchor="middle" fill="rgba(240,192,64,0.35)" font-size="7" font-family="monospace">STICKY</text>
+            <!-- Beer bottles (triangle) -->
+            <circle cx="360" cy="82"  r="7" fill="#7A4A08"/><circle cx="360" cy="82"  r="7" fill="rgba(210,125,30,0.7)"/><circle cx="360" cy="82"  r="2.2" fill="#F0C040"/>
+            <circle cx="380" cy="82"  r="7" fill="#7A4A08"/><circle cx="380" cy="82"  r="7" fill="rgba(210,125,30,0.7)"/><circle cx="380" cy="82"  r="2.2" fill="#F0C040"/>
+            <circle cx="400" cy="82"  r="7" fill="#7A4A08"/><circle cx="400" cy="82"  r="7" fill="rgba(210,125,30,0.7)"/><circle cx="400" cy="82"  r="2.2" fill="#F0C040"/>
+            <circle cx="370" cy="100" r="7" fill="#7A4A08"/><circle cx="370" cy="100" r="7" fill="rgba(210,125,30,0.7)"/><circle cx="370" cy="100" r="2.2" fill="#F0C040"/>
+            <circle cx="390" cy="100" r="7" fill="#7A4A08"/><circle cx="390" cy="100" r="7" fill="rgba(210,125,30,0.7)"/><circle cx="390" cy="100" r="2.2" fill="#F0C040"/>
+            <!-- Pop starburst on knocked bottle -->
+            <line x1="428" y1="68" x2="442" y2="54" stroke="white" stroke-width="1.5" opacity="0.8"/>
+            <line x1="445" y1="70" x2="455" y2="58" stroke="white" stroke-width="1.5" opacity="0.8"/>
+            <line x1="430" y1="82" x2="445" y2="82" stroke="white" stroke-width="1.5" opacity="0.8"/>
+            <line x1="445" y1="82" x2="432" y2="72" stroke="white" stroke-width="1.5" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-12" style="background:linear-gradient(0deg,#111,transparent);"></div>
+      </div>
+
+      <!-- Card info -->
+      <div class="p-6">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <p class="font-heading text-xs tracking-[0.25em] uppercase mb-1" style="color:#88807A;">Physics Puzzle</p>
+            <h2 class="font-display text-2xl text-warm-white" style="letter-spacing:-0.02em;">Drunk Bowling</h2>
+          </div>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:9px;padding:3px 8px;background:rgba(77,184,122,0.12);border:1px solid rgba(77,184,122,0.3);color:#4DB87A;letter-spacing:0.12em;">LIVE</span>
+        </div>
+        <p class="font-body text-xs leading-relaxed mb-5" style="color:#88807A;">
+          Sling a wobbly coconut across a bar table. Knock all the bottles. Mind the spills, bank off the bones, use the ramp. The physics are drunk — so is the trajectory line.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-4 text-xs" style="color:#88807A;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.08em;">
+            <span>DRAG + RELEASE</span>
+            <span>·</span>
+            <span>5 ROUNDS</span>
+          </div>
+          <span class="play-btn px-5 py-2 font-heading tracking-[0.2em] text-xs uppercase text-cinema-black bg-gold">
+            Play →
+          </span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-8 text-center" style="border-top:1px solid rgba(240,192,64,0.08);">
+  <p class="font-body text-xs tracking-widest" style="color:#88807A;">© 2025 MAKE A MOVIE PRODUCTION</p>
+</footer>
+
+<script>
+document.getElementById('menu-btn').addEventListener('click',()=>{
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+</script>
+</body>
+</html>

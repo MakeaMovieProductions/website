@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drunk Bowling — Make A Movie Production</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Jost:wght@300;400;500&family=Oswald:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'cinema-black':'#080808','cinema-dark':'#111111',
+          'gold':'#F0C040','gold-light':'#FFD966',
+          'amber-glow':'#E87820','warm-white':'#F2EFE6','muted':'#88807A',
+        },
+        fontFamily: {
+          'display':['"Playfair Display"','serif'],
+          'heading':['Oswald','sans-serif'],
+          'body':['Jost','sans-serif'],
+          'mono':['"Share Tech Mono"','monospace'],
+        },
+      }}
+    }
+  </script>
+  <style>
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:180px 180px;}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#080808}::-webkit-scrollbar-thumb{background:#F0C040;border-radius:2px}
+    .nav-glass{background:rgba(8,8,8,0.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(240,192,64,0.10)}
+    .nav-link{position:relative;transition:color 0.25s ease}
+    .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#F0C040;transition:width 0.3s ease}
+    .nav-link:hover::after{width:100%}.nav-link:hover{color:#F2EFE6}
+    @keyframes flicker{0%,89%,91%,93%,100%{opacity:1}90%{opacity:0.75}92%{opacity:0.9}}
+    .logo-name{animation:flicker 9s infinite}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .fade-up{animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+    #gameCanvas{display:block;width:100%;max-width:480px;height:auto;cursor:crosshair;touch-action:none;margin:0 auto;}
+    @keyframes pulse-glow{0%,100%{box-shadow:0 0 30px rgba(240,192,64,0.1),0 0 80px rgba(240,192,64,0.04)}50%{box-shadow:0 0 50px rgba(240,192,64,0.18),0 0 100px rgba(240,192,64,0.07)}}
+    .game-wrap{animation:pulse-glow 4s ease-in-out infinite}
+    .info-card{background:#111;border:1px solid rgba(240,192,64,0.08);transition:border-color 0.3s ease,transform 0.35s cubic-bezier(0.16,1,0.3,1)}
+    .info-card:hover{border-color:rgba(240,192,64,0.22);transform:translateY(-4px)}
+  </style>
+</head>
+<body class="bg-cinema-black text-warm-white font-body antialiased overflow-x-hidden">
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-9 w-9 rounded-full object-cover">
+      <span class="font-heading tracking-[0.18em] text-gold text-sm uppercase logo-name">Make A Movie</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#about"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">About</a>
+      <a href="/#work"     class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
+      <a href="/games"     class="nav-link font-body text-xs tracking-widest uppercase" style="color:#F0C040;">Games</a>
+      <a href="/assets"    class="ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black" style="transition:background 0.25s ease,color 0.25s ease;">Download Assets</a>
+    </div>
+    <button id="menu-btn" class="md:hidden p-1">
+      <svg class="w-5 h-5 text-warm-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-white/5 px-6 py-5 flex flex-col gap-5">
+    <a href="/games" class="text-xs tracking-widest uppercase" style="color:#F0C040;">← Back to Games</a>
+    <a href="/assets" class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="pt-28 pb-8 text-center relative overflow-hidden" style="background:radial-gradient(ellipse 80% 55% at 50% 0%,rgba(240,192,64,0.06) 0%,transparent 70%),#080808;">
+  <div class="absolute top-0 left-0 right-0 h-2.5" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 14px,rgba(240,192,64,0.3) 14px,rgba(240,192,64,0.3) 22px);"></div>
+  <div class="max-w-xl mx-auto px-6">
+    <p class="font-heading text-xs tracking-[0.32em] mb-3 fade-up" style="color:#F0C040;animation-delay:0.1s;opacity:0;">Make A Movie Production</p>
+    <h1 class="font-display mb-3 fade-up" style="font-size:clamp(2.4rem,6vw,4rem);letter-spacing:-0.025em;line-height:1.05;animation-delay:0.25s;opacity:0;">
+      Drunk <em style="color:#F0C040;">Bowling</em>
+    </h1>
+    <p class="font-body text-xs leading-relaxed fade-up" style="color:#88807A;animation-delay:0.4s;opacity:0;">
+      Roll the coconut. Watch it curve. Knock down all 10 bottles. 5 rounds. Good luck.
+    </p>
+  </div>
+</section>
+
+<!-- GAME -->
+<section class="pb-12 px-4">
+  <div style="max-width:520px;margin:0 auto;">
+    <div class="game-wrap rounded-sm overflow-hidden" style="border:1px solid rgba(240,192,64,0.18);">
+      <!-- Chrome bar -->
+      <div class="flex items-center justify-between px-4 py-2.5 select-none" style="background:#161616;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full" style="background:#D44848;"></div>
+          <div class="w-3 h-3 rounded-full" style="background:#F0C040;"></div>
+          <div class="w-3 h-3 rounded-full" style="background:#4DB87A;"></div>
+        </div>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#88807A;">drunk_bowling.exe</span>
+        <span id="roundLabel" style="font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(240,192,64,0.55);letter-spacing:0.1em;">ROUND 1/5</span>
+      </div>
+      <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- Controls -->
+    <div class="mt-4 flex flex-wrap items-center justify-center gap-5 text-xs" style="color:#88807A;">
+      <span class="flex items-center gap-2">
+        <span style="padding:2px 8px;background:#1a1a1a;border:1px solid rgba(240,192,64,0.22);color:#F0C040;font-size:9px;font-family:'Share Tech Mono',monospace;border-radius:2px;">DRAG ←→</span>
+        Aim
+      </span>
+      <span class="flex items-center gap-2">
+        <span style="padding:2px 8px;background:#1a1a1a;border:1px solid rgba(240,192,64,0.22);color:#F0C040;font-size:9px;font-family:'Share Tech Mono',monospace;border-radius:2px;">RELEASE</span>
+        Roll
+      </span>
+      <span style="color:rgba(136,128,122,0.6);">Trajectory line lies. The ball doesn't.</span>
+    </div>
+  </div>
+</section>
+
+<!-- INFO CARDS -->
+<section class="pb-20 px-6">
+  <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-4">
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:20px;margin-bottom:10px;">🥥</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-2" style="color:#F0C040;">Drunk Physics</h3>
+      <p class="font-body text-xs leading-relaxed" style="color:#88807A;">The coconut wobbles more the further it rolls. The dotted aim line shows a straight path. The ball ignores it completely.</p>
+    </div>
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:20px;margin-bottom:10px;">🍺</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-2" style="color:#F0C040;">Chain Reaction</h3>
+      <p class="font-body text-xs leading-relaxed" style="color:#88807A;">Hit one bottle hard enough and it flies into the others. A well-placed shot can scatter all 10. Or none.</p>
+    </div>
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:20px;margin-bottom:10px;">🏆</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-2" style="color:#F0C040;">5 Rounds</h3>
+      <p class="font-body text-xs leading-relaxed" style="color:#88807A;">2 rolls per round. Strike = all 10 down on roll 1. Spare = all down on roll 2. Score saved on device.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WIN MODAL -->
+<div id="winModal" class="hidden fixed inset-0 z-50 flex items-center justify-center" style="background:rgba(8,8,8,0.92);backdrop-filter:blur(14px);">
+  <div class="max-w-sm w-full mx-6 p-10 text-center" style="background:#111;border:1px solid rgba(240,192,64,0.28);box-shadow:0 0 100px rgba(240,192,64,0.14);">
+    <p style="font-size:40px;margin-bottom:14px;">🍺</p>
+    <p class="font-heading text-xs tracking-[0.32em] uppercase mb-2" style="color:#F0C040;">Game Over</p>
+    <h2 class="font-display text-3xl text-warm-white mb-2" style="letter-spacing:-0.02em;" id="finalScoreTitle">0 Pins</h2>
+    <p class="font-body text-sm mb-7" style="color:#88807A;" id="finalScoreSubtitle">Keep practicing.</p>
+    <button id="playAgainBtn" class="px-6 py-3 font-heading tracking-[0.2em] text-xs uppercase text-cinema-black bg-gold hover:bg-gold-light mr-3" style="transition:background 0.25s ease;">Play Again</button>
+    <a href="/games" class="inline-block px-6 py-3 font-heading tracking-[0.2em] text-xs uppercase border border-gold text-gold hover:bg-gold/10" style="transition:background 0.25s ease;">All Games</a>
+  </div>
+</div>
+
+<footer class="py-8 text-center" style="border-top:1px solid rgba(240,192,64,0.08);">
+  <p class="font-body text-xs tracking-widest" style="color:#88807A;">© 2025 MAKE A MOVIE PRODUCTION</p>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════════
+//  DRUNK BOWLING  — perspective lane, physics bottles
+// ══════════════════════════════════════════════════════════
+const canvas = document.getElementById('gameCanvas');
+const ctx    = canvas.getContext('2d');
+const W = 480, H = 700;
+canvas.width = W; canvas.height = H;
+
+// ── Perspective ────────────────────────────────────────────
+// lx: -1 (left edge) to 1 (right edge) of lane
+// lz: 0 (near, ball start) to 1 (far, back wall)
+const VP      = { x: W/2, y: 112 }; // vanishing point
+const NEAR_Y  = 578;
+const NEAR_HW = 198; // half-width at near
+const FAR_HW  = 38;  // half-width at far
+
+function toCanvas(lx, lz) {
+  const y  = VP.y + (NEAR_Y - VP.y) * (1 - lz);
+  const hw = FAR_HW + (NEAR_HW - FAR_HW) * (1 - lz);
+  const x  = VP.x + lx * hw;
+  const sc = 0.14 + (1 - lz) * 0.86;
+  return { x, y, s: sc };
+}
+
+// ── Pin definitions (10-pin triangle) ─────────────────────
+// Standard bowling: row 1 = head pin (closest), row 4 = back
+const PIN_DEF = [
+  // Row 1
+  { id:0,  lx:0,      lz:0.640 },
+  // Row 2
+  { id:1,  lx:-0.075, lz:0.683 }, { id:2,  lx:0.075,  lz:0.683 },
+  // Row 3
+  { id:3,  lx:-0.150, lz:0.726 }, { id:4,  lx:0,      lz:0.726 }, { id:5,  lx:0.150,  lz:0.726 },
+  // Row 4
+  { id:6,  lx:-0.225, lz:0.769 }, { id:7,  lx:-0.075, lz:0.769 }, { id:8,  lx:0.075,  lz:0.769 }, { id:9, lx:0.225, lz:0.769 },
+];
+
+// ── Game state ─────────────────────────────────────────────
+const TOTAL_ROUNDS = 5;
+let roundNum   = 1;
+let rollInRound = 0;   // 0 = first roll, 1 = second
+let totalScore = 0;
+let roundScores = []; // [{r1,r2,knocked,bonus}]
+let currentKnockedFirst = 0; // pins knocked on roll 1
+
+let phase = 'idle'; // idle | rolling | settling | result
+
+// ── Ball state ─────────────────────────────────────────────
+let ball = { lx:0, lz:0.05, vlx:0, vlz:0, angle:0, wobble:0 };
+
+// ── Aim state ──────────────────────────────────────────────
+let aimOffset = 0;  // -1 to 1, horizontal aim offset at pin zone
+let isDragging = false, dragStartX = 0, dragStartAim = 0;
+
+// ── Pins ───────────────────────────────────────────────────
+// Each pin: { id, lx, lz, vlx, vlz, state, fallDir, fallProgress, oxLx, oxLz }
+let pins = [];
+
+function resetPins(keepKnocked = false) {
+  if (!keepKnocked) {
+    pins = PIN_DEF.map(p => ({
+      ...p, vlx:0, vlz:0,
+      state: 'standing',    // standing | falling | down
+      fallDir: 1,           // which way it falls visually
+      fallProgress: 0,      // 0=upright … 1=flat
+      ox: p.lx, oz: p.lz,  // original position
+    }));
+  } else {
+    // Reset position/velocity for already-down pins but keep state
+    pins = pins.map(p => ({
+      ...p, vlx:0, vlz:0,
+      ...(p.state === 'standing' ? {} : { fallProgress: Math.min(p.fallProgress, 1) }),
+    }));
+  }
+}
+
+function countDown() { return pins.filter(p => p.state !== 'standing').length; }
+
+// ── Ball physics ───────────────────────────────────────────
+function launchBall() {
+  if (phase !== 'idle') return;
+  const targetLx = aimOffset * 0.85;
+  ball.lx  = targetLx * 0.1; // start slightly toward aim side
+  ball.lz  = 0.05;
+  ball.vlx = (targetLx - ball.lx) * 0.0055;
+  ball.vlz = 0.0095;
+  ball.wobble = 0;
+  ball.angle  = 0;
+  phase = 'rolling';
+  playLaunch();
+}
+
+function updateBall() {
+  if (phase !== 'rolling') return;
+
+  // Drunk wobble: grows with distance traveled
+  ball.wobble += 0.13;
+  const wobblePow = 0.0014 + ball.lz * 0.0038;
+  ball.vlx += Math.sin(ball.wobble * 1.1) * wobblePow;
+  // Slight curve from aim direction
+  ball.vlx += (aimOffset * 0.85 - ball.lx) * 0.000015;
+
+  ball.lx += ball.vlx;
+  ball.lz += ball.vlz;
+  ball.angle += 0.18;
+
+  // Gutter check
+  if (Math.abs(ball.lx) > 1.08) {
+    playGutter();
+    phase = 'settling';
+    setTimeout(finishRoll, 1200);
+    return;
+  }
+
+  // Check pin collisions
+  if (ball.lz >= 0.59) checkHits();
+
+  // Ball past back wall
+  if (ball.lz > 0.96) {
+    phase = 'settling';
+    setTimeout(finishRoll, 1400);
+  }
+}
+
+function checkHits() {
+  pins.forEach(pin => {
+    if (pin.state !== 'standing') return;
+    const dlx = pin.lx - ball.lx;
+    const dlz = pin.lz - ball.lz;
+    // Scale dlz to account for perspective (lx differences are compressed when far)
+    const dist = Math.sqrt(dlx * dlx * 1.8 + dlz * dlz * 0.4);
+    if (dist < 0.068) knockPin(pin, dlx, 3.2);
+  });
+}
+
+function knockPin(pin, dlx, power) {
+  if (pin.state !== 'standing') return;
+  pin.state = 'falling';
+  pin.fallProgress = 0;
+  pin.fallDir = dlx >= 0 ? 1 : -1; // falls away from hit direction
+  const sp = power * (0.8 + Math.random() * 0.4);
+  pin.vlx = dlx * 0.055 * sp;
+  pin.vlz = Math.abs(dlx) * 0.012 * sp;
+  playClink();
+}
+
+let settleFrame = 0;
+function updatePins() {
+  if (phase !== 'rolling' && phase !== 'settling') return;
+
+  pins.forEach(pin => {
+    // Animate falling progress
+    if (pin.state === 'falling') {
+      pin.fallProgress = Math.min(1, pin.fallProgress + 0.055);
+      pin.lx += pin.vlx;
+      pin.lz += pin.vlz * 0.4;
+      pin.vlx *= 0.88;
+
+      if (pin.fallProgress >= 1) pin.state = 'down';
+
+      // Chain collisions while still swinging (fallProgress < 0.6)
+      if (pin.fallProgress < 0.65) {
+        pins.forEach(other => {
+          if (other === pin || other.state !== 'standing') return;
+          const dlx = other.lx - pin.lx;
+          const dlz = other.lz - pin.lz;
+          const dist = Math.sqrt(dlx * dlx * 1.8 + dlz * dlz * 0.4);
+          if (dist < 0.075) knockPin(other, dlx, 1.8);
+        });
+      }
+    }
+  });
+}
+
+function allSettled() {
+  return pins.every(p => p.state !== 'falling');
+}
+
+function finishRoll() {
+  // Wait until all pins done falling
+  const wait = () => {
+    if (!allSettled()) { setTimeout(wait, 80); return; }
+    recordAndAdvance();
+  };
+  wait();
+}
+
+function recordAndAdvance() {
+  const down = countDown();
+
+  if (rollInRound === 0) {
+    currentKnockedFirst = down;
+    if (down === 10) {
+      // Strike
+      roundScores.push({ r1: 10, r2: null, total: 10 });
+      totalScore += 10;
+      updateRoundLabel();
+      phase = 'result';
+      setTimeout(nextRound, 2200);
+    } else {
+      rollInRound = 1;
+      phase = 'idle';
+      resetBall();
+      updateRoundLabel();
+    }
+  } else {
+    const r2 = down - currentKnockedFirst;
+    const isSpare = (down === 10);
+    const bonus = isSpare ? 2 : 0;
+    roundScores.push({ r1: currentKnockedFirst, r2, total: down });
+    totalScore += down + bonus;
+    updateRoundLabel();
+    phase = 'result';
+    setTimeout(nextRound, 2200);
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    showGameOver();
+    return;
+  }
+  roundNum++;
+  rollInRound = 0;
+  currentKnockedFirst = 0;
+  resetPins(false);
+  resetBall();
+  phase = 'idle';
+  updateRoundLabel();
+}
+
+function resetBall() {
+  ball = { lx: aimOffset * 0.05, lz: 0.05, vlx:0, vlz:0, angle:0, wobble:0 };
+}
+
+function updateRoundLabel() {
+  document.getElementById('roundLabel').textContent = `ROUND ${roundNum}/${TOTAL_ROUNDS}`;
+}
+
+// ── Game over ──────────────────────────────────────────────
+function showGameOver() {
+  const perfect = 100;
+  const pct = totalScore / perfect;
+  let title = `${totalScore} / ${perfect} Pins`;
+  let sub = pct >= 0.9 ? 'Legendary drunk bowler.' :
+            pct >= 0.7 ? 'Vikas is impressed.' :
+            pct >= 0.5 ? 'Nandu says "not bad".' :
+            pct >= 0.3 ? 'Arjun is concerned.' : 'The coconut judged you.';
+  document.getElementById('finalScoreTitle').textContent = title;
+  document.getElementById('finalScoreSubtitle').textContent = sub;
+  document.getElementById('winModal').classList.remove('hidden');
+  phase = 'gameover';
+  localStorage.setItem('drunkBowlingBest', Math.max(totalScore, parseInt(localStorage.getItem('drunkBowlingBest')||'0')));
+}
+
+// ── Audio ──────────────────────────────────────────────────
+let audioCtx = null;
+function audio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); return audioCtx; }
+function playLaunch() {
+  try {
+    const a=audio(),o=a.createOscillator(),g=a.createGain();
+    o.type='sawtooth';o.frequency.setValueAtTime(180,a.currentTime);o.frequency.exponentialRampToValueAtTime(75,a.currentTime+0.14);
+    g.gain.setValueAtTime(0.22,a.currentTime);g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.17);
+    o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+0.17);
+  }catch(e){}
+}
+function playClink(f=1000) {
+  try {
+    const a=audio(),o=a.createOscillator(),g=a.createGain();
+    o.type='sine';o.frequency.setValueAtTime(f+Math.random()*400,a.currentTime);o.frequency.exponentialRampToValueAtTime(f*0.45,a.currentTime+0.28);
+    g.gain.setValueAtTime(0.25,a.currentTime);g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.3);
+    o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+0.3);
+  }catch(e){}
+}
+function playGutter() {
+  try {
+    const a=audio(),o=a.createOscillator(),g=a.createGain();
+    o.type='square';o.frequency.setValueAtTime(90,a.currentTime);o.frequency.exponentialRampToValueAtTime(40,a.currentTime+0.2);
+    g.gain.setValueAtTime(0.18,a.currentTime);g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.22);
+    o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+0.22);
+  }catch(e){}
+}
+
+// ── Input ──────────────────────────────────────────────────
+function getX(e) { const r=canvas.getBoundingClientRect(); const sx=canvas.width/r.width; return ((e.touches?e.touches[0]:e).clientX-r.left)*sx; }
+function getY(e) { const r=canvas.getBoundingClientRect(); const sy=canvas.height/r.height; return ((e.touches?e.touches[0]:e).clientY-r.top)*sy; }
+
+canvas.addEventListener('mousedown', e => { e.preventDefault(); isDragging=true; dragStartX=getX(e); dragStartAim=aimOffset; });
+canvas.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const dx = (getX(e) - dragStartX) / (NEAR_HW * 0.8);
+  aimOffset = Math.max(-1, Math.min(1, dragStartAim + dx));
+});
+canvas.addEventListener('mouseup',   e => { e.preventDefault(); if(isDragging){ isDragging=false; if(phase==='idle') launchBall(); } });
+canvas.addEventListener('touchstart',e => { e.preventDefault(); isDragging=true; dragStartX=getX(e); dragStartAim=aimOffset; },{passive:false});
+canvas.addEventListener('touchmove', e => { e.preventDefault(); if(!isDragging)return; const dx=(getX(e)-dragStartX)/(NEAR_HW*0.75); aimOffset=Math.max(-1,Math.min(1,dragStartAim+dx)); },{passive:false});
+canvas.addEventListener('touchend',  e => { e.preventDefault(); if(isDragging){ isDragging=false; if(phase==='idle') launchBall(); } },{passive:false});
+
+// ── DRAW ────────────────────────────────────────────────────
+
+function drawBackground() {
+  // Dark void above lane
+  ctx.fillStyle = '#06040A';
+  ctx.fillRect(0, 0, W, NEAR_Y + 60);
+  // Atmospheric back wall glow at VP
+  const bgGlow = ctx.createRadialGradient(VP.x, VP.y, 0, VP.x, VP.y, 160);
+  bgGlow.addColorStop(0, 'rgba(240,192,64,0.09)');
+  bgGlow.addColorStop(0.5,'rgba(232,120,32,0.04)');
+  bgGlow.addColorStop(1, 'transparent');
+  ctx.fillStyle = bgGlow;
+  ctx.fillRect(0, 0, W, NEAR_Y);
+  // Ceiling/side wall suggestions
+  ctx.strokeStyle='rgba(240,192,64,0.06)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,VP.y-20);ctx.lineTo(VP.x-FAR_HW,VP.y);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(W,VP.y-20);ctx.lineTo(VP.x+FAR_HW,VP.y);ctx.stroke();
+}
+
+function drawLane() {
+  const nL = toCanvas(-1, 0), nR = toCanvas(1, 0);
+  const fL = toCanvas(-1, 1), fR = toCanvas(1, 1);
+
+  // Lane surface
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(nL.x, nL.y); ctx.lineTo(nR.x, nR.y);
+  ctx.lineTo(fR.x, fR.y); ctx.lineTo(fL.x, fL.y);
+  ctx.closePath();
+  const laneGrad = ctx.createLinearGradient(W/2, NEAR_Y, W/2, VP.y);
+  laneGrad.addColorStop(0,   '#2E1606');
+  laneGrad.addColorStop(0.4, '#3A1C08');
+  laneGrad.addColorStop(0.7, '#321408');
+  laneGrad.addColorStop(1,   '#280F04');
+  ctx.fillStyle = laneGrad;
+  ctx.fill();
+
+  // Wood grain boards (perspective horizontal lines)
+  for (let lz = 0.02; lz < 1; lz += 0.038) {
+    const l = toCanvas(-1, lz), r = toCanvas(1, lz);
+    const bright = 0.015 + Math.sin(lz * 28) * 0.008;
+    ctx.strokeStyle = `rgba(255,160,55,${bright})`;
+    ctx.lineWidth = (1 - lz) * 0.9;
+    ctx.beginPath(); ctx.moveTo(l.x, l.y); ctx.lineTo(r.x, r.y); ctx.stroke();
+  }
+
+  // Lane edge lines
+  ctx.strokeStyle = 'rgba(180,80,20,0.45)'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(nL.x,nL.y); ctx.lineTo(fL.x,fL.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(nR.x,nR.y); ctx.lineTo(fR.x,fR.y); ctx.stroke();
+  ctx.restore();
+
+  // Gutters
+  ctx.save();
+  ctx.fillStyle = '#130802';
+  ctx.beginPath(); ctx.moveTo(0,NEAR_Y+40); ctx.lineTo(nL.x,nL.y); ctx.lineTo(fL.x,fL.y); ctx.lineTo(0,VP.y); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(W,NEAR_Y+40); ctx.lineTo(nR.x,nR.y); ctx.lineTo(fR.x,fR.y); ctx.lineTo(W,VP.y); ctx.closePath(); ctx.fill();
+  // Gutter edge highlight
+  ctx.strokeStyle='rgba(240,192,64,0.15)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(nL.x,nL.y);ctx.lineTo(fL.x,fL.y);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(nR.x,nR.y);ctx.lineTo(fR.x,fR.y);ctx.stroke();
+  ctx.restore();
+
+  // Foul line
+  const flL = toCanvas(-1, 0.055), flR = toCanvas(1, 0.055);
+  ctx.strokeStyle = '#F0C040'; ctx.lineWidth = Math.max(1.2, (1-0.055)*2.5);
+  ctx.beginPath(); ctx.moveTo(flL.x, flL.y); ctx.lineTo(flR.x, flR.y); ctx.stroke();
+
+  // Lane arrows (7 targeting guides)
+  const AZ = 0.30;
+  [-0.62,-0.46,-0.30, 0, 0.30,0.46,0.62].forEach(alx => {
+    const cp = toCanvas(alx, AZ);
+    const sz = cp.s * 9;
+    ctx.fillStyle = 'rgba(240,192,64,0.32)';
+    ctx.beginPath();
+    ctx.moveTo(cp.x, cp.y - sz);
+    ctx.lineTo(cp.x - sz*0.45, cp.y + sz*0.4);
+    ctx.lineTo(cp.x + sz*0.45, cp.y + sz*0.4);
+    ctx.closePath(); ctx.fill();
+  });
+
+  // Pin deck area — subtle highlight
+  const deckGrad = ctx.createRadialGradient(VP.x, toCanvas(0,0.72).y, 0, VP.x, toCanvas(0,0.72).y, 80);
+  deckGrad.addColorStop(0,'rgba(240,192,64,0.04)');
+  deckGrad.addColorStop(1,'transparent');
+  ctx.fillStyle=deckGrad; ctx.fillRect(0,0,W,H);
+}
+
+function drawBottle(pin) {
+  const { x, y, s } = toCanvas(pin.lx, pin.lz);
+
+  ctx.save();
+  ctx.translate(x, y);
+
+  const bw = s * 5.5;  // half-width
+  const bh = s * 13;   // half-height
+
+  if (pin.state === 'down') {
+    // Lying flat — small dark oval
+    ctx.fillStyle = 'rgba(80,40,8,0.55)';
+    ctx.beginPath();
+    ctx.ellipse(0, bh * 0.3, bh * 0.85, bw * 0.55, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore(); return;
+  }
+
+  // Falling: rotate around bottom center
+  if (pin.state === 'falling') {
+    const maxAng = Math.PI / 2;
+    ctx.rotate(pin.fallDir * pin.fallProgress * maxAng);
+    ctx.translate(0, pin.fallProgress * bh * 0.6);
+  }
+
+  // Shadow on floor
+  ctx.fillStyle = `rgba(0,0,0,${0.25 - pin.fallProgress * 0.2})`;
+  ctx.beginPath(); ctx.ellipse(bw*0.5, bh*0.95, bw*1.1, bw*0.4, 0, 0, Math.PI*2); ctx.fill();
+
+  // Bottle body (amber glass)
+  ctx.fillStyle = '#7A4808';
+  ctx.beginPath();
+  ctx.moveTo(-bw, bh);
+  ctx.lineTo(-bw, -bh * 0.55);
+  ctx.quadraticCurveTo(-bw, -bh * 0.75, -bw * 0.55, -bh);
+  ctx.lineTo(bw * 0.55, -bh);
+  ctx.quadraticCurveTo(bw, -bh * 0.75, bw, -bh * 0.55);
+  ctx.lineTo(bw, bh);
+  ctx.closePath(); ctx.fill();
+
+  // Amber glass layer
+  const bGrad = ctx.createLinearGradient(-bw, 0, bw, 0);
+  bGrad.addColorStop(0,'rgba(210,110,25,0.7)');
+  bGrad.addColorStop(0.4,'rgba(230,140,40,0.55)');
+  bGrad.addColorStop(1,'rgba(100,50,5,0.3)');
+  ctx.fillStyle = bGrad;
+  ctx.beginPath();
+  ctx.moveTo(-bw, bh);
+  ctx.lineTo(-bw, -bh * 0.55);
+  ctx.quadraticCurveTo(-bw, -bh * 0.75, -bw * 0.55, -bh);
+  ctx.lineTo(bw * 0.55, -bh);
+  ctx.quadraticCurveTo(bw, -bh * 0.75, bw, -bh * 0.55);
+  ctx.lineTo(bw, bh);
+  ctx.closePath(); ctx.fill();
+
+  // White label band
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.fillRect(-bw * 0.72, -bh * 0.15, bw * 1.44, bh * 0.42);
+
+  // Gold cap
+  ctx.fillStyle = '#F0C040';
+  ctx.beginPath();
+  ctx.ellipse(0, -bh, bw * 0.62, bw * 0.75, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Specular highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.28)';
+  ctx.beginPath(); ctx.ellipse(-bw*0.35, -bh*0.35, bw*0.28, bh*0.28, -0.3, 0, Math.PI*2); ctx.fill();
+
+  ctx.restore();
+}
+
+function drawBall() {
+  if (phase === 'gameover') return;
+  const { x, y, s } = toCanvas(ball.lx, ball.lz);
+  const r = s * 30;
+
+  ctx.save();
+  ctx.translate(x, y);
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.35)';
+  ctx.beginPath(); ctx.ellipse(r*0.15, r*0.35, r*1.1, r*0.35, 0, 0, Math.PI*2); ctx.fill();
+
+  // Ball body
+  ctx.rotate(ball.angle);
+  const ballGrad = ctx.createRadialGradient(-r*0.3, -r*0.3, 0, 0, 0, r);
+  ballGrad.addColorStop(0, '#3A8025');
+  ballGrad.addColorStop(0.45,'#286018');
+  ballGrad.addColorStop(1, '#0E2A08');
+  ctx.fillStyle = ballGrad;
+  ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI*2); ctx.fill();
+
+  // Coconut ridges
+  ctx.strokeStyle = 'rgba(20,60,10,0.7)'; ctx.lineWidth = s * 1.2;
+  for (let i=0;i<3;i++){
+    ctx.save(); ctx.rotate(i*Math.PI*2/3);
+    ctx.beginPath(); ctx.arc(r*0.25, 0, r*0.62, -0.9, 0.9); ctx.stroke();
+    ctx.restore();
+  }
+  // Highlight
+  ctx.fillStyle = 'rgba(100,200,70,0.3)';
+  ctx.beginPath(); ctx.ellipse(-r*0.32, -r*0.32, r*0.35, r*0.25, -0.5, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.beginPath(); ctx.ellipse(-r*0.38, -r*0.38, r*0.14, r*0.1, -0.5, 0, Math.PI*2); ctx.fill();
+
+  ctx.restore();
+}
+
+function drawAimLine() {
+  if (phase !== 'idle') return;
+  const { x: bx, y: by } = toCanvas(ball.lx, ball.lz);
+  const targetLx = aimOffset * 0.85;
+  const { x: tx, y: ty } = toCanvas(targetLx, 0.68);
+
+  // Dotted straight aim line
+  ctx.save();
+  ctx.setLineDash([5, 8]);
+  ctx.strokeStyle = 'rgba(240,192,64,0.45)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(tx, ty); ctx.stroke();
+  ctx.setLineDash([]);
+  // Dot at pin zone
+  ctx.fillStyle = 'rgba(240,192,64,0.6)';
+  ctx.beginPath(); ctx.arc(tx, ty, 4, 0, Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawControlZone() {
+  const ZONE_Y = NEAR_Y + 10;
+
+  // Ball zone background
+  ctx.fillStyle = 'rgba(0,0,0,0.5)';
+  ctx.fillRect(0, ZONE_Y, W, H - ZONE_Y);
+
+  // Aim slider track
+  const trackY = ZONE_Y + 50;
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  ctx.beginPath(); ctx.roundRect(W*0.15, trackY-4, W*0.7, 8, 4); ctx.fill();
+
+  // Aim indicator thumb
+  const thumbX = W/2 + aimOffset * (W*0.35);
+  ctx.fillStyle = '#F0C040';
+  ctx.beginPath(); ctx.arc(thumbX, trackY, 10, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = 'rgba(0,0,0,0.4)';
+  ctx.beginPath(); ctx.arc(thumbX, trackY, 10, 0, Math.PI*2); ctx.fill(); // shadow
+  ctx.fillStyle = '#F0C040';
+  ctx.beginPath(); ctx.arc(thumbX, trackY, 8, 0, Math.PI*2); ctx.fill();
+
+  // Center tick mark
+  ctx.fillStyle = 'rgba(240,192,64,0.3)';
+  ctx.fillRect(W/2 - 1, trackY - 14, 2, 10);
+
+  // Aim label
+  ctx.font = '9px "Share Tech Mono",monospace';
+  ctx.fillStyle = 'rgba(136,128,122,0.7)';
+  ctx.textAlign = 'center';
+  ctx.fillText(phase === 'idle' ? 'DRAG TO AIM  ·  RELEASE TO ROLL' : '', W/2, trackY + 28);
+
+  // Score pills
+  const pillY = H - 32;
+  roundScores.forEach((rs, i) => {
+    const px = W/2 + (i - (roundScores.length-1)*0.5) * 52;
+    ctx.fillStyle = 'rgba(240,192,64,0.1)';
+    ctx.beginPath(); ctx.roundRect(px-20,pillY-12,40,22,3); ctx.fill();
+    ctx.fillStyle = '#F0C040';
+    ctx.font = 'bold 10px "Share Tech Mono",monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(rs.total, px, pillY+2);
+  });
+  if (roundScores.length < TOTAL_ROUNDS) {
+    ctx.fillStyle = 'rgba(136,128,122,0.3)';
+    ctx.font = '7px "Share Tech Mono",monospace';
+    ctx.textAlign = 'center';
+    for (let i=roundScores.length; i<TOTAL_ROUNDS; i++) {
+      const px = W/2 + (i - (TOTAL_ROUNDS-1)*0.5) * 52;
+      ctx.beginPath(); ctx.roundRect(px-16,pillY-8,32,16,2); ctx.fill();
+    }
+  }
+
+  // Live score total
+  ctx.font = '9px "Share Tech Mono",monospace';
+  ctx.fillStyle = 'rgba(136,128,122,0.6)';
+  ctx.textAlign = 'left';
+  ctx.fillText(`TOTAL  ${totalScore}`, W*0.08, pillY+3);
+  const best = localStorage.getItem('drunkBowlingBest')||'0';
+  ctx.textAlign = 'right';
+  ctx.fillText(`BEST  ${best}`, W*0.92, pillY+3);
+}
+
+function drawScoreBar() {
+  // Top score bar
+  const SH = 70;
+  ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  ctx.fillRect(0, 0, W, SH);
+  ctx.strokeStyle = 'rgba(240,192,64,0.15)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(0, 0, W, SH);
+
+  const frameW = W / TOTAL_ROUNDS;
+  for (let i = 0; i < TOTAL_ROUNDS; i++) {
+    const fx = i * frameW;
+    const isCurrent = (i === roundNum - 1);
+    const isDone = (i < roundScores.length);
+
+    // Frame box background
+    ctx.fillStyle = isCurrent ? 'rgba(240,192,64,0.08)' : 'rgba(255,255,255,0.02)';
+    ctx.fillRect(fx+1, 1, frameW-2, SH-2);
+
+    // Frame number
+    ctx.font = '7px "Share Tech Mono",monospace';
+    ctx.fillStyle = isCurrent ? 'rgba(240,192,64,0.8)' : 'rgba(136,128,122,0.5)';
+    ctx.textAlign = 'center';
+    ctx.fillText(i+1, fx+frameW/2, 13);
+
+    // Divider
+    if (i > 0) {
+      ctx.strokeStyle = 'rgba(240,192,64,0.1)';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(fx,1); ctx.lineTo(fx,SH-1); ctx.stroke();
+    }
+
+    if (isDone) {
+      const rs = roundScores[i];
+      // Roll 1
+      ctx.font = 'bold 11px "Share Tech Mono",monospace';
+      ctx.fillStyle = rs.r1 === 10 ? '#F0C040' : '#F2EFE6';
+      ctx.textAlign = 'center';
+      const r1Label = rs.r1 === 10 ? 'X' : String(rs.r1);
+      ctx.fillText(r1Label, fx + frameW * 0.35, 32);
+      // Roll 2
+      if (rs.r2 !== null) {
+        const r2Label = (rs.r1 + rs.r2 === 10) ? '/' : String(rs.r2);
+        ctx.fillStyle = r2Label === '/' ? '#F0C040' : '#F2EFE6';
+        ctx.fillText(r2Label, fx + frameW * 0.68, 32);
+      }
+      // Cumulative
+      const cumulative = roundScores.slice(0,i+1).reduce((a,r)=>a+r.total,0);
+      ctx.font = '8px "Share Tech Mono",monospace';
+      ctx.fillStyle = '#F0C040';
+      ctx.fillText(cumulative, fx+frameW/2, 54);
+    }
+
+    // Current round pins-down counter
+    if (isCurrent && phase !== 'result') {
+      const d = countDown();
+      if (d > 0) {
+        ctx.font = '9px "Share Tech Mono",monospace';
+        ctx.fillStyle = 'rgba(240,192,64,0.6)';
+        ctx.textAlign = 'center';
+        ctx.fillText(d, fx+frameW/2, 54);
+      }
+    }
+  }
+}
+
+function drawStatusOverlay() {
+  if (phase === 'idle') {
+    // Roll hint
+    if (rollInRound === 1) {
+      const d = countDown();
+      const left = 10 - d;
+      ctx.save();
+      ctx.fillStyle = 'rgba(0,0,0,0.5)'; ctx.fillRect(0,NEAR_Y-28,W,28);
+      ctx.font = '9px "Share Tech Mono",monospace'; ctx.fillStyle = 'rgba(136,128,122,0.8)'; ctx.textAlign = 'center';
+      ctx.fillText(`ROLL 2  ·  ${left} BOTTLE${left!==1?'S':''} STANDING`, W/2, NEAR_Y-10);
+      ctx.restore();
+    }
+    return;
+  }
+  if (phase === 'result' || phase === 'settling') {
+    const d = countDown();
+    const label = d===10 ? 'STRIKE!' : d>=1 && rollInRound===0 ? `${d} DOWN` :
+                  (currentKnockedFirst+d)===10 ? 'SPARE!' : `${d} DOWN`;
+    const col = (d===10||((currentKnockedFirst+d)===10&&rollInRound===1)) ? '#F0C040' : '#F2EFE6';
+    ctx.save();
+    ctx.fillStyle='rgba(8,8,8,0.55)'; ctx.fillRect(0, NEAR_Y-38, W, 38);
+    ctx.textAlign='center';
+    ctx.font=`bold 22px "Playfair Display",serif`; ctx.fillStyle=col;
+    ctx.fillText(label, W/2, NEAR_Y-12);
+    ctx.restore();
+  }
+}
+
+// ── Main draw ──────────────────────────────────────────────
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  drawBackground();
+  drawLane();
+
+  // Draw pins sorted back-to-front (high lz first, low lz last)
+  const sorted = [...pins].sort((a,b) => b.lz - a.lz);
+  sorted.forEach(p => drawBottle(p));
+
+  drawAimLine();
+  drawBall();
+  drawControlZone();
+  drawScoreBar();
+  drawStatusOverlay();
+}
+
+// ── Game loop ──────────────────────────────────────────────
+let lastT = 0;
+function loop(ts) {
+  const dt = Math.min(ts - lastT, 50);
+  lastT = ts;
+
+  // Fixed-step physics (run multiple steps for smooth sim)
+  const steps = 3;
+  for (let i = 0; i < steps; i++) {
+    updateBall();
+    updatePins();
+  }
+
+  draw();
+  requestAnimationFrame(loop);
+}
+
+// ── Init ───────────────────────────────────────────────────
+function initGame() {
+  roundNum = 1; rollInRound = 0; totalScore = 0;
+  roundScores = []; currentKnockedFirst = 0;
+  aimOffset = 0;
+  resetPins(false);
+  resetBall();
+  phase = 'idle';
+  updateRoundLabel();
+}
+
+document.getElementById('playAgainBtn').addEventListener('click', () => {
+  document.getElementById('winModal').classList.add('hidden');
+  initGame();
+});
+document.getElementById('menu-btn').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+
+initGame();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

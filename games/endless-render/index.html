@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Endless Render — Games — Make A Movie Production</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Jost:wght@300;400;500&family=Oswald:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cinema-black': '#080808',
+            'cinema-dark':  '#111111',
+            'cinema-card':  '#1A1A1A',
+            'gold':         '#F0C040',
+            'gold-light':   '#FFD966',
+            'gold-dark':    '#C8962A',
+            'amber-glow':   '#E87820',
+            'warm-white':   '#F2EFE6',
+            'muted':        '#88807A',
+          },
+          fontFamily: {
+            'display': ['"Playfair Display"', 'serif'],
+            'heading': ['Oswald', 'sans-serif'],
+            'body':    ['Jost', 'sans-serif'],
+            'mono':    ['"Share Tech Mono"', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #F0C040; border-radius: 2px; }
+
+    .nav-glass {
+      background: rgba(8,8,8,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(240,192,64,0.10);
+    }
+    .nav-link { position: relative; transition: color 0.25s ease; }
+    .nav-link::after {
+      content: ''; position: absolute;
+      bottom: -4px; left: 0; width: 0; height: 1px;
+      background: #F0C040; transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { color: #F2EFE6; }
+
+    @keyframes flicker { 0%,89%,91%,93%,100% { opacity:1; } 90% { opacity:0.75; } 92% { opacity:0.9; } }
+    .logo-name { animation: flicker 9s infinite; }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+    /* CRT scanlines over canvas */
+    .scanlines::after {
+      content: ''; position: absolute; inset: 0;
+      pointer-events: none; z-index: 2;
+      background: repeating-linear-gradient(
+        0deg, transparent 0px, transparent 2px,
+        rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px
+      );
+    }
+
+    #gameCanvas { display: block; image-rendering: pixelated; }
+
+    @keyframes pulse-glow {
+      0%,100% { box-shadow: 0 0 30px rgba(240,192,64,0.1),  0 0 80px rgba(240,192,64,0.04); }
+      50%      { box-shadow: 0 0 50px rgba(240,192,64,0.18), 0 0 100px rgba(240,192,64,0.07); }
+    }
+    .game-wrap { animation: pulse-glow 4s ease-in-out infinite; }
+
+    .pixel-score { font-family: 'Share Tech Mono', monospace; letter-spacing: 0.08em; }
+
+    .modal-overlay {
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .info-card {
+      background: #111;
+      border: 1px solid rgba(240,192,64,0.08);
+      transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .info-card:hover { border-color: rgba(240,192,64,0.22); transform: translateY(-4px); }
+  </style>
+</head>
+<body class="bg-cinema-black text-warm-white font-body antialiased overflow-x-hidden">
+
+<!-- ── NAV ── -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/brand_assets/logo.jpg" alt="Logo" class="h-9 w-9 rounded-full object-cover">
+      <span class="font-heading tracking-[0.18em] text-gold text-sm uppercase logo-name">Make A Movie</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#about"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">About</a>
+      <a href="/#services" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Services</a>
+      <a href="/#work"     class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
+      <a href="/#people"   class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
+      <a href="/games"     class="nav-link font-body text-xs tracking-widest uppercase" style="color:#F0C040;">Games</a>
+      <a href="/assets"    class="ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black" style="transition:background 0.25s ease,color 0.25s ease;">
+        Download Assets
+      </a>
+    </div>
+    <button id="menu-btn" class="md:hidden p-1">
+      <svg class="w-5 h-5 text-warm-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-white/5 px-6 py-5 flex flex-col gap-5">
+    <a href="/#about"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">About</a>
+    <a href="/#work"    class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Our Work</a>
+    <a href="/games"    class="text-xs tracking-widest uppercase" style="color:#F0C040;">Games</a>
+    <a href="/assets"   class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="pt-32 pb-14 text-center relative overflow-hidden" style="background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(240,192,64,0.07) 0%, transparent 70%), #080808;">
+  <!-- decorative film strip perforations -->
+  <div class="absolute top-0 left-0 right-0 h-2.5" style="background:repeating-linear-gradient(90deg,transparent 0,transparent 14px,rgba(240,192,64,0.35) 14px,rgba(240,192,64,0.35) 22px);"></div>
+  <div class="max-w-3xl mx-auto px-6">
+    <p class="font-heading text-xs tracking-[0.32em] mb-5 fade-up" style="color:#F0C040;animation-delay:0.1s;opacity:0;">Make A Movie Production Presents</p>
+    <h1 class="font-display mb-4 fade-up" style="font-size:clamp(2.8rem,8vw,5.5rem);letter-spacing:-0.025em;line-height:1.05;animation-delay:0.25s;opacity:0;">
+      The Endless<br><em style="color:#F0C040;">Render</em>
+    </h1>
+    <div class="w-14 h-0.5 mx-auto mb-6 fade-up" style="background:linear-gradient(90deg,#F0C040,#E87820);animation-delay:0.4s;opacity:0;"></div>
+    <p class="font-body text-sm leading-relaxed max-w-lg mx-auto fade-up" style="color:#88807A;animation-delay:0.52s;opacity:0;">
+      The export is stuck at 99%. Sprint across the editing timeline, dodge software crashes, and push the render to 100%.
+    </p>
+  </div>
+</section>
+
+<!-- ── GAME ── -->
+<section class="pb-20 px-4">
+  <div class="max-w-3xl mx-auto">
+
+    <!-- NLE window chrome -->
+    <div class="game-wrap rounded-sm overflow-hidden" style="border:1px solid rgba(240,192,64,0.18);">
+
+      <!-- Title bar -->
+      <div class="flex items-center justify-between px-4 py-2.5 select-none" style="background:#161616;border-bottom:1px solid rgba(255,255,255,0.055);">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full" style="background:#D44848;"></div>
+          <div class="w-3 h-3 rounded-full" style="background:#F0C040;"></div>
+          <div class="w-3 h-3 rounded-full" style="background:#4DB87A;"></div>
+        </div>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#88807A;letter-spacing:0.06em;">
+          FinalExport_v47_FINAL_REAL_v2.prproj
+        </span>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(240,192,64,0.55);letter-spacing:0.12em;">● RENDERING</span>
+      </div>
+
+      <!-- Canvas -->
+      <div id="canvas-wrapper" class="relative scanlines" style="background:#0b0b0b;">
+        <canvas id="gameCanvas" style="width:100%;display:block;"></canvas>
+      </div>
+
+      <!-- Render progress bar -->
+      <div style="background:#141414;border-top:1px solid rgba(255,255,255,0.045);padding:8px 16px;">
+        <div class="flex items-center justify-between mb-1.5">
+          <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#88807A;letter-spacing:0.14em;">RENDER PROGRESS</span>
+          <span id="renderPct" style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#F0C040;letter-spacing:0.14em;">99.0%</span>
+        </div>
+        <div class="w-full overflow-hidden" style="height:3px;background:rgba(255,255,255,0.06);border-radius:1px;">
+          <div id="renderBar" style="width:99%;height:100%;background:linear-gradient(90deg,#F0C040,#E87820);border-radius:1px;transition:width 0.4s ease;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-6" style="font-size:11px;color:#88807A;">
+      <span class="flex items-center gap-2">
+        <kbd style="font-family:'Share Tech Mono',monospace;padding:3px 9px;background:#1a1a1a;border:1px solid rgba(240,192,64,0.22);color:#F0C040;font-size:10px;letter-spacing:0.05em;border-radius:2px;">SPACE</kbd>
+        Jump / Start / Restart
+      </span>
+      <span class="flex items-center gap-2">
+        <span style="padding:3px 9px;background:#1a1a1a;border:1px solid rgba(240,192,64,0.22);color:#F0C040;font-size:10px;font-family:'Share Tech Mono',monospace;border-radius:2px;">TAP</span>
+        Mobile
+      </span>
+      <span class="flex items-center gap-2">
+        <span style="width:8px;height:8px;border-radius:50%;background:#F0C040;display:inline-block;box-shadow:0 0 7px rgba(240,192,64,0.7);flex-shrink:0;"></span>
+        Coffee = slow-mo
+      </span>
+      <span class="flex items-center gap-2">
+        <span style="width:8px;height:8px;border-radius:50%;background:#4DB87A;display:inline-block;box-shadow:0 0 7px rgba(77,184,122,0.6);flex-shrink:0;"></span>
+        Drive = shield
+      </span>
+    </div>
+
+    <!-- Score row -->
+    <div class="mt-8 flex justify-center gap-16">
+      <div class="text-center">
+        <p class="font-heading text-xs tracking-[0.25em] uppercase mb-1.5" style="color:#88807A;">Current Run</p>
+        <p id="scoreDisplay" class="pixel-score text-2xl text-warm-white">000000</p>
+        <p class="font-heading text-xs tracking-[0.18em] uppercase mt-1" style="color:#88807A;font-size:9px;">frames</p>
+      </div>
+      <div style="width:1px;background:rgba(240,192,64,0.14);"></div>
+      <div class="text-center">
+        <p class="font-heading text-xs tracking-[0.25em] uppercase mb-1.5" style="color:#88807A;">Best Render</p>
+        <p id="hiScoreDisplay" class="pixel-score text-2xl" style="color:#F0C040;">000000</p>
+        <p class="font-heading text-xs tracking-[0.18em] uppercase mt-1" style="color:#88807A;font-size:9px;">frames</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INFO CARDS ── -->
+<section class="pb-24 px-6">
+  <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-4">
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:22px;margin-bottom:12px;">🎬</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-3" style="color:#F0C040;">Obstacles</h3>
+      <ul class="font-body text-xs space-y-2 leading-relaxed" style="color:#88807A;">
+        <li>📴 &nbsp;Media Offline block</li>
+        <li>🌀 &nbsp;Spinning Wheel of Death</li>
+        <li>⚠️ &nbsp;Missing Plugin error</li>
+        <li>📈 &nbsp;Out of RAM spike</li>
+      </ul>
+    </div>
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:22px;margin-bottom:12px;">☕</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-3" style="color:#F0C040;">Power-Ups</h3>
+      <ul class="font-body text-xs space-y-2 leading-relaxed" style="color:#88807A;">
+        <li>☕ &nbsp;Coffee — slow-motion focus</li>
+        <li>💾 &nbsp;Hard Drive — one-hit shield</li>
+      </ul>
+      <div class="mt-5 pt-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+        <p class="font-body text-xs leading-relaxed" style="color:rgba(136,128,122,0.65);">
+          Reach <span style="color:#F0C040;">5,000 frames</span> for a secret reward.
+        </p>
+      </div>
+    </div>
+    <div class="info-card p-6 rounded-sm">
+      <p style="font-size:22px;margin-bottom:12px;">📊</p>
+      <h3 class="font-heading text-xs tracking-[0.22em] uppercase mb-3" style="color:#F0C040;">How It Works</h3>
+      <ul class="font-body text-xs space-y-2 leading-relaxed" style="color:#88807A;">
+        <li>Score = Frames Rendered</li>
+        <li>Speed increases over time</li>
+        <li>High score saved on-device</li>
+        <li>No account needed</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── REWARD MODAL ── -->
+<div id="rewardModal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-overlay">
+  <div class="max-w-sm w-full mx-6 p-10 text-center" style="background:#111;border:1px solid rgba(240,192,64,0.28);box-shadow:0 0 100px rgba(240,192,64,0.14);">
+    <p style="font-size:40px;margin-bottom:16px;">🏆</p>
+    <p class="font-heading text-xs tracking-[0.32em] uppercase mb-3" style="color:#F0C040;">Render Complete</p>
+    <h2 class="font-display text-3xl text-warm-white mb-4" style="letter-spacing:-0.02em;">5,000 Frames!</h2>
+    <p class="font-body text-sm leading-relaxed mb-7" style="color:#88807A;">You survived every crash, every missing file, every out-of-memory spike. The render is done. Here's your reward.</p>
+    <a href="/#work" class="inline-block px-6 py-3 font-heading tracking-[0.2em] text-xs uppercase text-cinema-black bg-gold hover:bg-gold-light" style="transition:background 0.25s ease;">
+      Watch Our Films →
+    </a>
+    <button id="closeModal" class="block mx-auto mt-5 font-body text-xs tracking-widest uppercase" style="color:#88807A;transition:color 0.2s ease;" onmouseover="this.style.color='#F2EFE6'" onmouseout="this.style.color='#88807A'">Keep Running</button>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="py-8 text-center" style="border-top:1px solid rgba(240,192,64,0.08);">
+  <p class="font-body text-xs tracking-widest" style="color:#88807A;">© 2025 MAKE A MOVIE PRODUCTION</p>
+</footer>
+
+<script>
+// ════════════════════════════════════════════
+//  THE ENDLESS RENDER — game engine
+// ════════════════════════════════════════════
+const canvas = document.getElementById('gameCanvas');
+const ctx    = canvas.getContext('2d');
+
+const W = 800, H = 320;
+canvas.width  = W;
+canvas.height = H;
+
+// ── constants ───────────────────────────────
+const GROUND_Y   = H - 72;
+const GRAVITY    = 0.75;
+const JUMP_FORCE = -15;
+const CHAR_W     = 18;
+const CHAR_H     = 28;
+
+// ── state ───────────────────────────────────
+let gameState  = 'idle';   // idle | running | dead
+let frames     = 0;
+let hiScore    = parseInt(localStorage.getItem('endlessRenderHi') || '0');
+let speed      = 4.8;
+let bgScroll   = 0;
+let tlScroll   = 0;
+let shielded   = false;
+let slowed     = false;
+let slowTimer  = 0;
+let rewardDone = false;
+let flashAlpha = 0;
+let deathTick  = 0;
+
+const char = { x: 110, y: GROUND_Y - CHAR_H, vy: 0, onGround: true, frame: 0, ft: 0 };
+let obstacles = [], powerups = [], particles = [];
+let obstClock = 0, obstGap = 105;
+let puClock   = 0;
+
+document.getElementById('hiScoreDisplay').textContent = String(hiScore).padStart(6,'0');
+
+// ── input ────────────────────────────────────
+function jump() {
+  if (gameState === 'idle')                  { gameState = 'running'; return; }
+  if (gameState === 'dead' && deathTick > 30){ resetGame(); gameState = 'running'; return; }
+  if (gameState === 'running' && char.onGround) {
+    char.vy = JUMP_FORCE;
+    char.onGround = false;
+  }
+}
+document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); jump(); } });
+canvas.addEventListener('click',      () => jump());
+canvas.addEventListener('touchstart', e => { e.preventDefault(); jump(); }, { passive: false });
+
+// ── reset ────────────────────────────────────
+function resetGame() {
+  frames = 0; speed = 4.8;
+  obstacles = []; powerups = []; particles = [];
+  obstClock = 0; obstGap = 105;
+  puClock = 0;
+  shielded = false; slowed = false; slowTimer = 0;
+  flashAlpha = 0; deathTick = 0;
+  char.y = GROUND_Y - CHAR_H; char.vy = 0; char.onGround = true;
+  char.frame = 0; char.ft = 0;
+  document.getElementById('renderBar').style.width = '99%';
+  document.getElementById('renderPct').textContent = '99.0%';
+}
+
+// ── spawn ────────────────────────────────────
+const OBS_TYPES = ['media_offline','spin_wheel','miss_plugin','ram_spike'];
+
+function spawnObs() {
+  const t = OBS_TYPES[Math.floor(Math.random() * OBS_TYPES.length)];
+  let w, h, y, extra = {};
+  switch (t) {
+    case 'media_offline': w=44; h=50; y=GROUND_Y-h; break;
+    case 'spin_wheel':    w=34; h=34; y=GROUND_Y-h-8+Math.random()*16; extra.ang=0; break;
+    case 'miss_plugin':   w=52; h=40; y=GROUND_Y-h; break;
+    case 'ram_spike':     w=18; h=45+Math.random()*35; y=GROUND_Y-h; break;
+  }
+  obstacles.push({ t, x: W+20, y, w, h, extra });
+}
+
+function spawnPU() {
+  const t = Math.random() < 0.5 ? 'coffee' : 'drive';
+  powerups.push({ t, x: W+20, y: GROUND_Y - 64 - Math.random()*36, w:22, h:22, bob:Math.random()*Math.PI*2 });
+}
+
+// ── particles ────────────────────────────────
+function burst(x, y, col, n=14) {
+  for (let i=0;i<n;i++) {
+    const a = Math.random()*Math.PI*2, s = 2+Math.random()*5;
+    particles.push({ x,y, vx:Math.cos(a)*s, vy:Math.sin(a)*s-2,
+      life:1, dec:0.028+Math.random()*0.025, sz:2+Math.random()*3.5, col });
+  }
+}
+
+// ── draw: character ──────────────────────────
+function drawChar(dead) {
+  const px = Math.round(char.x), py = Math.round(char.y);
+  ctx.save();
+  if (dead) ctx.globalAlpha = 0.65 + Math.sin(deathTick*0.25)*0.3;
+
+  // body
+  ctx.fillStyle = '#F2EFE6';
+  ctx.fillRect(px+3, py+10, 12, 13);
+  // head
+  ctx.fillRect(px+4, py, 10, 10);
+  // headphones
+  ctx.fillStyle = '#F0C040';
+  ctx.fillRect(px+4, py,   10, 2);
+  ctx.fillRect(px+3, py+1, 2,  6);
+  ctx.fillRect(px+13,py+1, 2,  6);
+  // glasses
+  ctx.fillStyle = '#080808';
+  ctx.fillRect(px+5, py+3, 3, 3);
+  ctx.fillRect(px+10,py+3, 3, 3);
+  // shirt stripe
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(px+6, py+11, 2, 8);
+  ctx.fillRect(px+11,py+11, 2, 8);
+
+  if (!dead) {
+    // legs
+    ctx.fillStyle = '#2a2a2a';
+    if (char.frame === 0) {
+      ctx.fillRect(px+4,  py+23, 4, 8);
+      ctx.fillRect(px+10, py+23, 4, 4);
+    } else {
+      ctx.fillRect(px+4,  py+23, 4, 4);
+      ctx.fillRect(px+10, py+23, 4, 8);
+    }
+  } else {
+    // facepalm
+    ctx.fillStyle = '#F2EFE6';
+    ctx.fillRect(px+3, py+10, 4, 6);
+    ctx.fillRect(px+3, py+5,  8, 5);
+    ctx.fillStyle = '#2a2a2a';
+    ctx.fillRect(px+4,  py+23, 4, 5);
+    ctx.fillRect(px+10, py+23, 4, 5);
+  }
+  ctx.restore();
+}
+
+// ── draw: obstacles ──────────────────────────
+function drawMediaOffline(o) {
+  ctx.fillStyle = '#B80018'; ctx.fillRect(o.x, o.y, o.w, o.h);
+  ctx.fillStyle = '#7A0010'; ctx.fillRect(o.x+3, o.y+3, o.w-6, o.h-6);
+  ctx.fillStyle = '#FF2244';
+  ctx.font = 'bold 6px "Share Tech Mono",monospace'; ctx.textAlign = 'center';
+  ctx.fillText('MEDIA',   o.x+o.w/2, o.y+o.h/2-4);
+  ctx.fillText('OFFLINE', o.x+o.w/2, o.y+o.h/2+5);
+  ctx.fillRect(o.x+o.w/2-1, o.y+5, 3, 7);
+  ctx.fillRect(o.x+o.w/2-1, o.y+14, 3, 3);
+}
+
+function drawSpinWheel(o) {
+  const cx=o.x+o.w/2, cy=o.y+o.h/2, r=o.w/2;
+  const cols=['#D44848','#F0C040','#4DB87A','#8BA3C8','#E87820','#A879C8','#E87820','#4DB87A'];
+  ctx.save(); ctx.translate(cx,cy); ctx.rotate(o.extra.ang);
+  for (let i=0;i<8;i++) {
+    ctx.beginPath(); ctx.moveTo(0,0);
+    ctx.arc(0,0,r,(i/8)*Math.PI*2,((i+1)/8)*Math.PI*2);
+    ctx.closePath(); ctx.fillStyle=cols[i]; ctx.fill();
+  }
+  ctx.fillStyle='#111';
+  ctx.beginPath(); ctx.arc(0,0,r*0.28,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawMissPlugin(o) {
+  const g = Math.random()<0.12 ? (Math.random()-0.5)*5 : 0;
+  ctx.save();
+  ctx.fillStyle='#18182E'; ctx.fillRect(o.x+g, o.y, o.w, o.h);
+  ctx.fillStyle='rgba(80,80,255,0.18)'; ctx.fillRect(o.x+g, o.y+o.h*0.38, o.w, o.h*0.14);
+  ctx.strokeStyle='#4444CC'; ctx.lineWidth=1; ctx.strokeRect(o.x+g, o.y, o.w, o.h);
+  ctx.fillStyle='#FFFF44'; ctx.font='bold 13px monospace'; ctx.textAlign='center';
+  ctx.fillText('⚠', o.x+o.w/2+g, o.y+17);
+  ctx.fillStyle='#8888BB'; ctx.font='6px "Share Tech Mono",monospace';
+  ctx.fillText('MISSING', o.x+o.w/2+g, o.y+27);
+  ctx.fillText('PLUGIN',  o.x+o.w/2+g, o.y+36);
+  ctx.restore();
+}
+
+function drawRamSpike(o) {
+  ctx.fillStyle='#7A0000';
+  ctx.beginPath();
+  ctx.moveTo(o.x, GROUND_Y);
+  ctx.lineTo(o.x, o.y+o.h*0.3);
+  ctx.lineTo(o.x+o.w/2, o.y);
+  ctx.lineTo(o.x+o.w, o.y+o.h*0.3);
+  ctx.lineTo(o.x+o.w, GROUND_Y);
+  ctx.closePath(); ctx.fill();
+  ctx.strokeStyle='#CC3333'; ctx.lineWidth=1; ctx.stroke();
+  ctx.fillStyle='#FF6666'; ctx.font='6px "Share Tech Mono",monospace'; ctx.textAlign='center';
+  ctx.fillText('RAM', o.x+o.w/2, o.y+o.h*0.55);
+}
+
+// ── draw: powerups ───────────────────────────
+function drawCoffee(p) {
+  const cx=p.x+p.w/2, cy=p.y+p.h/2+Math.sin(p.bob)*3;
+  ctx.save();
+  ctx.shadowColor='#F0C040'; ctx.shadowBlur=14;
+  ctx.fillStyle='rgba(240,192,64,0.12)';
+  ctx.beginPath(); ctx.arc(cx,cy,15,0,Math.PI*2); ctx.fill();
+  ctx.shadowBlur=0;
+  ctx.fillStyle='#5C2E18'; ctx.fillRect(cx-8, cy-8, 16,14);
+  ctx.fillStyle='#3A1A08'; ctx.fillRect(cx-6, cy-3, 12, 8);
+  ctx.fillStyle='#F0C040'; ctx.fillRect(cx-6, cy-8, 12, 2);
+  ctx.strokeStyle='#5C2E18'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(cx+8, cy+1, 5, -Math.PI/2, Math.PI/2); ctx.stroke();
+  ctx.restore();
+}
+
+function drawDrive(p) {
+  const bx=p.x, by=p.y+Math.sin(p.bob)*3;
+  ctx.save();
+  ctx.shadowColor='#4DB87A'; ctx.shadowBlur=14;
+  ctx.fillStyle='#222238'; ctx.fillRect(bx, by, p.w, p.w*0.7);
+  ctx.strokeStyle='#4DB87A'; ctx.lineWidth=1; ctx.strokeRect(bx, by, p.w, p.w*0.7);
+  ctx.fillStyle='#4DB87A'; ctx.fillRect(bx+2, by+p.w*0.28, p.w-4, 2.5);
+  ctx.fillStyle='#333355'; ctx.fillRect(bx+p.w-8, by+2, 5, 5);
+  ctx.shadowBlur=0;
+  ctx.restore();
+}
+
+// ── draw: background ─────────────────────────
+function drawBG() {
+  ctx.fillStyle='#090909'; ctx.fillRect(0,0,W,H);
+
+  // distant grid (NLE panel lines)
+  ctx.strokeStyle='rgba(240,192,64,0.022)'; ctx.lineWidth=1;
+  for (let x=(bgScroll*0.08)%80-80; x<W; x+=80) {
+    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,GROUND_Y); ctx.stroke();
+  }
+  for (let y=36; y<GROUND_Y; y+=44) {
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+  }
+
+  // mid-layer: drifting clip rectangles (cinematic depth)
+  [0.18,0.42,0.62,0.84].forEach((f, i) => {
+    const bx = ((bgScroll*0.22 + f*W*2.4) % (W*2.6+40) + W*2.6+40) % (W*2.6+40) - 40;
+    const by = 28 + i*55;
+    ctx.fillStyle   = `rgba(240,192,64,${0.01+i*0.004})`;
+    ctx.strokeStyle = `rgba(240,192,64,${0.035})`;
+    ctx.lineWidth   = 0.5;
+    ctx.fillRect(bx,by,130,34);
+    ctx.strokeRect(bx,by,130,34);
+  });
+
+  // atmospheric spotlight
+  const g = ctx.createRadialGradient(W*0.28,0,0,W*0.28,0,H*1.3);
+  g.addColorStop(0,'rgba(240,192,64,0.045)');
+  g.addColorStop(1,'transparent');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+}
+
+// ── draw: timeline ───────────────────────────
+function drawTimeline() {
+  const off = tlScroll % W;
+
+  ctx.fillStyle='#151515'; ctx.fillRect(0,GROUND_Y,W,H-GROUND_Y);
+  ctx.fillStyle='#1C1C1C'; ctx.fillRect(0,GROUND_Y,W,5);
+  ctx.fillStyle='#F0C040'; ctx.fillRect(0,GROUND_Y,W,1); // gold rail
+
+  // audio waveform
+  ctx.strokeStyle='rgba(240,192,64,0.28)'; ctx.lineWidth=1;
+  ctx.beginPath();
+  for (let i=0;i<W;i+=3) {
+    const amp = 7+Math.sin((i+off)*0.028)*5;
+    const wy  = GROUND_Y+24+Math.sin((i+off)*0.048)*amp*0.5;
+    i===0 ? ctx.moveTo(i,wy) : ctx.lineTo(i,wy);
+  }
+  ctx.stroke();
+  ctx.strokeStyle='rgba(240,192,64,0.12)'; ctx.lineWidth=1;
+  ctx.beginPath();
+  for (let i=0;i<W;i+=3) {
+    const amp = 7+Math.sin((i+off)*0.028)*5;
+    const wy  = GROUND_Y+38+Math.sin((i+off)*0.048+Math.PI)*amp*0.35;
+    i===0 ? ctx.moveTo(i,wy) : ctx.lineTo(i,wy);
+  }
+  ctx.stroke();
+
+  // tick marks
+  ctx.fillStyle='rgba(136,128,122,0.45)';
+  for (let x=W-(off%28);x>=-28;x-=28)  ctx.fillRect(x,GROUND_Y+5,1,4);
+  for (let x=W-(off%112);x>=-112;x-=112) {
+    ctx.fillRect(x,GROUND_Y+5,1,8);
+    ctx.font='6px "Share Tech Mono",monospace'; ctx.fillStyle='rgba(136,128,122,0.35)'; ctx.textAlign='left';
+    const tc=Math.floor((frames+(W-x)/speed)/28);
+    ctx.fillText(String(tc).padStart(4,'0'), x+2, GROUND_Y+17);
+  }
+
+  // video clip blocks in lower track
+  const clipCols=['rgba(0,70,150,0.3)','rgba(70,0,110,0.3)','rgba(0,90,50,0.3)','rgba(110,50,0,0.3)','rgba(0,80,90,0.3)'];
+  for (let i=0;i<6;i++) {
+    const cx=((i*200-off*0.75)%(W+210)+W+210)%(W+210)-20;
+    ctx.fillStyle  = clipCols[i%clipCols.length];
+    ctx.strokeStyle= clipCols[i%clipCols.length].replace('0.3','0.55');
+    ctx.lineWidth  = 0.5;
+    ctx.fillRect(cx,  GROUND_Y+43,175+i*10,18);
+    ctx.strokeRect(cx,GROUND_Y+43,175+i*10,18);
+  }
+}
+
+// ── draw: HUD ────────────────────────────────
+function drawHUD() {
+  // score box
+  ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(W-198,10,188,52);
+  ctx.strokeStyle='rgba(240,192,64,0.18)'; ctx.lineWidth=0.5; ctx.strokeRect(W-198,10,188,52);
+  ctx.font='7px "Share Tech Mono",monospace'; ctx.fillStyle='rgba(136,128,122,0.8)'; ctx.textAlign='left';
+  ctx.fillText('FRAMES RENDERED', W-190, 24);
+  ctx.font='bold 22px "Share Tech Mono",monospace'; ctx.fillStyle='#F0C040';
+  ctx.fillText(String(frames).padStart(6,'0'), W-190, 50);
+
+  // shield ring
+  if (shielded) {
+    ctx.save();
+    ctx.strokeStyle='#4DB87A'; ctx.lineWidth=2;
+    ctx.globalAlpha=0.65+Math.sin(frames*0.18)*0.3;
+    ctx.beginPath();
+    ctx.arc(char.x+CHAR_W/2, char.y+CHAR_H/2, CHAR_W*1.2, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // coffee slow bar
+  if (slowed) {
+    ctx.fillStyle='rgba(240,192,64,0.07)'; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(240,192,64,0.35)';
+    ctx.fillRect(12, H-10, (slowTimer/320)*130, 3);
+  }
+
+  // speed readout
+  ctx.font='7px "Share Tech Mono",monospace'; ctx.fillStyle='rgba(136,128,122,0.45)'; ctx.textAlign='left';
+  ctx.fillText(`SPD ${speed.toFixed(1)}x`, 12, H-14);
+}
+
+// ── screens ──────────────────────────────────
+function drawIdle() {
+  ctx.fillStyle='rgba(8,8,8,0.72)'; ctx.fillRect(0,0,W,H);
+  ctx.textAlign='center';
+  ctx.font='bold 26px "Playfair Display",serif'; ctx.fillStyle='#F0C040';
+  ctx.fillText('THE ENDLESS RENDER', W/2, H/2-28);
+  ctx.font='10px "Share Tech Mono",monospace'; ctx.fillStyle='#F2EFE6';
+  ctx.fillText('PRESS SPACE  OR  TAP  TO  START', W/2, H/2+8);
+  if (hiScore > 0) {
+    ctx.font='8px "Share Tech Mono",monospace'; ctx.fillStyle='rgba(136,128,122,0.65)';
+    ctx.fillText('BEST: '+String(hiScore).padStart(6,'0')+' FRAMES', W/2, H/2+30);
+  }
+  if (Math.floor(Date.now()/550)%2===0) {
+    ctx.fillStyle='#F0C040'; ctx.fillRect(W/2-3, H/2+16, 6, 2);
+  }
+}
+
+function drawDead() {
+  ctx.fillStyle='rgba(8,8,8,0.76)'; ctx.fillRect(0,0,W,H);
+  ctx.textAlign='center';
+  ctx.font='bold 8px "Share Tech Mono",monospace'; ctx.fillStyle='#D44848';
+  ctx.fillText('— CRASH TO DESKTOP —', W/2, H/2-32);
+  ctx.font='bold 24px "Playfair Display",serif'; ctx.fillStyle='#F2EFE6';
+  ctx.fillText(String(frames).padStart(6,'0')+' FRAMES', W/2, H/2-2);
+  const label = (frames >= hiScore && frames > 0) ? '✦  NEW  BEST  ✦' : 'BEST: '+String(hiScore).padStart(6,'0');
+  ctx.font='8px "Share Tech Mono",monospace'; ctx.fillStyle='rgba(136,128,122,0.75)';
+  ctx.fillText(label, W/2, H/2+20);
+  if (deathTick > 30 && Math.floor(Date.now()/580)%2===0) {
+    ctx.font='9px "Share Tech Mono",monospace'; ctx.fillStyle='#F2EFE6';
+    ctx.fillText('PRESS SPACE TO RESTART', W/2, H/2+46);
+  }
+}
+
+// ── collision ────────────────────────────────
+function overlaps(ax,ay,aw,ah, bx,by,bw,bh) {
+  const m=5;
+  return ax+m<bx+bw-m && ax+aw-m>bx+m && ay+m<by+bh-m && ay+ah-m>by+m;
+}
+
+// ── main loop ────────────────────────────────
+let lastT = 0;
+function loop(ts) {
+  const dt = Math.min((ts-lastT)/16.667, 3);
+  lastT = ts;
+
+  const spd = slowed ? speed*0.42 : speed;
+
+  if (gameState === 'running') {
+    bgScroll += spd*dt;
+    tlScroll += spd*dt;
+    frames++;
+
+    // ramp
+    if (frames % 380 === 0) speed = Math.min(speed+0.28, 13);
+    if (frames % 550 === 0) obstGap = Math.max(obstGap-7, 52);
+
+    // char physics
+    char.vy += GRAVITY*dt;
+    char.y  += char.vy*dt;
+    if (char.y >= GROUND_Y-CHAR_H) {
+      char.y = GROUND_Y-CHAR_H; char.vy=0; char.onGround=true;
+    }
+
+    // run animation
+    char.ft += dt;
+    if (char.ft > 6) { char.frame = 1-char.frame; char.ft=0; }
+
+    // slow timer
+    if (slowed) { slowTimer -= dt; if (slowTimer<=0) { slowed=false; slowTimer=0; } }
+
+    // spawn
+    obstClock += dt;
+    if (obstClock >= obstGap) { spawnObs(); obstClock=0; }
+    puClock += dt;
+    if (puClock >= 290) { spawnPU(); puClock=0; }
+
+    // update obstacles
+    for (let i=obstacles.length-1;i>=0;i--) {
+      const o=obstacles[i];
+      o.x -= spd*dt;
+      if (o.t==='spin_wheel') o.extra.ang += 0.09*dt;
+      if (o.x+o.w < -30) { obstacles.splice(i,1); continue; }
+
+      if (overlaps(char.x,char.y,CHAR_W,CHAR_H, o.x,o.y,o.w,o.h)) {
+        if (shielded) {
+          shielded=false;
+          burst(char.x+CHAR_W/2, char.y+CHAR_H/2, '#4DB87A', 10);
+          obstacles.splice(i,1);
+        } else {
+          gameState='dead'; deathTick=0;
+          burst(char.x+CHAR_W/2, char.y+CHAR_H/2, '#D44848', 18);
+          burst(char.x+CHAR_W/2, char.y+CHAR_H/2, '#F0C040', 8);
+          if (frames>hiScore) {
+            hiScore=frames;
+            localStorage.setItem('endlessRenderHi', hiScore);
+            document.getElementById('hiScoreDisplay').textContent = String(hiScore).padStart(6,'0');
+          }
+          flashAlpha=0.55;
+        }
+      }
+    }
+
+    // update powerups
+    for (let i=powerups.length-1;i>=0;i--) {
+      const p=powerups[i];
+      p.x -= spd*dt; p.bob += 0.055*dt;
+      if (p.x+p.w < -30) { powerups.splice(i,1); continue; }
+      if (overlaps(char.x,char.y,CHAR_W,CHAR_H, p.x,p.y,p.w,p.h)) {
+        if (p.t==='coffee') { slowed=true; slowTimer=320; burst(p.x+p.w/2,p.y+p.h/2,'#F0C040',10); }
+        else                { shielded=true;               burst(p.x+p.w/2,p.y+p.h/2,'#4DB87A',10); }
+        powerups.splice(i,1);
+      }
+    }
+
+    // render bar progress
+    if (frames%4===0) {
+      const pct = 99 + Math.min(frames/480*0.95, 0.95);
+      document.getElementById('renderBar').style.width  = pct+'%';
+      document.getElementById('renderPct').textContent  = pct.toFixed(1)+'%';
+    }
+
+    // score display
+    document.getElementById('scoreDisplay').textContent = String(frames).padStart(6,'0');
+
+    // reward
+    if (frames >= 5000 && !rewardDone) {
+      rewardDone=true;
+      document.getElementById('rewardModal').classList.remove('hidden');
+    }
+
+  } else if (gameState==='dead') {
+    deathTick++;
+    bgScroll+=0.8; tlScroll+=0.8;
+  }
+
+  // particles
+  for (let i=particles.length-1;i>=0;i--) {
+    const p=particles[i];
+    p.x+=p.vx; p.y+=p.vy; p.vy+=0.2;
+    p.life-=p.dec;
+    if (p.life<=0) particles.splice(i,1);
+  }
+
+  // ─── RENDER ─────────────────────────────────
+  drawBG();
+  drawTimeline();
+
+  for (const o of obstacles) {
+    switch(o.t) {
+      case 'media_offline': drawMediaOffline(o); break;
+      case 'spin_wheel':    drawSpinWheel(o);    break;
+      case 'miss_plugin':   drawMissPlugin(o);   break;
+      case 'ram_spike':     drawRamSpike(o);     break;
+    }
+  }
+  for (const p of powerups) {
+    p.t==='coffee' ? drawCoffee(p) : drawDrive(p);
+  }
+
+  // particles
+  for (const p of particles) {
+    ctx.save(); ctx.globalAlpha=Math.max(0,p.life);
+    ctx.fillStyle=p.col;
+    ctx.fillRect(p.x-p.sz/2, p.y-p.sz/2, p.sz, p.sz);
+    ctx.restore();
+  }
+
+  drawChar(gameState==='dead');
+  if (gameState==='running'||gameState==='dead') drawHUD();
+  if (gameState==='idle') drawIdle();
+  if (gameState==='dead') drawDead();
+
+  // crash flash
+  if (flashAlpha>0) {
+    ctx.fillStyle=`rgba(212,72,72,${flashAlpha})`;
+    ctx.fillRect(0,0,W,H);
+    flashAlpha=Math.max(0,flashAlpha-0.042);
+  }
+
+  requestAnimationFrame(loop);
+}
+
+// initial idle frame
+drawBG(); drawTimeline(); drawChar(false); drawIdle();
+requestAnimationFrame(loop);
+
+// mobile menu
+document.getElementById('menu-btn').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+document.getElementById('closeModal').addEventListener('click', () => {
+  document.getElementById('rewardModal').classList.add('hidden');
+});
+</script>
+</body>
+</html>
