@@ -10,7 +10,7 @@
   <meta property="og:image" content="/brand_assets/shoot.jpeg">
   <meta name="twitter:card" content="summary_large_image">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -28,9 +28,9 @@
             'muted':        '#88807A',
           },
           fontFamily: {
-            'display': ['"Playfair Display"', 'serif'],
-            'heading': ['Oswald', 'sans-serif'],
-            'body':    ['Jost', 'sans-serif'],
+            'display': ['Sora', 'sans-serif'],
+            'heading': ['Sora', 'sans-serif'],
+            'body':    ['Manrope', 'sans-serif'],
           },
         }
       }
@@ -38,6 +38,14 @@
   </script>
 
   <style>
+    html { font-size: clamp(16px, 0.42vw + 14.7px, 18px); }
+    body { text-rendering: geometricPrecision; }
+    .text-display-xl  { font-size: clamp(3.15rem, 8.2vw, 7.25rem); letter-spacing: -0.055em; line-height: 0.95; }
+    .text-section-title{ font-size: clamp(2.2rem, 4.6vw, 4rem); letter-spacing: -0.045em; line-height: 1.02; }
+    .text-card-title  { font-size: clamp(1.05rem, 1.1vw, 1.35rem); line-height: 1.12; }
+    .text-ui-label    { font-size: clamp(0.75rem, 0.22vw + 0.69rem, 0.88rem); }
+    .text-body-readable{ font-size: clamp(1rem, 0.25vw + 0.93rem, 1.125rem); line-height: 1.8; }
+
     /* Film grain */
     body::before {
       content: '';
@@ -136,7 +144,7 @@
 
     /* Step number glow */
     .step-num {
-      font-family: 'Oswald', sans-serif;
+      font-family: 'Sora', sans-serif;
       font-size: 11px;
       letter-spacing: 0.28em;
       color: #F0C040;
@@ -389,36 +397,36 @@
                   <rect width="560" height="210" fill="#07070d"/>
                   <!-- frozen header bar -->
                   <rect width="560" height="36" fill="#0f0f1a"/>
-                  <text x="16" y="23" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" letter-spacing="3" opacity="0.9">PRODUCTION HEADER — FROZEN ROW 1</text>
+                  <text x="16" y="23" font-family="Sora,sans-serif" font-size="9" fill="#F0C040" letter-spacing="3" opacity="0.9">PRODUCTION HEADER — FROZEN ROW 1</text>
                   <line x1="0" y1="36" x2="560" y2="36" stroke="#F0C040" stroke-width="1" stroke-opacity="0.25"/>
                   <!-- LEFT FIELDS -->
-                  <text x="16" y="56" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Project Name</text>
+                  <text x="16" y="56" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">Project Name</text>
                   <rect x="16" y="60" width="180" height="22" rx="3" fill="#111120" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4"/>
-                  <text x="24" y="75" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">Sitting (2026)</text>
-                  <text x="16" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Director</text>
+                  <text x="24" y="75" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">Sitting (2026)</text>
+                  <text x="16" y="100" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">Director</text>
                   <rect x="16" y="104" width="84" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="24" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">N. Punyala</text>
-                  <text x="108" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">1st A.D.</text>
+                  <text x="24" y="119" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">N. Punyala</text>
+                  <text x="108" y="100" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">1st A.D.</text>
                   <rect x="108" y="104" width="88" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="116" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">M. Singh</text>
-                  <text x="16" y="144" font-family="Jost,sans-serif" font-size="9" fill="#88807A">D.P.</text>
+                  <text x="116" y="119" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">M. Singh</text>
+                  <text x="16" y="144" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">D.P.</text>
                   <rect x="16" y="148" width="180" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="24" y="163" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">A. Rajan</text>
+                  <text x="24" y="163" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">A. Rajan</text>
                   <!-- DIVIDER -->
                   <line x1="224" y1="44" x2="224" y2="200" stroke="#2a2a3a" stroke-width="1"/>
                   <!-- RIGHT FIELDS -->
-                  <text x="240" y="56" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Shoot Date</text>
+                  <text x="240" y="56" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">Shoot Date</text>
                   <rect x="240" y="60" width="120" height="22" rx="3" fill="#111120" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4"/>
-                  <text x="248" y="75" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">Apr 15, 2026</text>
-                  <text x="240" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Call Time</text>
+                  <text x="248" y="75" font-family="Manrope,sans-serif" font-size="11" fill="#F0C040">Apr 15, 2026</text>
+                  <text x="240" y="100" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">Call Time</text>
                   <rect x="240" y="104" width="56" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="248" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">07:00</text>
-                  <text x="304" y="100" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Wrap</text>
+                  <text x="248" y="119" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">07:00</text>
+                  <text x="304" y="100" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">Wrap</text>
                   <rect x="304" y="104" width="56" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="312" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">19:00</text>
-                  <text x="240" y="144" font-family="Jost,sans-serif" font-size="9" fill="#88807A">Set Location</text>
+                  <text x="312" y="119" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">19:00</text>
+                  <text x="240" y="144" font-family="Manrope,sans-serif" font-size="9" fill="#88807A">Set Location</text>
                   <rect x="240" y="148" width="300" height="22" rx="3" fill="#111120" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="248" y="163" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">WALC Campus — Park Bench (Ext.)</text>
+                  <text x="248" y="163" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">WALC Campus — Park Bench (Ext.)</text>
                   <!-- freeze indicator line -->
                   <rect x="0" y="205" width="560" height="3" fill="url(#g1)" opacity="0.8"/>
                   <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#F0C040" stop-opacity="0"/><stop offset="50%" stop-color="#F0C040" stop-opacity="1"/><stop offset="100%" stop-color="#F0C040" stop-opacity="0"/></linearGradient></defs>
@@ -445,46 +453,46 @@
                   <rect width="560" height="32" fill="#0f0f1a"/>
                   <!-- col headers -->
                   <rect x="20" y="6" width="80" height="20" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="60" y="20" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">A — Scene #</text>
+                  <text x="60" y="20" font-family="Sora,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">A — Scene #</text>
                   <rect x="116" y="6" width="80" height="20" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="156" y="20" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">B — Shot #</text>
+                  <text x="156" y="20" font-family="Sora,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">B — Shot #</text>
                   <rect x="212" y="6" width="180" height="20" rx="3" fill="#1a1a28" stroke="#333" stroke-width="1"/>
-                  <text x="302" y="20" font-family="Oswald,sans-serif" font-size="10" fill="#88807A" text-anchor="middle" letter-spacing="1">D — Shot Description</text>
+                  <text x="302" y="20" font-family="Sora,sans-serif" font-size="10" fill="#88807A" text-anchor="middle" letter-spacing="1">D — Shot Description</text>
                   <!-- data rows -->
                   <rect x="20" y="40" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="60" y="56" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
+                  <text x="60" y="56" font-family="Manrope,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
                   <rect x="116" y="40" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="156" y="56" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">1</text>
+                  <text x="156" y="56" font-family="Manrope,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">1</text>
                   <rect x="212" y="40" width="180" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="220" y="56" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Park bench — wide reveal</text>
+                  <text x="220" y="56" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">Park bench — wide reveal</text>
 
                   <rect x="20" y="70" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="60" y="86" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
+                  <text x="60" y="86" font-family="Manrope,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
                   <rect x="116" y="70" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="156" y="86" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">2</text>
+                  <text x="156" y="86" font-family="Manrope,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">2</text>
                   <rect x="212" y="70" width="180" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="220" y="86" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Two-shot, friends approach</text>
+                  <text x="220" y="86" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">Two-shot, friends approach</text>
 
                   <rect x="20" y="100" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="60" y="116" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
+                  <text x="60" y="116" font-family="Manrope,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">1</text>
                   <rect x="116" y="100" width="80" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="156" y="116" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">3</text>
+                  <text x="156" y="116" font-family="Manrope,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">3</text>
                   <rect x="212" y="100" width="180" height="24" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="220" y="116" font-family="Jost,sans-serif" font-size="11" fill="#88807A">CU — Friend A reacts</text>
+                  <text x="220" y="116" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">CU — Friend A reacts</text>
 
                   <rect x="20" y="130" width="80" height="24" rx="2" fill="#0f1218" stroke="#1e2a3a"/>
-                  <text x="60" y="146" font-family="Jost,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">2</text>
+                  <text x="60" y="146" font-family="Manrope,sans-serif" font-size="13" fill="#F0C040" text-anchor="middle" font-weight="600">2</text>
                   <rect x="116" y="130" width="80" height="24" rx="2" fill="#0f1218" stroke="#1e2a3a"/>
-                  <text x="156" y="146" font-family="Jost,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">1</text>
+                  <text x="156" y="146" font-family="Manrope,sans-serif" font-size="13" fill="#F2EFE6" text-anchor="middle">1</text>
                   <rect x="212" y="130" width="180" height="24" rx="2" fill="#0f1218" stroke="#1e2a3a"/>
-                  <text x="220" y="146" font-family="Jost,sans-serif" font-size="11" fill="#88807A">INT restroom — aftermath</text>
+                  <text x="220" y="146" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">INT restroom — aftermath</text>
 
                   <!-- scene break line -->
                   <line x1="20" y1="128" x2="400" y2="128" stroke="#F0C040" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="4 3"/>
-                  <text x="410" y="143" font-family="Oswald,sans-serif" font-size="8" fill="#F0C040" opacity="0.4" letter-spacing="2">SCENE 2</text>
+                  <text x="410" y="143" font-family="Sora,sans-serif" font-size="8" fill="#F0C040" opacity="0.4" letter-spacing="2">SCENE 2</text>
 
                   <!-- row count indicator -->
-                  <text x="20" y="195" font-family="Jost,sans-serif" font-size="9" fill="#88807A" opacity="0.6">500 rows available · free text · use "3A", "12", or any format</text>
+                  <text x="20" y="195" font-family="Manrope,sans-serif" font-size="9" fill="#88807A" opacity="0.6">500 rows available · free text · use "3A", "12", or any format</text>
                 </svg>
               </div>
               <div style="padding:28px 32px;">
@@ -506,39 +514,39 @@
                   <rect width="560" height="210" fill="#07070d"/>
                   <!-- col header -->
                   <rect x="20" y="14" width="100" height="24" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="70" y="30" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">E — INT/EXT</text>
+                  <text x="70" y="30" font-family="Sora,sans-serif" font-size="10" fill="#F0C040" text-anchor="middle" letter-spacing="1">E — INT/EXT</text>
                   <rect x="136" y="14" width="200" height="24" rx="3" fill="#1a1a28" stroke="#333"/>
-                  <text x="236" y="30" font-family="Oswald,sans-serif" font-size="10" fill="#88807A" text-anchor="middle" letter-spacing="1">F — Location</text>
+                  <text x="236" y="30" font-family="Sora,sans-serif" font-size="10" fill="#88807A" text-anchor="middle" letter-spacing="1">F — Location</text>
                   <!-- dropdown open on row 1 -->
                   <!-- active cell highlight -->
                   <rect x="20" y="44" width="100" height="26" rx="2" fill="#1a1520" stroke="#E87820" stroke-width="1.5"/>
-                  <text x="38" y="60" font-family="Jost,sans-serif" font-size="12" fill="#E87820" font-weight="600">INT</text>
+                  <text x="38" y="60" font-family="Manrope,sans-serif" font-size="12" fill="#E87820" font-weight="600">INT</text>
                   <polygon points="100,55 108,55 104,62" fill="#E87820" opacity="0.6"/>
                   <!-- dropdown panel -->
                   <rect x="20" y="72" width="100" height="88" rx="4" fill="#16141f" stroke="#E87820" stroke-width="1" stroke-opacity="0.5"/>
                   <rect x="20" y="72" width="100" height="27" rx="4 4 0 0" fill="#1e1826"/>
-                  <text x="38" y="90" font-family="Jost,sans-serif" font-size="12" fill="#E87820" font-weight="700">INT</text>
-                  <text x="84" y="90" font-family="Jost,sans-serif" font-size="9" fill="#E87820" opacity="0.5">✓</text>
+                  <text x="38" y="90" font-family="Manrope,sans-serif" font-size="12" fill="#E87820" font-weight="700">INT</text>
+                  <text x="84" y="90" font-family="Manrope,sans-serif" font-size="9" fill="#E87820" opacity="0.5">✓</text>
                   <line x1="20" y1="99" x2="120" y2="99" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="38" y="115" font-family="Jost,sans-serif" font-size="12" fill="#4DB87A">EXT</text>
+                  <text x="38" y="115" font-family="Manrope,sans-serif" font-size="12" fill="#4DB87A">EXT</text>
                   <line x1="20" y1="124" x2="120" y2="124" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="38" y="140" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">INT/EXT</text>
+                  <text x="38" y="140" font-family="Manrope,sans-serif" font-size="11" fill="#F0C040">INT/EXT</text>
                   <line x1="20" y1="149" x2="120" y2="149" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="38" y="162" font-family="Jost,sans-serif" font-size="11" fill="#88807A">—</text>
+                  <text x="38" y="162" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">—</text>
                   <!-- rows for location col -->
                   <rect x="136" y="44" width="200" height="26" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="148" y="60" font-family="Jost,sans-serif" font-size="11" fill="#F2EFE6">WALC Restroom</text>
+                  <text x="148" y="60" font-family="Manrope,sans-serif" font-size="11" fill="#F2EFE6">WALC Restroom</text>
                   <rect x="136" y="76" width="200" height="26" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="148" y="92" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Hospital Corridor Level 2</text>
+                  <text x="148" y="92" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">Hospital Corridor Level 2</text>
                   <rect x="136" y="108" width="200" height="26" rx="2" fill="#111120" stroke="#222"/>
-                  <text x="148" y="124" font-family="Jost,sans-serif" font-size="11" fill="#88807A">Park Bench — WALC Lawn</text>
+                  <text x="148" y="124" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">Park Bench — WALC Lawn</text>
                   <!-- color legend -->
                   <circle cx="360" cy="65" r="5" fill="#E87820"/>
-                  <text x="372" y="69" font-family="Jost,sans-serif" font-size="11" fill="#E87820">Interior</text>
+                  <text x="372" y="69" font-family="Manrope,sans-serif" font-size="11" fill="#E87820">Interior</text>
                   <circle cx="360" cy="90" r="5" fill="#4DB87A"/>
-                  <text x="372" y="94" font-family="Jost,sans-serif" font-size="11" fill="#4DB87A">Exterior</text>
+                  <text x="372" y="94" font-family="Manrope,sans-serif" font-size="11" fill="#4DB87A">Exterior</text>
                   <circle cx="360" cy="115" r="5" fill="#F0C040"/>
-                  <text x="372" y="119" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">Both</text>
+                  <text x="372" y="119" font-family="Manrope,sans-serif" font-size="11" fill="#F0C040">Both</text>
                 </svg>
               </div>
               <div style="padding:28px 32px;">
@@ -560,39 +568,39 @@
                   <rect width="560" height="210" fill="#07070d"/>
                   <!-- 4 column headers -->
                   <rect x="16" y="12" width="116" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="74" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">G — SHOT SIZE</text>
+                  <text x="74" y="27" font-family="Sora,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">G — SHOT SIZE</text>
                   <rect x="144" y="12" width="116" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="202" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">H — CAM ANGLE</text>
+                  <text x="202" y="27" font-family="Sora,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">H — CAM ANGLE</text>
                   <rect x="272" y="12" width="116" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="330" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">I — FRAMING</text>
+                  <text x="330" y="27" font-family="Sora,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">I — FRAMING</text>
                   <rect x="400" y="12" width="140" height="22" rx="3" fill="#1a1a28" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="470" y="27" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">J — MOVEMENT</text>
+                  <text x="470" y="27" font-family="Sora,sans-serif" font-size="9" fill="#F0C040" text-anchor="middle" letter-spacing="1">J — MOVEMENT</text>
 
                   <!-- Row 1 — active cells with values -->
                   <rect x="16" y="42" width="116" height="26" rx="2" fill="#1a1520" stroke="#E87820" stroke-width="1.5"/>
-                  <text x="30" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Medium Shot</text>
+                  <text x="30" y="58" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6">Medium Shot</text>
                   <polygon points="118,53 126,53 122,60" fill="#E87820" opacity="0.5"/>
 
                   <rect x="144" y="42" width="116" height="26" rx="2" fill="#111120" stroke="#333"/>
-                  <text x="158" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Eye Level</text>
+                  <text x="158" y="58" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6">Eye Level</text>
                   <polygon points="246,53 254,53 250,60" fill="#88807A" opacity="0.4"/>
 
                   <rect x="272" y="42" width="116" height="26" rx="2" fill="#111120" stroke="#333"/>
-                  <text x="286" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Rule of Thirds</text>
+                  <text x="286" y="58" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6">Rule of Thirds</text>
                   <polygon points="374,53 382,53 378,60" fill="#88807A" opacity="0.4"/>
 
                   <rect x="400" y="42" width="140" height="26" rx="2" fill="#111120" stroke="#333"/>
-                  <text x="414" y="58" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Slow Push</text>
+                  <text x="414" y="58" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6">Slow Push</text>
                   <polygon points="526,53 534,53 530,60" fill="#88807A" opacity="0.4"/>
 
                   <!-- Dropdown open on Shot Size -->
                   <rect x="16" y="70" width="116" height="116" rx="4" fill="#13111e" stroke="#E87820" stroke-width="1" stroke-opacity="0.5"/>
-                  <text x="30" y="90" font-family="Jost,sans-serif" font-size="11" fill="#88807A">EWS</text>
-                  <text x="30" y="108" font-family="Jost,sans-serif" font-size="11" fill="#88807A">WS</text>
-                  <text x="30" y="126" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6" font-weight="600">MS ✓</text>
-                  <text x="30" y="144" font-family="Jost,sans-serif" font-size="11" fill="#88807A">CU</text>
-                  <text x="30" y="162" font-family="Jost,sans-serif" font-size="11" fill="#88807A">ECU</text>
-                  <text x="30" y="180" font-family="Jost,sans-serif" font-size="11" fill="#88807A">OTS</text>
+                  <text x="30" y="90" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">EWS</text>
+                  <text x="30" y="108" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">WS</text>
+                  <text x="30" y="126" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6" font-weight="600">MS ✓</text>
+                  <text x="30" y="144" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">CU</text>
+                  <text x="30" y="162" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">ECU</text>
+                  <text x="30" y="180" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">OTS</text>
                   <line x1="16" y1="100" x2="132" y2="100" stroke="#2a2a3a"/>
                   <line x1="16" y1="116" x2="132" y2="116" stroke="#2a2a3a"/>
                   <line x1="16" y1="132" x2="132" y2="132" stroke="#F0C040" stroke-opacity="0.2"/>
@@ -618,7 +626,7 @@
                 <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
                   <rect width="560" height="210" fill="#07070d"/>
                   <rect width="560" height="32" fill="#0f0f1a"/>
-                  <text x="30" y="21" font-family="Oswald,sans-serif" font-size="10" fill="#F0C040" letter-spacing="2">K — EQUIPMENT &amp; LENS</text>
+                  <text x="30" y="21" font-family="Sora,sans-serif" font-size="10" fill="#F0C040" letter-spacing="2">K — EQUIPMENT &amp; LENS</text>
                   <!-- camera icon outline -->
                   <rect x="28" y="48" width="60" height="46" rx="6" fill="none" stroke="#F0C040" stroke-width="1.5" stroke-opacity="0.4"/>
                   <circle cx="58" cy="71" r="14" fill="none" stroke="#F0C040" stroke-width="1.5" stroke-opacity="0.4"/>
@@ -626,17 +634,17 @@
                   <rect x="36" y="42" width="12" height="8" rx="2" fill="#F0C040" fill-opacity="0.2"/>
                   <!-- gear entries -->
                   <rect x="102" y="44" width="300" height="28" rx="4" fill="#111120" stroke="#F0C040" stroke-width="1" stroke-opacity="0.3"/>
-                  <text x="114" y="62" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6">Sony FX3 + G Master 85mm f/1.4</text>
+                  <text x="114" y="62" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6">Sony FX3 + G Master 85mm f/1.4</text>
                   <rect x="102" y="80" width="300" height="28" rx="4" fill="#111120" stroke="#222"/>
-                  <text x="114" y="98" font-family="Jost,sans-serif" font-size="12" fill="#88807A">Sony FX3 + 50mm + Ronin RS4</text>
+                  <text x="114" y="98" font-family="Manrope,sans-serif" font-size="12" fill="#88807A">Sony FX3 + 50mm + Ronin RS4</text>
                   <rect x="102" y="116" width="300" height="28" rx="4" fill="#111120" stroke="#222"/>
-                  <text x="114" y="134" font-family="Jost,sans-serif" font-size="12" fill="#88807A">Sony FX3 + 24mm + Tripod</text>
+                  <text x="114" y="134" font-family="Manrope,sans-serif" font-size="12" fill="#88807A">Sony FX3 + 24mm + Tripod</text>
                   <rect x="102" y="152" width="300" height="28" rx="4" fill="#111120" stroke="#222"/>
-                  <text x="114" y="170" font-family="Jost,sans-serif" font-size="12" fill="#88807A">Sony FX3 + Macro + Static</text>
+                  <text x="114" y="170" font-family="Manrope,sans-serif" font-size="12" fill="#88807A">Sony FX3 + Macro + Static</text>
                   <!-- gear checklist label -->
-                  <text x="416" y="58" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.7">→ Gear checklist</text>
-                  <text x="416" y="74" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.5">auto-populates</text>
-                  <text x="416" y="90" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.3">from this column</text>
+                  <text x="416" y="58" font-family="Manrope,sans-serif" font-size="10" fill="#88807A" opacity="0.7">→ Gear checklist</text>
+                  <text x="416" y="74" font-family="Manrope,sans-serif" font-size="10" fill="#88807A" opacity="0.5">auto-populates</text>
+                  <text x="416" y="90" font-family="Manrope,sans-serif" font-size="10" fill="#88807A" opacity="0.3">from this column</text>
                 </svg>
               </div>
               <div style="padding:28px 32px;">
@@ -658,44 +666,44 @@
                   <rect width="560" height="210" fill="#07070d"/>
                   <!-- header -->
                   <rect width="560" height="32" fill="#0f0f1a"/>
-                  <text x="30" y="21" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" letter-spacing="2">L — SETUP TIME &nbsp;&nbsp;·&nbsp;&nbsp; M — SHOOT TIME &nbsp;&nbsp;·&nbsp;&nbsp; TOTAL BLOCK</text>
+                  <text x="30" y="21" font-family="Sora,sans-serif" font-size="9" fill="#F0C040" letter-spacing="2">L — SETUP TIME &nbsp;&nbsp;·&nbsp;&nbsp; M — SHOOT TIME &nbsp;&nbsp;·&nbsp;&nbsp; TOTAL BLOCK</text>
                   <!-- legend -->
                   <rect x="380" y="44" width="12" height="10" rx="2" fill="#E87820" opacity="0.8"/>
-                  <text x="396" y="54" font-family="Jost,sans-serif" font-size="10" fill="#E87820">Setup</text>
+                  <text x="396" y="54" font-family="Manrope,sans-serif" font-size="10" fill="#E87820">Setup</text>
                   <rect x="440" y="44" width="12" height="10" rx="2" fill="#F0C040" opacity="0.8"/>
-                  <text x="456" y="54" font-family="Jost,sans-serif" font-size="10" fill="#F0C040">Shoot</text>
+                  <text x="456" y="54" font-family="Manrope,sans-serif" font-size="10" fill="#F0C040">Shoot</text>
                   <!-- Shot 1 bar -->
-                  <text x="28" y="74" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.1</text>
+                  <text x="28" y="74" font-family="Manrope,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.1</text>
                   <rect x="90" y="62" width="50" height="18" rx="2" fill="#E87820" opacity="0.7"/>
-                  <text x="95" y="74" font-family="Jost,sans-serif" font-size="10" fill="#fff">20m</text>
+                  <text x="95" y="74" font-family="Manrope,sans-serif" font-size="10" fill="#fff">20m</text>
                   <rect x="142" y="62" width="90" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
-                  <text x="147" y="74" font-family="Jost,sans-serif" font-size="10" fill="#000">30m</text>
-                  <text x="238" y="74" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">50m total</text>
+                  <text x="147" y="74" font-family="Manrope,sans-serif" font-size="10" fill="#000">30m</text>
+                  <text x="238" y="74" font-family="Manrope,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">50m total</text>
                   <!-- Shot 2 bar -->
-                  <text x="28" y="100" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.2</text>
+                  <text x="28" y="100" font-family="Manrope,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.2</text>
                   <rect x="90" y="88" width="38" height="18" rx="2" fill="#E87820" opacity="0.7"/>
-                  <text x="95" y="100" font-family="Jost,sans-serif" font-size="10" fill="#fff">15m</text>
+                  <text x="95" y="100" font-family="Manrope,sans-serif" font-size="10" fill="#fff">15m</text>
                   <rect x="130" y="88" width="120" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
-                  <text x="135" y="100" font-family="Jost,sans-serif" font-size="10" fill="#000">45m</text>
-                  <text x="256" y="100" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">60m total</text>
+                  <text x="135" y="100" font-family="Manrope,sans-serif" font-size="10" fill="#000">45m</text>
+                  <text x="256" y="100" font-family="Manrope,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">60m total</text>
                   <!-- Shot 3 bar -->
-                  <text x="28" y="126" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.3</text>
+                  <text x="28" y="126" font-family="Manrope,sans-serif" font-size="10" fill="#88807A">Sc.1 Sh.3</text>
                   <rect x="90" y="114" width="25" height="18" rx="2" fill="#E87820" opacity="0.7"/>
-                  <text x="92" y="126" font-family="Jost,sans-serif" font-size="10" fill="#fff">10m</text>
+                  <text x="92" y="126" font-family="Manrope,sans-serif" font-size="10" fill="#fff">10m</text>
                   <rect x="117" y="114" width="65" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
-                  <text x="122" y="126" font-family="Jost,sans-serif" font-size="10" fill="#000">25m</text>
-                  <text x="188" y="126" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">35m total</text>
+                  <text x="122" y="126" font-family="Manrope,sans-serif" font-size="10" fill="#000">25m</text>
+                  <text x="188" y="126" font-family="Manrope,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">35m total</text>
                   <!-- Shot 4 bar -->
-                  <text x="28" y="152" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Sc.2 Sh.1</text>
+                  <text x="28" y="152" font-family="Manrope,sans-serif" font-size="10" fill="#88807A">Sc.2 Sh.1</text>
                   <rect x="90" y="140" width="65" height="18" rx="2" fill="#E87820" opacity="0.7"/>
-                  <text x="95" y="152" font-family="Jost,sans-serif" font-size="10" fill="#fff">25m</text>
+                  <text x="95" y="152" font-family="Manrope,sans-serif" font-size="10" fill="#fff">25m</text>
                   <rect x="157" y="140" width="100" height="18" rx="2" fill="#F0C040" opacity="0.7"/>
-                  <text x="162" y="152" font-family="Jost,sans-serif" font-size="10" fill="#000">40m</text>
-                  <text x="263" y="152" font-family="Jost,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">65m total</text>
+                  <text x="162" y="152" font-family="Manrope,sans-serif" font-size="10" fill="#000">40m</text>
+                  <text x="263" y="152" font-family="Manrope,sans-serif" font-size="10" fill="#F2EFE6" opacity="0.5">65m total</text>
                   <!-- total line -->
                   <line x1="28" y1="176" x2="360" y2="176" stroke="#2a2a3a" stroke-width="1"/>
-                  <text x="28" y="192" font-family="Jost,sans-serif" font-size="10" fill="#88807A">Day total:</text>
-                  <text x="90" y="192" font-family="Jost,sans-serif" font-size="10" fill="#F0C040" font-weight="600">3h 30m &nbsp;— schedule fits 07:00–19:00 wrap</text>
+                  <text x="28" y="192" font-family="Manrope,sans-serif" font-size="10" fill="#88807A">Day total:</text>
+                  <text x="90" y="192" font-family="Manrope,sans-serif" font-size="10" fill="#F0C040" font-weight="600">3h 30m &nbsp;— schedule fits 07:00–19:00 wrap</text>
                 </svg>
               </div>
               <div style="padding:28px 32px;">
@@ -716,49 +724,49 @@
                 <svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
                   <rect width="560" height="210" fill="#07070d"/>
                   <rect width="560" height="32" fill="#0f0f1a"/>
-                  <text x="28" y="21" font-family="Oswald,sans-serif" font-size="9" fill="#F0C040" letter-spacing="2">C — STATUS &nbsp;·&nbsp; N — FINAL TAKE # &nbsp;·&nbsp; O — POST STATUS</text>
+                  <text x="28" y="21" font-family="Sora,sans-serif" font-size="9" fill="#F0C040" letter-spacing="2">C — STATUS &nbsp;·&nbsp; N — FINAL TAKE # &nbsp;·&nbsp; O — POST STATUS</text>
                   <!-- col sub-headers -->
-                  <text x="34" y="48" font-family="Jost,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">SHOOT STATUS</text>
-                  <text x="202" y="48" font-family="Jost,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">FINAL TAKE #</text>
-                  <text x="320" y="48" font-family="Jost,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">POST STATUS</text>
+                  <text x="34" y="48" font-family="Manrope,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">SHOOT STATUS</text>
+                  <text x="202" y="48" font-family="Manrope,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">FINAL TAKE #</text>
+                  <text x="320" y="48" font-family="Manrope,sans-serif" font-size="9" fill="#88807A" letter-spacing="1">POST STATUS</text>
                   <!-- Row 1 — Done -->
                   <rect x="28" y="54" width="140" height="24" rx="12" fill="#0d2016" stroke="#4DB87A" stroke-width="1"/>
                   <circle cx="46" cy="66" r="5" fill="#4DB87A"/>
-                  <text x="58" y="70" font-family="Jost,sans-serif" font-size="11" fill="#4DB87A">Wrapped</text>
+                  <text x="58" y="70" font-family="Manrope,sans-serif" font-size="11" fill="#4DB87A">Wrapped</text>
                   <rect x="200" y="58" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
-                  <text x="222" y="70" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6" text-anchor="middle">3</text>
+                  <text x="222" y="70" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6" text-anchor="middle">3</text>
                   <rect x="318" y="54" width="100" height="24" rx="12" fill="#0d2016" stroke="#4DB87A" stroke-width="1"/>
-                  <text x="358" y="70" font-family="Jost,sans-serif" font-size="13" text-anchor="middle">✅</text>
+                  <text x="358" y="70" font-family="Manrope,sans-serif" font-size="13" text-anchor="middle">✅</text>
                   <!-- Row 2 — In Progress -->
                   <rect x="28" y="86" width="140" height="24" rx="12" fill="#1e1408" stroke="#E87820" stroke-width="1"/>
                   <circle cx="46" cy="98" r="5" fill="#E87820"/>
-                  <text x="58" y="102" font-family="Jost,sans-serif" font-size="11" fill="#E87820">In Progress</text>
+                  <text x="58" y="102" font-family="Manrope,sans-serif" font-size="11" fill="#E87820">In Progress</text>
                   <rect x="200" y="90" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
-                  <text x="222" y="102" font-family="Jost,sans-serif" font-size="12" fill="#88807A" text-anchor="middle">—</text>
+                  <text x="222" y="102" font-family="Manrope,sans-serif" font-size="12" fill="#88807A" text-anchor="middle">—</text>
                   <rect x="318" y="86" width="100" height="24" rx="12" fill="#111120" stroke="#333"/>
-                  <text x="358" y="102" font-family="Jost,sans-serif" font-size="11" fill="#88807A" text-anchor="middle">pending</text>
+                  <text x="358" y="102" font-family="Manrope,sans-serif" font-size="11" fill="#88807A" text-anchor="middle">pending</text>
                   <!-- Row 3 — Reshoot -->
                   <rect x="28" y="118" width="140" height="24" rx="12" fill="#1a180a" stroke="#F0C040" stroke-width="1"/>
                   <circle cx="46" cy="130" r="5" fill="#F0C040"/>
-                  <text x="58" y="134" font-family="Jost,sans-serif" font-size="11" fill="#F0C040">Wrapped</text>
+                  <text x="58" y="134" font-family="Manrope,sans-serif" font-size="11" fill="#F0C040">Wrapped</text>
                   <rect x="200" y="122" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
-                  <text x="222" y="134" font-family="Jost,sans-serif" font-size="12" fill="#F2EFE6" text-anchor="middle">1</text>
+                  <text x="222" y="134" font-family="Manrope,sans-serif" font-size="12" fill="#F2EFE6" text-anchor="middle">1</text>
                   <rect x="318" y="118" width="100" height="24" rx="12" fill="#1a180a" stroke="#F0C040" stroke-width="1"/>
-                  <text x="358" y="134" font-family="Jost,sans-serif" font-size="13" text-anchor="middle">⚠️</text>
+                  <text x="358" y="134" font-family="Manrope,sans-serif" font-size="13" text-anchor="middle">⚠️</text>
                   <!-- Row 4 — To Shoot -->
                   <rect x="28" y="150" width="140" height="24" rx="12" fill="#111120" stroke="#333"/>
                   <circle cx="46" cy="162" r="5" fill="#88807A" fill-opacity="0.4"/>
-                  <text x="58" y="166" font-family="Jost,sans-serif" font-size="11" fill="#88807A">To Shoot</text>
+                  <text x="58" y="166" font-family="Manrope,sans-serif" font-size="11" fill="#88807A">To Shoot</text>
                   <rect x="200" y="154" width="60" height="16" rx="3" fill="#111120" stroke="#222"/>
-                  <text x="222" y="166" font-family="Jost,sans-serif" font-size="12" fill="#88807A" text-anchor="middle">—</text>
+                  <text x="222" y="166" font-family="Manrope,sans-serif" font-size="12" fill="#88807A" text-anchor="middle">—</text>
                   <rect x="318" y="150" width="100" height="24" rx="12" fill="#111120" stroke="#333"/>
-                  <text x="358" y="166" font-family="Jost,sans-serif" font-size="11" fill="#88807A" text-anchor="middle">—</text>
+                  <text x="358" y="166" font-family="Manrope,sans-serif" font-size="11" fill="#88807A" text-anchor="middle">—</text>
                   <!-- arrow flow -->
-                  <text x="450" y="68" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.6">To Shoot</text>
-                  <text x="459" y="82" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.4">↓</text>
-                  <text x="442" y="96" font-family="Jost,sans-serif" font-size="10" fill="#E87820" opacity="0.7">In Progress</text>
-                  <text x="459" y="110" font-family="Jost,sans-serif" font-size="10" fill="#88807A" opacity="0.4">↓</text>
-                  <text x="451" y="124" font-family="Jost,sans-serif" font-size="10" fill="#4DB87A" opacity="0.8">Wrapped</text>
+                  <text x="450" y="68" font-family="Manrope,sans-serif" font-size="10" fill="#88807A" opacity="0.6">To Shoot</text>
+                  <text x="459" y="82" font-family="Manrope,sans-serif" font-size="10" fill="#88807A" opacity="0.4">↓</text>
+                  <text x="442" y="96" font-family="Manrope,sans-serif" font-size="10" fill="#E87820" opacity="0.7">In Progress</text>
+                  <text x="459" y="110" font-family="Manrope,sans-serif" font-size="10" fill="#88807A" opacity="0.4">↓</text>
+                  <text x="451" y="124" font-family="Manrope,sans-serif" font-size="10" fill="#4DB87A" opacity="0.8">Wrapped</text>
                 </svg>
               </div>
               <div style="padding:28px 32px;">
@@ -796,32 +804,32 @@
           <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
           <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
           <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
-          <span style="font-family:Jost,sans-serif;font-size:11px;color:#88807A;margin-left:10px;">ShotListTemplate_v2.xlsx — Sheet1</span>
+          <span style="font-family:Manrope,sans-serif;font-size:11px;color:#88807A;margin-left:10px;">ShotListTemplate_v2.xlsx — Sheet1</span>
         </div>
         <!-- formula bar -->
         <div style="background:#17172a;padding:4px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #232336;min-width:1100px;">
-          <span style="font-family:Jost,sans-serif;font-size:10px;color:#F0C040;background:#0f0f1e;border:1px solid #2a2a3c;padding:2px 8px;border-radius:3px;min-width:36px;text-align:center;">C2</span>
-          <span style="font-family:Jost,sans-serif;font-size:10px;color:#88807A;">fx</span>
-          <span style="font-family:Jost,sans-serif;font-size:11px;color:#F2EFE6;">Wrapped</span>
+          <span style="font-family:Manrope,sans-serif;font-size:10px;color:#F0C040;background:#0f0f1e;border:1px solid #2a2a3c;padding:2px 8px;border-radius:3px;min-width:36px;text-align:center;">C2</span>
+          <span style="font-family:Manrope,sans-serif;font-size:10px;color:#88807A;">fx</span>
+          <span style="font-family:Manrope,sans-serif;font-size:11px;color:#F2EFE6;">Wrapped</span>
         </div>
-        <table style="width:100%;border-collapse:collapse;font-family:Jost,sans-serif;font-size:11px;min-width:1100px;">
+        <table style="width:100%;border-collapse:collapse;font-family:Manrope,sans-serif;font-size:11px;min-width:1100px;">
           <thead>
             <tr style="background:#111128;">
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">A<br><span style="color:#6a6060;font-size:7px;">SCENE #</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">B<br><span style="color:#6a6060;font-size:7px;">SHOT #</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">C<br><span style="color:#6a6060;font-size:7px;">STATUS</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">D<br><span style="color:#6a6060;font-size:7px;">DESCRIPTION</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">E<br><span style="color:#6a6060;font-size:7px;">INT/EXT</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">F<br><span style="color:#6a6060;font-size:7px;">LOCATION</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">G<br><span style="color:#6a6060;font-size:7px;">SHOT SIZE</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">H<br><span style="color:#6a6060;font-size:7px;">ANGLE</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">I<br><span style="color:#6a6060;font-size:7px;">FRAMING</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">J<br><span style="color:#6a6060;font-size:7px;">MOVEMENT</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">K<br><span style="color:#6a6060;font-size:7px;">EQUIPMENT</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">L<br><span style="color:#6a6060;font-size:7px;">SETUP</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">M<br><span style="color:#6a6060;font-size:7px;">SHOOT</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">N<br><span style="color:#6a6060;font-size:7px;">TAKE #</span></th>
-              <th style="padding:7px 10px;color:#F0C040;font-family:Oswald,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">O<br><span style="color:#6a6060;font-size:7px;">POST STATUS</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">A<br><span style="color:#6a6060;font-size:7px;">SCENE #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">B<br><span style="color:#6a6060;font-size:7px;">SHOT #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">C<br><span style="color:#6a6060;font-size:7px;">STATUS</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">D<br><span style="color:#6a6060;font-size:7px;">DESCRIPTION</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">E<br><span style="color:#6a6060;font-size:7px;">INT/EXT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">F<br><span style="color:#6a6060;font-size:7px;">LOCATION</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">G<br><span style="color:#6a6060;font-size:7px;">SHOT SIZE</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">H<br><span style="color:#6a6060;font-size:7px;">ANGLE</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">I<br><span style="color:#6a6060;font-size:7px;">FRAMING</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">J<br><span style="color:#6a6060;font-size:7px;">MOVEMENT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:left;white-space:nowrap;">K<br><span style="color:#6a6060;font-size:7px;">EQUIPMENT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">L<br><span style="color:#6a6060;font-size:7px;">SETUP</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">M<br><span style="color:#6a6060;font-size:7px;">SHOOT</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">N<br><span style="color:#6a6060;font-size:7px;">TAKE #</span></th>
+              <th style="padding:7px 10px;color:#F0C040;font-family:Sora,sans-serif;font-size:8px;letter-spacing:0.15em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;">O<br><span style="color:#6a6060;font-size:7px;">POST STATUS</span></th>
             </tr>
           </thead>
           <tbody>
@@ -951,21 +959,21 @@
           <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
           <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
           <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
-          <span style="font-family:Jost,sans-serif;font-size:11px;color:#88807A;margin-left:10px;">ShotListTemplate_v2.xlsx</span>
-          <span style="margin-left:auto;font-family:Jost,sans-serif;font-size:10px;color:#88807A;background:#0f0f1e;border:1px solid #2a2a3c;padding:2px 8px;border-radius:3px;" id="demo-cell-ref">E2</span>
+          <span style="font-family:Manrope,sans-serif;font-size:11px;color:#88807A;margin-left:10px;">ShotListTemplate_v2.xlsx</span>
+          <span style="margin-left:auto;font-family:Manrope,sans-serif;font-size:10px;color:#88807A;background:#0f0f1e;border:1px solid #2a2a3c;padding:2px 8px;border-radius:3px;" id="demo-cell-ref">E2</span>
         </div>
         <!-- demo grid -->
         <div style="background:#0d0d18;position:relative;overflow:hidden;" id="demo-grid-wrap">
-          <table id="demo-grid" style="width:100%;border-collapse:collapse;font-family:Jost,sans-serif;font-size:12px;">
+          <table id="demo-grid" style="width:100%;border-collapse:collapse;font-family:Manrope,sans-serif;font-size:12px;">
             <thead>
               <tr style="background:#111128;">
-                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;width:60px;">A<br><span style="color:#88807A;font-size:8px;">SCENE</span></th>
-                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;width:50px;">B<br><span style="color:#88807A;font-size:8px;">SHOT</span></th>
-                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-e">E<br><span style="color:#88807A;font-size:8px;">INT/EXT</span></th>
-                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-g">G<br><span style="color:#88807A;font-size:8px;">SHOT SIZE</span></th>
-                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-h">H<br><span style="color:#88807A;font-size:8px;">ANGLE</span></th>
-                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-j">J<br><span style="color:#88807A;font-size:8px;">MOVEMENT</span></th>
-                <th style="padding:8px 12px;color:#F0C040;font-family:Oswald,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-c">C<br><span style="color:#88807A;font-size:8px;">STATUS</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Sora,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;width:60px;">A<br><span style="color:#88807A;font-size:8px;">SCENE</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Sora,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;width:50px;">B<br><span style="color:#88807A;font-size:8px;">SHOT</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Sora,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-e">E<br><span style="color:#88807A;font-size:8px;">INT/EXT</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Sora,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-g">G<br><span style="color:#88807A;font-size:8px;">SHOT SIZE</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Sora,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-h">H<br><span style="color:#88807A;font-size:8px;">ANGLE</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Sora,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-j">J<br><span style="color:#88807A;font-size:8px;">MOVEMENT</span></th>
+                <th style="padding:8px 12px;color:#F0C040;font-family:Sora,sans-serif;font-size:9px;letter-spacing:0.2em;font-weight:500;border:1px solid #2a2a3c;text-align:center;white-space:nowrap;" id="dh-c">C<br><span style="color:#88807A;font-size:8px;">STATUS</span></th>
               </tr>
             </thead>
             <tbody>
@@ -1217,7 +1225,7 @@
       dropdown.style.top  = top + 'px';
       dropdown.innerHTML  = step.options.map((o, i) => {
         const active = i === step.pick;
-        return `<div class="dd-opt" data-idx="${i}" style="padding:8px 14px;cursor:pointer;font-family:Jost,sans-serif;font-size:12px;color:${active ? step.colors[i] : '#88807A'};background:${active ? 'rgba(240,192,64,0.05)' : 'transparent'};border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;gap:12px;white-space:nowrap;">
+        return `<div class="dd-opt" data-idx="${i}" style="padding:8px 14px;cursor:pointer;font-family:Manrope,sans-serif;font-size:12px;color:${active ? step.colors[i] : '#88807A'};background:${active ? 'rgba(240,192,64,0.05)' : 'transparent'};border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;gap:12px;white-space:nowrap;">
           <span>${o}</span>${active ? '<span style="color:#F0C040;font-size:10px;">✓</span>' : ''}
         </div>`;
       }).join('');
