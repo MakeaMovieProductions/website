@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Make A Movie Production — Short Film Production House</title>
+  <title>Make A Movie Production, Short Film Production House</title>
   <meta name="description" content="Make A Movie Production is an independent short film production house crafting authentic, high-quality cinema. Browse our portfolio and get in touch.">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Make A Movie Production — Short Film Production House">
+  <meta property="og:title" content="Make A Movie Production, Short Film Production House">
   <meta property="og:description" content="An independent short film production house crafting authentic, high-quality cinema.">
   <meta property="og:image" content="brand_assets/shoot.jpeg">
   <meta name="twitter:card" content="summary_large_image">
@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="An independent short film production house crafting authentic, high-quality cinema.">
   <meta name="twitter:image" content="brand_assets/shoot.jpeg">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -33,9 +33,9 @@
             'muted': '#88807A',
           },
           fontFamily: {
-            'display': ['"Playfair Display"', 'serif'],
-            'heading': ['Oswald', 'sans-serif'],
-            'body': ['Jost', 'sans-serif'],
+            'display': ['Sora', 'sans-serif'],
+            'heading': ['Sora', 'sans-serif'],
+            'body': ['Manrope', 'sans-serif'],
           },
         }
       }
@@ -43,6 +43,40 @@
   </script>
 
   <style>
+    html {
+      font-size: clamp(16px, 0.42vw + 14.7px, 18px);
+    }
+
+    body {
+      text-rendering: geometricPrecision;
+    }
+
+    .text-display-xl {
+      font-size: clamp(3.15rem, 8.2vw, 7.25rem);
+      letter-spacing: -0.055em;
+      line-height: 0.95;
+    }
+
+    .text-section-title {
+      font-size: clamp(2.2rem, 4.6vw, 4rem);
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+    }
+
+    .text-card-title {
+      font-size: clamp(1.05rem, 1.1vw, 1.35rem);
+      line-height: 1.12;
+    }
+
+    .text-ui-label {
+      font-size: clamp(0.75rem, 0.22vw + 0.69rem, 0.88rem);
+    }
+
+    .text-body-readable {
+      font-size: clamp(1rem, 0.25vw + 0.93rem, 1.125rem);
+      line-height: 1.8;
+    }
+
     /* Film grain overlay */
     body::before {
       content: '';
@@ -157,28 +191,72 @@
       border-bottom: 1px solid rgba(240,192,64,0.10);
     }
 
-    /* Service card */
+    /* Service image cards */
     .svc-card {
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+      position: relative;
+      min-height: 310px;
+      overflow: hidden;
+      isolation: isolate;
+      background: #0d0d0d;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s ease, border-color 0.45s ease;
     }
     .svc-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(240,192,64,0.10), 0 8px 20px rgba(0,0,0,0.6);
+      transform: translateY(-8px);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.55), 0 0 44px rgba(240,192,64,0.08);
     }
-    .svc-icon {
-      transition: border-color 0.3s ease, background 0.3s ease;
+    .svc-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.28;
+      filter: grayscale(0.15) saturate(0.8) contrast(1.15);
+      transform: scale(1.04);
+      transition: opacity 0.45s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1), filter 0.45s ease;
+      z-index: -3;
     }
-    .svc-card:hover .svc-icon {
-      border-color: #F0C040;
-      background: rgba(240,192,64,0.08);
+    .svc-card:hover .svc-bg {
+      opacity: 0.44;
+      filter: grayscale(0) saturate(1.05) contrast(1.2);
+      transform: scale(1.1);
+    }
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(8,8,8,0.24) 0%, rgba(8,8,8,0.72) 55%, rgba(8,8,8,0.96) 100%),
+        radial-gradient(circle at 18% 0%, rgba(240,192,64,0.17), transparent 36%),
+        linear-gradient(90deg, rgba(8,8,8,0.76), rgba(8,8,8,0.24));
+      z-index: -2;
+    }
+    .svc-card::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border: 1px solid rgba(255,255,255,0.07);
+      pointer-events: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      z-index: -1;
+    }
+    .svc-kicker {
+      display: inline-flex;
+      width: fit-content;
+      border: 1px solid rgba(240,192,64,0.24);
+      background: rgba(8,8,8,0.42);
+      color: rgba(240,192,64,0.84);
+      padding: 0.35rem 0.55rem;
+      letter-spacing: 0.18em;
     }
     .svc-line {
       height: 1px;
-      background: linear-gradient(90deg, #F0C040, transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      background: linear-gradient(90deg, #F0C040, transparent 78%);
+      opacity: 0.35;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform-origin: left;
     }
-    .svc-card:hover .svc-line { opacity: 0.5; }
+    .svc-card:hover .svc-line { opacity: 0.9; transform: scaleX(1.08); }
 
     /* Portfolio hover */
     .port-card { overflow: hidden; }
@@ -193,26 +271,55 @@
     /* Gold divider */
     .gold-line { width: 56px; height: 2px; background: linear-gradient(90deg, #F0C040, #E87820); }
 
-    /* Cylindrical tweet carousel */
-    .cy-card {
-      position: absolute; width: 100%; height: 100%;
-      border: 1px solid rgba(240,192,64,0.12);
-      background: linear-gradient(135deg, rgba(18,14,8,0.97) 0%, rgba(10,10,10,0.97) 100%);
-      backface-visibility: hidden;
-      box-shadow: 0 0 40px rgba(240,192,64,0.04), inset 0 1px 0 rgba(255,255,255,0.03);
-      transition: filter 0.5s ease;
+    /* Glass tweet embeds */
+    .tweet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: 18px;
     }
-    .cy-card::before {
+    .tweet-glass {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.13);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.035)),
+        rgba(10,10,10,0.56);
+      backdrop-filter: blur(24px) saturate(165%);
+      -webkit-backdrop-filter: blur(24px) saturate(165%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        0 22px 70px rgba(0,0,0,0.42),
+        0 8px 22px rgba(240,192,64,0.06);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .tweet-glass:hover {
+      transform: translateY(-6px);
+      border-color: rgba(240,192,64,0.28);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.28),
+        0 28px 86px rgba(0,0,0,0.5),
+        0 14px 34px rgba(240,192,64,0.1);
+    }
+    .tweet-glass::before {
       content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(240,192,64,0.012) 3px, rgba(240,192,64,0.012) 4px);
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 22% 0%, rgba(255,255,255,0.28), transparent 30%),
+        linear-gradient(90deg, rgba(255,255,255,0.11), transparent 42%, rgba(240,192,64,0.08));
       pointer-events: none;
     }
-    .cy-card::after {
-      content: '';
-      position: absolute; inset: 0;
-      box-shadow: inset 0 0 24px rgba(240,192,64,0.05);
-      pointer-events: none;
+    .tweet-glass blockquote.twitter-tweet {
+      margin: 0 !important;
+      color: #F2EFE6;
+    }
+    .tweet-fallback {
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      padding: 22px;
     }
 
     /* Spotlight radial bg */
@@ -271,7 +378,7 @@
     .status-dot.post-production { background: #4DB87A; box-shadow: 0 0 5px rgba(77,184,122,0.55); }
     .status-dot.release         { background: #FFD966; box-shadow: 0 0 6px rgba(255,217,102,0.65); }
     .status-label {
-      font-family: 'Oswald', sans-serif;
+      font-family: 'Sora', sans-serif;
       font-size: 8px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -315,8 +422,8 @@
         <a href="#work"    class="nav-link font-body text-xs text-muted tracking-widest uppercase">Our Work</a>
         <a href="#people"  class="nav-link font-body text-xs text-muted tracking-widest uppercase">People</a>
         <a href="#process" class="nav-link font-body text-xs text-muted tracking-widest uppercase">Process</a>
-        <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
-        <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Games <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
+        <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Sora',sans-serif;">SOON</span></span>
+        <span class="font-body text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;" title="Coming soon">Games <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Sora',sans-serif;">SOON</span></span>
         <a href="/assets" class="shimmer ml-4 px-5 py-2.5 border border-gold text-gold font-heading tracking-[0.18em] text-xs uppercase hover:bg-gold hover:text-cinema-black transition-colors duration-300 btn-primary">
           Download Assets
         </a>
@@ -337,8 +444,8 @@
       <a href="#work"     class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Our Work</a>
       <a href="#people"   class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">People</a>
       <a href="#process"  class="text-xs text-muted hover:text-warm-white tracking-widest uppercase">Process</a>
-      <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
-      <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Games <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Oswald',sans-serif;">SOON</span></span>
+      <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Merch <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Sora',sans-serif;">SOON</span></span>
+      <span class="text-xs tracking-widest uppercase flex items-center gap-1.5" style="color: rgba(136,128,122,0.35); cursor: not-allowed;">Games <span style="font-size:7px; letter-spacing:0.18em; padding:1px 5px; border:1px solid rgba(240,192,64,0.18); color:rgba(240,192,64,0.4); font-family:'Sora',sans-serif;">SOON</span></span>
       <a href="/assets"   class="text-xs text-gold tracking-widest uppercase">Download Assets →</a>
     </div>
   </nav>
@@ -377,7 +484,7 @@
       </div>
 
       <!-- Headline -->
-      <h1 class="hero-h1 font-display font-black leading-none mb-7" style="font-size: clamp(3.5rem, 10vw, 7.5rem); letter-spacing: -0.03em;">
+      <h1 class="hero-h1 font-display font-black text-display-xl mb-7">
         Stories That<br>
         <em class="text-gold" style="font-style: italic;">Demand</em> to Be<br>
         Told.
@@ -385,7 +492,7 @@
 
       <!-- Subline -->
       <p class="hero-sub font-body text-muted text-lg md:text-xl max-w-xl mx-auto mb-12" style="line-height: 1.75;">
-        Crafting cinematic short films that resonate, provoke, and endure — from concept to final cut.
+        Crafting cinematic short films that resonate, provoke, and endure, from concept to final cut.
       </p>
 
       <!-- CTAs -->
@@ -397,7 +504,7 @@
           Start a Project
         </a>
       </div>
-<!-- Stats bar — hidden until updated
+<!-- Stats bar hidden until updated
       <div class="hero-stats grid grid-cols-3 gap-0 max-w-sm mx-auto border-t border-warm-white/10 pt-10">
         <div class="pr-6">
           <div class="stat-num font-display text-3xl font-bold text-gold">20+</div>
@@ -462,7 +569,7 @@
             <em class="text-gold">Tells a Story</em>
           </h2>
           <p class="font-body text-muted mb-5" style="line-height: 1.85; font-size: 1.05rem;">
-            Making a film isn't about waiting for an invite; it’s about taking the initiative. We believe in the power of 'starting'—learning through the lens and refining our voice with every take. As a collective of passionate filmmakers in India and USA, we are building a body of work on our own terms. No gatekeepers. No excuses. Just pure storytelling.
+            Making a film isn't about waiting for an invite; it's about taking the initiative. We believe in the power of starting, learning through the lens and refining our voice with every take. As a collective of passionate filmmakers in India and USA, we are building a body of work on our own terms. No gatekeepers. No excuses. Just pure storytelling.
           </p>
 
           <div class="grid grid-cols-2 gap-6 mb-10">
@@ -507,79 +614,53 @@
       </div>
 
       <!-- Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-warm-white/5">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-        <!-- 1 -->
-        <article class="reveal d1 svc-card bg-cinema-dark p-8 lg:p-10 group">
-          <div class="svc-icon w-14 h-14 border border-gold/35 flex items-center justify-center mb-7">
-            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-warm-white tracking-wider uppercase text-base mb-3">Short Film Production</h3>
-          <p class="font-body text-muted text-sm" style="line-height: 1.8;">End-to-end production of narrative short films — from script to screen with obsessive attention to craft.</p>
+        <article class="reveal d1 svc-card p-7 lg:p-9 group flex flex-col justify-end">
+          <img src="icons/shortfilmproduction.jpg" alt="" class="svc-bg">
+          <span class="svc-kicker font-heading text-ui-label uppercase mb-6">01</span>
+          <h3 class="font-heading text-warm-white tracking-tight text-card-title mb-3">Short Film Production</h3>
+          <p class="font-body text-muted text-sm md:text-base" style="line-height: 1.75;">Narrative shorts shaped from first draft to final screen, with every choice tuned for story, rhythm, and production reality.</p>
           <div class="svc-line mt-7"></div>
         </article>
 
-        <!-- 2 -->
-        <article class="reveal d2 svc-card bg-cinema-dark p-8 lg:p-10 group">
-          <div class="svc-icon w-14 h-14 border border-gold/35 flex items-center justify-center mb-7">
-            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-warm-white tracking-wider uppercase text-base mb-3">Cinematography</h3>
-          <p class="font-body text-muted text-sm" style="line-height: 1.8;">Visually striking photography that serves the story — images that breathe emotion before dialogue begins.</p>
+        <article class="reveal d2 svc-card p-7 lg:p-9 group flex flex-col justify-end">
+          <img src="icons/cinematography.jpg" alt="" class="svc-bg">
+          <span class="svc-kicker font-heading text-ui-label uppercase mb-6">02</span>
+          <h3 class="font-heading text-warm-white tracking-tight text-card-title mb-3">Cinematography</h3>
+          <p class="font-body text-muted text-sm md:text-base" style="line-height: 1.75;">Images with mood, intention, and restraint, composed to make the emotion arrive before the dialogue does.</p>
           <div class="svc-line mt-7"></div>
         </article>
 
-        <!-- 3 -->
-        <article class="reveal d3 svc-card bg-cinema-dark p-8 lg:p-10 group">
-          <div class="svc-icon w-14 h-14 border border-gold/35 flex items-center justify-center mb-7">
-            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-warm-white tracking-wider uppercase text-base mb-3">Screenwriting</h3>
-          <p class="font-body text-muted text-sm" style="line-height: 1.8;">Original scripts and story development — compelling narratives with distinctive voices and clear cinematic vision.</p>
+        <article class="reveal d3 svc-card p-7 lg:p-9 group flex flex-col justify-end">
+          <img src="icons/screenwriting.jpg" alt="" class="svc-bg">
+          <span class="svc-kicker font-heading text-ui-label uppercase mb-6">03</span>
+          <h3 class="font-heading text-warm-white tracking-tight text-card-title mb-3">Screenwriting</h3>
+          <p class="font-body text-muted text-sm md:text-base" style="line-height: 1.75;">Original scripts, revisions, and story development for films with a clear point of view and a pulse.</p>
           <div class="svc-line mt-7"></div>
         </article>
 
-        <!-- 4 -->
-        <article class="reveal d2 svc-card bg-cinema-dark p-8 lg:p-10 group">
-          <div class="svc-icon w-14 h-14 border border-gold/35 flex items-center justify-center mb-7">
-            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-warm-white tracking-wider uppercase text-base mb-3">Post Production</h3>
-          <p class="font-body text-muted text-sm" style="line-height: 1.8;">Editing, color grading, sound design and VFX — where raw footage transforms into the final cinematic experience.</p>
+        <article class="reveal d2 svc-card p-7 lg:p-9 group flex flex-col justify-end">
+          <img src="icons/postproduction.jpg" alt="" class="svc-bg">
+          <span class="svc-kicker font-heading text-ui-label uppercase mb-6">04</span>
+          <h3 class="font-heading text-warm-white tracking-tight text-card-title mb-3">Postproduction</h3>
+          <p class="font-body text-muted text-sm md:text-base" style="line-height: 1.75;">Editing, color, sound, and finishing that turn raw footage into something precise, watchable, and alive.</p>
           <div class="svc-line mt-7"></div>
         </article>
 
-        <!-- 5 -->
-        <article class="reveal d3 svc-card bg-cinema-dark p-8 lg:p-10 group">
-          <div class="svc-icon w-14 h-14 border border-gold/35 flex items-center justify-center mb-7">
-            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-warm-white tracking-wider uppercase text-base mb-3">Festival Strategy</h3>
-          <p class="font-body text-muted text-sm" style="line-height: 1.8;">Strategic submission planning for national and international film festivals — navigating the circuit to maximise reach.</p>
+        <article class="reveal d3 svc-card p-7 lg:p-9 group flex flex-col justify-end">
+          <img src="icons/festivalstrategy.jpg" alt="" class="svc-bg">
+          <span class="svc-kicker font-heading text-ui-label uppercase mb-6">05</span>
+          <h3 class="font-heading text-warm-white tracking-tight text-card-title mb-3">Festival Strategy</h3>
+          <p class="font-body text-muted text-sm md:text-base" style="line-height: 1.75;">Submission planning for national and international circuits, built around fit, timing, and reach.</p>
           <div class="svc-line mt-7"></div>
         </article>
 
-        <!-- 6 -->
-        <article class="reveal d4 svc-card bg-cinema-dark p-8 lg:p-10 group">
-          <div class="svc-icon w-14 h-14 border border-gold/35 flex items-center justify-center mb-7">
-            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-warm-white tracking-wider uppercase text-base mb-3">Casting & Direction</h3>
-          <p class="font-body text-muted text-sm" style="line-height: 1.8;">Finding the right voices and drawing authentic, emotionally resonant performances from cast and crew alike.</p>
+        <article class="reveal d4 svc-card p-7 lg:p-9 group flex flex-col justify-end">
+          <img src="icons/casting&direction.jpg" alt="" class="svc-bg">
+          <span class="svc-kicker font-heading text-ui-label uppercase mb-6">06</span>
+          <h3 class="font-heading text-warm-white tracking-tight text-card-title mb-3">Casting &amp; Direction</h3>
+          <p class="font-body text-muted text-sm md:text-base" style="line-height: 1.75;">Finding the right faces, voices, and instincts, then guiding performances that feel specific and lived in.</p>
           <div class="svc-line mt-7"></div>
         </article>
 
@@ -613,7 +694,7 @@
       <!-- Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        <!-- Sitting (2026) — Featured, spans 2 cols -->
+        <!-- Sitting (2026), featured, spans 2 cols -->
         <div class="reveal d1 md:col-span-2 port-card relative cursor-pointer group rounded-sm" style="height: 480px;" data-film="sitting" onclick="openFilmModal('sitting')">
           <!-- Clapboard icon top-right -->
           <div class="absolute top-4 right-4 z-10 opacity-25">
@@ -657,11 +738,11 @@
           <div class="absolute bottom-0 left-0 right-0 p-6">
             <div class="font-heading text-gold text-[10px] tracking-[0.32em] uppercase mb-2">Surreal-Thriller · 2026</div>
             <div class="font-display text-2xl font-bold text-warm-white mb-2">Locked In</div>
-            <div class="font-body text-xs text-muted/80">Karthik Valmeekam's debut — shot entirely in California, USA</div>
+            <div class="font-body text-xs text-muted/80">Karthik Valmeekam's debut, shot entirely in California, USA</div>
           </div>
         </div>
 
-        <!-- Walk With Me (2026) — spans 2 cols -->
+        <!-- Walk With Me (2026), spans 2 cols -->
         <div class="reveal d2 md:col-span-2 port-card relative cursor-pointer group rounded-sm" style="height: 300px;" data-film="walkwithme" onclick="openFilmModal('walkwithme')">
           <!-- Clapboard icon top-right -->
           <div class="absolute top-4 right-4 z-10 opacity-25">
@@ -684,11 +765,11 @@
           <div class="absolute bottom-0 left-0 right-0 p-8">
             <div class="font-heading text-gold text-[10px] tracking-[0.32em] uppercase mb-2">Romantic Drama · 2026</div>
             <div class="font-display text-2xl font-bold text-warm-white mb-2">Walk With Me</div>
-            <div class="font-body text-xs text-muted/80">Directed by Sai Krishna Meka, Written by Sai Krishna Meka &amp; Sankalp Gora — a romantic drama featuring feet (yes, you read that right)</div>
+            <div class="font-body text-xs text-muted/80">Directed by Sai Krishna Meka, written by Sai Krishna Meka &amp; Sankalp Gora, a romantic drama featuring feet (yes, you read that right)</div>
           </div>
         </div>
 
-        <!-- Untitled Music Video — by Nitish John -->
+        <!-- Untitled Music Video by Nitish John -->
         <div class="reveal d3 port-card relative cursor-pointer group rounded-sm" style="height: 300px;" data-film="musicvideo" onclick="openFilmModal('musicvideo')">
           <!-- Music note icon top-right -->
           <div class="absolute top-4 right-4 z-10 opacity-25">
@@ -827,7 +908,7 @@
               <span class="font-heading text-gold font-bold text-base">01</span>
             </div>
             <h3 class="font-heading text-warm-white tracking-wider uppercase text-xs mb-3">Development</h3>
-            <p class="font-body text-muted text-xs" style="line-height: 1.8;">Concept, script, and story world — finding the heart of your film.</p>
+            <p class="font-body text-muted text-xs" style="line-height: 1.8;">Concept, script, and story world, finding the heart of your film.</p>
           </div>
 
           <div class="reveal d2 text-center lg:text-center">
@@ -843,7 +924,7 @@
               <span class="font-heading text-gold font-bold text-base">03</span>
             </div>
             <h3 class="font-heading text-warm-white tracking-wider uppercase text-xs mb-3">Production</h3>
-            <p class="font-body text-muted text-xs" style="line-height: 1.8;">Principal photography — where the story finally breathes on screen.</p>
+            <p class="font-body text-muted text-xs" style="line-height: 1.8;">Principal photography, where the story finally breathes on screen.</p>
           </div>
 
           <div class="reveal d4 text-center lg:text-center">
@@ -851,7 +932,7 @@
               <span class="font-heading text-gold font-bold text-base">04</span>
             </div>
             <h3 class="font-heading text-warm-white tracking-wider uppercase text-xs mb-3">Post-Production</h3>
-            <p class="font-body text-muted text-xs" style="line-height: 1.8;">Editing, color, sound, and score — refined until undeniable.</p>
+            <p class="font-body text-muted text-xs" style="line-height: 1.8;">Editing, color, sound, and score, refined until undeniable.</p>
           </div>
 
           <div class="reveal d5 text-center lg:text-center">
@@ -881,7 +962,7 @@
     <div class="max-w-4xl mx-auto px-6 text-center reveal">
       <div class="font-display text-9xl leading-none text-gold opacity-15 -mb-10 select-none">"</div>
       <blockquote class="font-display font-bold text-warm-white mb-8 relative z-10" style="font-size: clamp(1.5rem, 3.5vw, 2.5rem); line-height: 1.3; letter-spacing: -0.015em;">
-        Making a film needs nobody's permission — it needs <em class="text-gold">initiation.</em>
+        Making a film needs nobody's permission. It needs <em class="text-gold">initiation.</em>
       </blockquote>
       <cite class="font-heading text-gold tracking-[0.32em] text-[10px] uppercase not-italic">Make A Movie Production</cite>
     </div>
@@ -955,7 +1036,7 @@
           <!-- Contribution -->
           <div class="mt-8 border border-warm-white/8 p-5" style="background: rgba(240,192,64,0.03);">
             <div class="font-heading text-gold text-[10px] tracking-[0.28em] uppercase mb-3">Support Our Films</div>
-            <p class="font-body text-muted text-xs mb-4" style="line-height: 1.7;">We create independent films on passion and dedication. If our work moves you, we'd be deeply grateful for any contribution — big or small.</p>
+            <p class="font-body text-muted text-xs mb-4" style="line-height: 1.7;">We create independent films on passion and dedication. If our work moves you, we'd be deeply grateful for any contribution, big or small.</p>
             <div class="space-y-2 font-body text-xs text-muted/70">
               <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">Phone</span><span>+1 (765) 746-9849</span></div>
               <div class="flex items-center gap-2"><span class="text-gold/60 font-heading tracking-wider text-[10px] uppercase w-12">Zelle</span><span>makeamovieprod@gmail.com</span></div>
@@ -981,7 +1062,7 @@
             <div>
               <label class="font-heading text-[10px] tracking-[0.22em] uppercase text-muted block mb-2">Project Type</label>
               <select name="project_type" class="w-full bg-cinema-card border border-warm-white/8 text-muted font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 appearance-none cursor-pointer">
-                <option value="">Select a service…</option>
+                <option value="">Select a service...</option>
                 <option>Short Film Production</option>
                 <option>Cinematography Only</option>
                 <option>Post Production</option>
@@ -991,7 +1072,7 @@
             </div>
             <div>
               <label class="font-heading text-[10px] tracking-[0.22em] uppercase text-muted block mb-2">Tell Us Your Story</label>
-              <textarea name="message" rows="5" placeholder="Describe your project, vision, and timeline…" class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18 resize-none"></textarea>
+              <textarea name="message" rows="5" placeholder="Describe your project, vision, and timeline..." class="w-full bg-cinema-card border border-warm-white/8 text-warm-white font-body px-4 py-3.5 text-sm focus:outline-none focus:border-gold transition-colors duration-300 placeholder-warm-white/18 resize-none"></textarea>
             </div>
             <div id="form-status" class="hidden font-body text-xs py-2 px-4 border"></div>
             <button id="form-submit-btn" type="submit" class="shimmer btn-primary w-full py-4 bg-gold text-cinema-black font-heading tracking-[0.22em] text-xs uppercase focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cinema-black">
@@ -1069,7 +1150,7 @@
       const btn = document.getElementById('form-submit-btn');
       const status = document.getElementById('form-status');
 
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending...';
       btn.disabled = true;
       status.className = 'hidden font-body text-xs py-2 px-4 border';
 
@@ -1082,7 +1163,7 @@
         });
         const data = await res.json();
         if (data.success === 'true' || data.success === true) {
-          status.textContent = 'Message sent — we\'ll be in touch soon.';
+          status.textContent = 'Message sent. We\'ll be in touch soon.';
           status.className = 'font-body text-xs py-2 px-4 border border-gold/30 text-gold/80';
           form.reset();
           btn.textContent = 'Send Message';
@@ -1123,7 +1204,6 @@
         logline: 'Four friends gather for drinks. As the night deepens, reason quietly slips out of the door, and drunken madness takes it seat at the head of the table.',
         letterboxd: 'https://letterboxd.com/film/sitting-1/',
         script: 'sitting/screenplay-sitting.pdf',
-        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
           { role: 'Writer & Director', name: 'Nikhil Punyala',   ig: null, tw: null },
           { role: 'Cinematographer',   name: 'Nithin Dudala',    ig: null, tw: null },
@@ -1143,18 +1223,18 @@
         equipment: {
           'Camera': [
             'Sony FX3',
-            'G Master 35mm, 50mm, 85mm, 24–70mm lenses',
+            'G Master 35mm, 50mm, 85mm, 24-70mm lenses',
             'RS4 Gimbal',
             'Tripod',
             "Director's Monitor",
           ],
           'Lighting': [
-            'Aperture 1200C — ×1',
-            'Vortex 30 — ×2',
-            'Aperture 600 with Projection Lens — ×1',
-            '2ft Tubes — ×2',
-            '4ft Tubes — ×2',
-            'Aperture MC Kit — ×1',
+            'Aperture 1200C, x1',
+            'Vortex 30, x2',
+            'Aperture 600 with Projection Lens, x1',
+            '2ft Tubes, x2',
+            '4ft Tubes, x2',
+            'Aperture MC Kit, x1',
             'Reflectors & Diffusion Sheets',
           ],
         },
@@ -1170,12 +1250,6 @@
           'https://ik.imagekit.io/3klnmm4tg/Sitting_BTS/Sitting_BTS4.jpg',
         ],
         youtubeVideo: 'https://www.youtube.com/@MakeAMovieProductions',
-        tweets: [
-          { handle: '@placeholder_user1', name: 'Film Fan', text: 'Just watched Sitting and I\'m speechless. The chemistry between the leads is incredible. This is what indie cinema is all about. #Sitting #MakeAMovieProductions', link: 'http://www.google.com/' },
-          { handle: '@placeholder_user2', name: 'Cinema Lover', text: 'Nikhil Punyala is a name to watch. The restraint in Sitting is extraordinary — every frame earns its place. Can\'t wait for Chain Gang.', link: 'http://www.google.com/' },
-          { handle: '@placeholder_user3', name: 'Short Film Fan', text: 'The score in Sitting by @NitishJohn is hauntingly beautiful. Stayed with me all day. Give this film every award. 🎬', link: 'http://www.google.com/' },
-          { handle: '@placeholder_user4', name: 'Indie Cinema', text: 'Proof that you don\'t need a big budget to tell a story that hits hard. Sitting is a masterclass in minimalism. Bravo @makeamovieproductions', link: 'http://www.google.com/' },
-        ],
         ost: {
           spotify: 'https://open.spotify.com/',
           youtubeMusic: 'https://music.youtube.com/',
@@ -1190,7 +1264,6 @@
         logline: 'A man finds himself trapped not in a room, but in a loop of his own making. Karthik Valmeekam\'s debut short, shot entirely in California.',
         letterboxd: 'https://letterboxd.com/film/locked-in-2026-1/',
         script: 'lockedin/screenplay-lockedin.pdf',
-        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
           { role: 'Writer & Director',    name: 'Karthik Valmeekam',   ig: null, tw: null },
           { role: 'Additional Screenplay',name: 'Rajanala Harsha Vardhan Reddy',   ig: null, tw: null },
@@ -1219,11 +1292,6 @@
           'https://placehold.co/600x400/0a0a10/10101a',
         ],
         youtubeVideo: 'https://www.youtube.com/@MakeAMovieProductions',
-        tweets: [
-          { handle: '@placeholder_user1', name: 'Thriller Fan', text: 'Locked In kept me on the edge of my seat from the first frame to the last. Karthik Valmeekam is something special. Watch this.', link: 'http://www.google.com/' },
-          { handle: '@placeholder_user2', name: 'Cinephile', text: 'The disorientation in Locked In is masterfully crafted. You never quite know what\'s real — and that\'s exactly the point. Brilliant debut.', link: 'http://www.google.com/' },
-          { handle: '@placeholder_user3', name: 'Short Film Buff', text: 'Shot entirely in California and it uses every inch of its location. Locked In is atmospheric filmmaking at its finest. #IndieFilm', link: 'http://www.google.com/' },
-        ],
         ost: {
           spotify: 'https://open.spotify.com/',
           youtubeMusic: 'https://music.youtube.com/',
@@ -1235,10 +1303,9 @@
         year: 2026,
         status: 'development',
         genre: 'Romantic Drama · Short Film',
-        logline: 'A romantic drama told through the quietest of gestures. Directed by Sai Krishna Meka, written with Sankalp Gora — featuring feet (yes, you read that right).',
+        logline: 'A romantic drama told through the quietest of gestures. Directed by Sai Krishna Meka and written with Sankalp Gora, featuring feet (yes, you read that right).',
         letterboxd: 'https://letterboxd.com/film/seethamma-vakitlo-sirimalle-chettu/',
         script: null,
-        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
           { role: 'Writer & Director', name: 'Sai Krishna Meka', ig: null, tw: null },
           { role: 'Writer',            name: 'Sankalp Gora',     ig: null, tw: null },
@@ -1253,10 +1320,6 @@
           'https://placehold.co/600x400/0e0c08/181410',
         ],
         youtubeVideo: 'https://www.youtube.com/@MakeAMovieProductions',
-        tweets: [
-          { handle: '@placeholder_user1', name: 'Romance Fan', text: 'Walk With Me is the most tender short film I\'ve seen all year. The attention to the small things — literally — is astonishing. More please.', link: 'http://www.google.com/' },
-          { handle: '@placeholder_user2', name: 'Film Student', text: 'Sai Krishna Meka and Sankalp Gora have written something genuinely original. Walk With Me is proof that any perspective can be cinematic.', link: 'http://www.google.com/' },
-        ],
         ost: {
           spotify: 'https://open.spotify.com/',
           youtubeMusic: 'https://music.youtube.com/',
@@ -1268,10 +1331,9 @@
         year: 2026,
         status: 'development',
         genre: 'Music Video',
-        logline: 'An untitled music video by Nitish John - currently in development.',
+        logline: 'An untitled music video by Nitish John, currently in development.',
         letterboxd: null,
         script: null,
-        instaReel: 'https://www.instagram.com/makeamovieproductions/',
         crew: [
           { role: 'Director', name: 'Nitish John', ig: null, tw: null },
         ],
@@ -1280,7 +1342,6 @@
         hasVinyl: false,
         btsImages: null,
         youtubeVideo: null,
-        tweets: [],
         ost: null,
       },
     };
@@ -1304,8 +1365,8 @@
       return `
       <div id="vinyl-player" style="background:#111; border:1px solid rgba(240,192,64,0.15); box-shadow: 0 0 60px rgba(240,192,64,0.06); border-radius:2px; padding:0;">
         <div style="padding:8px 20px; border-bottom:1px solid rgba(240,192,64,0.1); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.3em; color:#88807A; text-transform:uppercase;">Vinyl Player</span>
-          <span id="vp-playing-badge" style="font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:0.2em; color:#F0C040; text-transform:uppercase; opacity:0; transition:opacity 0.3s;">● Playing</span>
+          <span style="font-family:'Sora',sans-serif; font-size:12px; letter-spacing:0.22em; color:#88807A; text-transform:uppercase;">Vinyl Player</span>
+          <span id="vp-playing-badge" style="font-family:'Sora',sans-serif; font-size:12px; letter-spacing:0.18em; color:#F0C040; text-transform:uppercase; opacity:0; transition:opacity 0.3s;">Playing</span>
         </div>
         <style>@media(max-width:600px){#vinyl-player .vp-row{flex-direction:column!important;padding:20px!important}#vinyl-disc{width:160px!important;height:160px!important}#vinyl-player .vp-info{padding-left:0!important;padding-top:20px;width:100%}}</style>
         <div class="vp-row" style="display:flex; flex-direction:row; gap:0; align-items:center; padding:32px;">
@@ -1325,7 +1386,7 @@
             ">
               <!-- Groove sweep highlight -->
               <div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.015) 5%, transparent 10%);pointer-events:none;"></div>
-              <!-- Center label — no text -->
+              <!-- Center label with no text -->
               <div style="
                 width:72px; height:72px; border-radius:50%;
                 background: linear-gradient(135deg, #1a1208, #2a1e08);
@@ -1339,9 +1400,9 @@
 
           <!-- Track info + controls -->
           <div class="vp-info" style="flex:1; padding-left:36px; min-width:0;">
-            <div style="font-family:'Playfair Display',serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#F2EFE6; line-height:1.15; margin-bottom:6px;">${film.trackTitle}</div>
-            <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.22em; color:#F0C040; text-transform:uppercase; margin-bottom:4px;">${film.artist}</div>
-            <div style="font-family:'Jost',sans-serif; font-size:13px; color:#88807A; margin-bottom:28px;">${film.title} · ${film.albumYear}</div>
+            <div style="font-family:'Sora',sans-serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#F2EFE6; line-height:1.15; margin-bottom:6px;">${film.trackTitle}</div>
+            <div style="font-family:'Sora',sans-serif; font-size:13px; letter-spacing:0.18em; color:#F0C040; text-transform:uppercase; margin-bottom:4px;">${film.artist}</div>
+            <div style="font-family:'Manrope',sans-serif; font-size:13px; color:#88807A; margin-bottom:28px;">${film.title} · ${film.albumYear}</div>
 
             <!-- Progress bar -->
             <div style="margin-bottom:8px;">
@@ -1349,8 +1410,8 @@
                 <div id="vp-progress-fill" style="height:100%; width:0%; background:#F0C040; border-radius:2px; transition:width 0.1s linear; pointer-events:none;"></div>
               </div>
               <div style="display:flex; justify-content:space-between; margin-top:5px;">
-                <span id="vp-current" style="font-family:'Jost',sans-serif; font-size:12px; color:#88807A;">0:00</span>
-                <span id="vp-duration" style="font-family:'Jost',sans-serif; font-size:12px; color:#88807A;">0:00</span>
+                <span id="vp-current" style="font-family:'Manrope',sans-serif; font-size:12px; color:#88807A;">0:00</span>
+                <span id="vp-duration" style="font-family:'Manrope',sans-serif; font-size:12px; color:#88807A;">0:00</span>
               </div>
             </div>
 
@@ -1378,11 +1439,11 @@
 
             <!-- Share link -->
             <div style="display:flex; align-items:center; gap:10px;">
-              <button onclick="vpShareLink()" id="vp-share-btn" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(240,192,64,0.2);background:transparent;color:#88807A;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.2)';this.style.color='#88807A'">
+              <button onclick="vpShareLink()" id="vp-share-btn" style="display:flex;align-items:center;gap:7px;border:1px solid rgba(240,192,64,0.2);background:transparent;color:#88807A;font-family:'Sora',sans-serif;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='#F0C040';this.style.color='#F0C040'" onmouseleave="this.style.borderColor='rgba(240,192,64,0.2)';this.style.color='#88807A'">
                 <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 Share
               </button>
-              <span id="vp-share-toast" style="font-family:'Jost',sans-serif;font-size:12px;color:#F0C040;opacity:0;transition:opacity 0.3s;">Link copied!</span>
+              <span id="vp-share-toast" style="font-family:'Manrope',sans-serif;font-size:12px;color:#F0C040;opacity:0;transition:opacity 0.3s;">Link copied!</span>
             </div>
           </div>
         </div>
@@ -1412,7 +1473,7 @@
           <div class="font-heading text-warm-white/60 text-[12px] tracking-[0.22em] uppercase mb-3">${cat}</div>
           <ul class="space-y-2">`;
         for (const item of items) {
-          html += `<li class="font-body text-sm text-muted flex items-start gap-2"><span class="text-gold/40 mt-0.5">—</span><span>${item}</span></li>`;
+          html += `<li class="font-body text-sm text-muted flex items-start gap-2"><span class="text-gold/40 mt-0.5">•</span><span>${item}</span></li>`;
         }
         html += `</ul></div>`;
       }
@@ -1430,7 +1491,7 @@
           <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">Behind the Scenes</span>
           <div class="gold-line"></div>
         </div>
-        <!-- 2×2 BTS grid -->
+        <!-- 2x2 BTS grid -->
         <div class="grid grid-cols-2 gap-3 mb-4">
           ${f.btsImages.map((src, i) => `
           <div class="relative overflow-hidden group" style="aspect-ratio:4/3;">
@@ -1456,88 +1517,109 @@
       </div>`;
     }
 
-    // ── Twitter / X testimonials — 3D cylindrical carousel ───────────────
-    let _cyUID = 0;
-    function tweetsHTML(tweets) {
-      if (!tweets || tweets.length === 0) return '';
-      const uid = 'cy' + (++_cyUID);
-      const cards = tweets.map((t, i) =>
-        '<div class="cy-card" data-index="' + i + '">' +
-        '<div style="padding:22px 24px;height:100%;display:flex;flex-direction:column;justify-content:space-between;">' +
-        '<p style="font-family:\'Jost\',sans-serif;font-size:13px;color:rgba(242,239,230,0.75);line-height:1.8;margin:0 0 18px;">' + t.text + '</p>' +
-        '<div style="display:flex;align-items:center;justify-content:space-between;">' +
-        '<div><div style="font-family:\'Playfair Display\',serif;font-size:14px;color:#F2EFE6;font-weight:600;">' + t.name + '</div>' +
-        '<div style="font-family:\'Jost\',sans-serif;font-size:12px;color:#88807A;margin-top:2px;">' + t.handle + '</div></div>' +
-        '<svg width="13" height="13" fill="rgba(240,192,64,0.3)" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
-        '</div></div></div>'
-      ).join('');
+    // Twitter / X testimonials from testimonials.md
+    let testimonialCache = null;
+    let twitterScriptPromise = null;
 
-      const dots = tweets.map((_, i) =>
-        '<div class="cy-dot" id="' + uid + '-dot-' + i + '" onclick="cyGoTo(\'' + uid + '\',' + i + ')" style="width:' + (i===0?'18':'5') + 'px;height:5px;border-radius:3px;background:' + (i===0?'#F0C040':'rgba(240,192,64,0.2)') + ';cursor:pointer;transition:all 0.3s;"></div>'
-      ).join('');
-
-      return '<div class="py-10 border-b border-warm-white/8">' +
-        '<div class="flex items-center gap-5 mb-10"><div class="gold-line"></div>' +
-        '<span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">What People Are Saying</span>' +
-        '<div class="gold-line"></div></div>' +
-        '<div id="' + uid + '" class="cy-wrap" data-n="' + tweets.length + '" style="position:relative;height:280px;display:flex;align-items:center;justify-content:center;">' +
-        '<div class="cy-scene" style="width:340px;height:220px;position:relative;perspective:900px;">' +
-        '<div id="' + uid + '-rotor" class="cy-rotor" style="width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.33,1,0.68,1);">' +
-        cards + '</div></div>' +
-        '<button onclick="cyPrev(\'' + uid + '\')" style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:36px;height:36px;border:1px solid rgba(240,192,64,0.2);background:rgba(8,8,8,0.8);color:#88807A;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;" onmouseenter="this.style.borderColor=\'#F0C040\';this.style.color=\'#F0C040\'" onmouseleave="this.style.borderColor=\'rgba(240,192,64,0.2)\';this.style.color=\'#88807A\'">' +
-        '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>' +
-        '<button onclick="cyNext(\'' + uid + '\')" style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:36px;height:36px;border:1px solid rgba(240,192,64,0.2);background:rgba(8,8,8,0.8);color:#88807A;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;" onmouseenter="this.style.borderColor=\'#F0C040\';this.style.color=\'#F0C040\'" onmouseleave="this.style.borderColor=\'rgba(240,192,64,0.2)\';this.style.color=\'#88807A\'">' +
-        '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>' +
-        '<div id="' + uid + '-dots" style="position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);display:flex;gap:6px;">' + dots + '</div>' +
-        '</div></div>';
+    function isTweetUrl(value) {
+      return /^https:\/\/(x|twitter)\.com\/[^/\s]+\/status\/\d+/i.test(value.trim());
     }
 
-    // Initialise all .cy-wrap elements inside a container after innerHTML set
-    function initCarousels(container) {
-      container.querySelectorAll('.cy-wrap').forEach(function(wrap) {
-        const id = wrap.id;
-        const n = parseInt(wrap.dataset.n, 10);
-        if (!n || window['_cy_' + id]) return;
-        const angleStep = 360 / n;
-        const radius = Math.round(170 / Math.tan(Math.PI / n)) || 220;
-        let cur = 0;
-        const rotor = document.getElementById(id + '-rotor');
-        const cards = rotor.querySelectorAll('.cy-card');
-
-        cards.forEach(function(card, i) {
-          card.style.transform = 'rotateY(' + (angleStep * i) + 'deg) translateZ(' + radius + 'px)';
-        });
-
-        function updateDots() {
-          for (var i = 0; i < n; i++) {
-            var dot = document.getElementById(id + '-dot-' + i);
-            if (!dot) continue;
-            dot.style.width = i === cur ? '18px' : '5px';
-            dot.style.background = i === cur ? '#F0C040' : 'rgba(240,192,64,0.2)';
-          }
+    function parseTestimonials(markdown) {
+      const groups = {};
+      let current = null;
+      markdown.split(/\r?\n/).forEach(line => {
+        const trimmed = line.trim();
+        const heading = trimmed.match(/^##\s+([a-z0-9_-]+)/i);
+        if (heading) {
+          current = heading[1].toLowerCase();
+          groups[current] = groups[current] || [];
+          return;
         }
-
-        function rotate(idx) {
-          cur = ((idx % n) + n) % n;
-          rotor.style.transform = 'rotateY(' + (-angleStep * cur) + 'deg)';
-          cards.forEach(function(card, i) {
-            var diff = ((i - cur + n) % n);
-            var mirror = n - diff;
-            var nearest = Math.min(diff, mirror);
-            var brightness = nearest === 0 ? 1 : nearest === 1 ? 0.45 : 0.15;
-            card.style.filter = 'brightness(' + brightness + ')';
-          });
-          updateDots();
+        if (current && isTweetUrl(trimmed)) {
+          groups[current].push(trimmed.replace('twitter.com', 'x.com'));
         }
-
-        window['_cy_' + id] = { next: function(){ rotate(cur+1); }, prev: function(){ rotate(cur-1); }, goTo: rotate };
-        rotate(0);
       });
+      return groups;
     }
 
-    function cyNext(id) { window['_cy_' + id] && window['_cy_' + id].next(); }
-    function cyPrev(id) { window['_cy_' + id] && window['_cy_' + id].prev(); }
-    function cyGoTo(id, i) { window['_cy_' + id] && window['_cy_' + id].goTo(i); }
+    async function getTestimonials() {
+      if (testimonialCache) return testimonialCache;
+      const response = await fetch('testimonials.md', { cache: 'no-store' });
+      if (!response.ok) throw new Error('Testimonials file unavailable');
+      testimonialCache = parseTestimonials(await response.text());
+      return testimonialCache;
+    }
+
+    function loadTwitterWidgets() {
+      if (window.twttr && window.twttr.widgets) return Promise.resolve(window.twttr);
+      if (twitterScriptPromise) return twitterScriptPromise;
+      twitterScriptPromise = new Promise((resolve, reject) => {
+        const existing = document.querySelector('script[src="https://platform.twitter.com/widgets.js"]');
+        if (existing) {
+          existing.addEventListener('load', () => resolve(window.twttr), { once: true });
+          existing.addEventListener('error', reject, { once: true });
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = 'https://platform.twitter.com/widgets.js';
+        script.async = true;
+        script.charset = 'utf-8';
+        script.onload = () => resolve(window.twttr);
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+      return twitterScriptPromise;
+    }
+
+    function testimonialFallback(message) {
+      return `
+        <div class="tweet-glass tweet-fallback">
+          <div class="font-heading text-gold tracking-[0.22em] text-ui-label uppercase">Testimonials</div>
+          <p class="font-body text-muted text-sm md:text-base" style="line-height:1.75;">${message}</p>
+        </div>`;
+    }
+
+    function tweetSectionHTML(key) {
+      return `
+        <div class="py-10 border-b border-warm-white/8" data-testimonials="${key}">
+          <div class="flex items-center gap-5 mb-10">
+            <div class="gold-line"></div>
+            <span class="font-heading text-gold tracking-[0.28em] text-[12px] uppercase">What People Are Saying</span>
+            <div class="gold-line"></div>
+          </div>
+          <div class="tweet-grid">
+            ${testimonialFallback('Loading live posts from testimonials.md.')}
+          </div>
+        </div>`;
+    }
+
+    async function hydrateTweetSection(key, container) {
+      const section = container.querySelector('[data-testimonials="' + key + '"]');
+      if (!section) return;
+      const grid = section.querySelector('.tweet-grid');
+      try {
+        const groups = await getTestimonials();
+        const urls = groups[key] || [];
+        if (!urls.length) {
+          grid.innerHTML = testimonialFallback('Add tweet links under ## ' + key + ' in testimonials.md to show live posts here.');
+          return;
+        }
+        grid.innerHTML = urls.map(url => `
+          <article class="tweet-glass p-3 md:p-4">
+            <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true">
+              <a href="${url}"></a>
+            </blockquote>
+          </article>
+        `).join('');
+        const twttr = await loadTwitterWidgets();
+        if (twttr && twttr.widgets) {
+          await twttr.widgets.load(grid);
+        }
+      } catch (error) {
+        grid.innerHTML = testimonialFallback('Live testimonials could not load right now. Check testimonials.md and the X embed connection.');
+      }
+    }
 
     // ── OST links section ─────────────────────────────────────────────────
     function ostHTML(ost) {
@@ -1614,12 +1696,6 @@
             Log it on Letterboxd
           </a>` : '';
 
-      const instaReelBtn = f.instaReel
-        ? `<a href="${f.instaReel}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-warm-white/15 px-5 py-3 text-[12px] font-heading tracking-[0.22em] uppercase text-muted hover:border-gold hover:text-gold transition-colors duration-300">
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            Watch Reel
-          </a>` : '';
-
       return `
         <!-- Header -->
         <div class="pt-16 pb-10 border-b border-warm-white/8">
@@ -1629,7 +1705,7 @@
           </div>
           <h2 class="font-display font-bold text-warm-white mb-3" style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing:-0.025em;">${f.title}</h2>
           <p class="font-body text-muted max-w-2xl" style="line-height:1.8; font-size:1rem;">${f.logline}</p>
-          <div class="flex flex-wrap gap-3 mt-6">${scriptBtn}${letterboxdBtn}${instaReelBtn}</div>
+          <div class="flex flex-wrap gap-3 mt-6">${scriptBtn}${letterboxdBtn}</div>
         </div>
 
         ${f.hasVinyl ? `<!-- Vinyl Player -->
@@ -1669,7 +1745,7 @@
         ${equipmentHTML(f.equipment)}
 
         <!-- Twitter Testimonials -->
-        ${tweetsHTML(f.tweets)}
+        ${tweetSectionHTML(key)}
 
         <!-- OST -->
         ${ostHTML(f.ost)}
@@ -1684,7 +1760,7 @@
       const modal = document.getElementById('film-modal');
       const content = document.getElementById('modal-content');
       content.innerHTML = renderModal(key);
-      initCarousels(content);
+      hydrateTweetSection(key, content);
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       // Update URL hash (enables direct linking & browser back)
