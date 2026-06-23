@@ -1,6 +1,6 @@
 ## sitting
-https://x.com/MekaSaiKrishna1/status/2066846831946977464?s=20
-https://x.com/MekaSaiKrishna1/status/2067120303181042111?s=20
+https://x.com/makeamovieprod/status/2068342211339510146?s=20
+https://x.com/MekaSaiKrishna1/status/2068039869742375303?s=20
 
 
 ## lockedin
